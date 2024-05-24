@@ -27,7 +27,7 @@ const WrapperForm = ({
   if (resolver) {
     formConfig["resolver"] = resolver;
   }
-  const methods = useForm();
+  const methods = useForm(formConfig);
 
   const { handleSubmit, reset } = methods;
   const formSubmit = (data: FieldValues) => {

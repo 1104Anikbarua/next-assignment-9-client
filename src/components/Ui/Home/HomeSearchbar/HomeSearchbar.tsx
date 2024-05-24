@@ -10,16 +10,18 @@ import dayjs from "dayjs";
 const HomeSearchbar = () => {
   // search a trip submit handler
   const handleSubmit: SubmitHandler<FieldValues> = (values) => {
-    values.startDate = dayjs(values.startDate).format("DD-MM-YYYY");
-    values.endDate = dayjs(values.endDate).format("DD-MM-YYYY");
+    // values.startDate = dayjs(values.startDate).format("DD-MM-YYYY");
+    // values.endDate = dayjs(values.endDate).format("DD-MM-YYYY");
   };
   const defaultValues = {
     destination: "",
-    startDate: dayjs(new Date().toDateString()),
-    endDate: dayjs(new Date().toDateString()),
+    // startDate: dayjs(new Date().toDateString()),
+    // endDate: dayjs(new Date().toDateString()),
+    // startDate: "",
+    // endDate: "",
     travelType: "",
   };
-  console.log(dayjs(new Date()).format("DD/MM/YYYY"));
+
   return (
     <Container>
       <Box textAlign={"center"} my={2}>

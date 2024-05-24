@@ -1,4 +1,5 @@
 import HeroSection from "@/components/Ui/Home/HeroSection/HeroSection";
+import HomeSearchbar from "@/components/Ui/Home/HomeSearchbar/HomeSearchbar";
 import { Stack } from "@mui/material";
 
 export default function Home() {
@@ -10,6 +11,7 @@ export default function Home() {
       alignItems={"center"}
     >
       <HeroSection />
+      <HomeSearchbar />
     </Stack>
   );
 }

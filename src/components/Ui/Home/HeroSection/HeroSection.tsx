@@ -35,6 +35,7 @@ const HeroSection = () => {
             width: "100%",
             height: "100%",
             zIndex: "1",
+            borderRadius: "5px",
           }}
         />
         <Stack direction={"column"} spacing={1} zIndex={1} width={"100%"}>

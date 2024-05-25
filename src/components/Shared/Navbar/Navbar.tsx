@@ -14,30 +14,27 @@ import Image from "next/image";
 import React from "react";
 import logo from "@/assets/logo/v (2).png";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+const AuthToggle = dynamic(
+  () => import("@/components/Ui/Home/AuthToggle/AuthToggle"),
+  { ssr: false }
+);
+
 const Navbar = () => {
   //
-  const settings = [
-    { name: "Home", path: "/" },
-    { name: "Profile", path: "/profile" },
-    { name: "About Us", path: "/about" },
-    { name: "Dashboard", path: "/dashboard" },
-    { name: "Register", path: "/register" },
-    { name: "Logout", path: "/logout" },
-  ];
-  //
-  //   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-  //     null
-  //   );
+  // const settings = [
+  //   { name: "Home", path: "/" },
+  //   { name: "Profile", path: "/profile" },
+  //   { name: "About Us", path: "/about" },
+  //   { name: "Dashboard", path: "/dashboard" },
+  //   { name: "Register", path: "/register" },
+  //   { name: "Logout", path: "/logout" },
+  // ];
+
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
 
-  //   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-  //     setAnchorElNav(event.currentTarget);
-  //   };
-  //   const handleCloseNavMenu = () => {
-  //     setAnchorElNav(null);
-  //   };
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -92,27 +89,8 @@ const Navbar = () => {
             >
               About Us
             </Typography>
-            <Typography
-              sx={{ textDecoration: "none", color: "black" }}
-              component={Link}
-              href={"/profile"}
-            >
-              My Profile
-            </Typography>
-            <Typography
-              sx={{ textDecoration: "none", color: "black" }}
-              component={Link}
-              href={"/register"}
-            >
-              Register
-            </Typography>
-            <Typography
-              sx={{ textDecoration: "none", color: "black" }}
-              component={Link}
-              href={"/login"}
-            >
-              Login
-            </Typography>
+
+            <AuthToggle />
           </Stack>
 
           <Box sx={{ flexGrow: 0, display: { xs: "block", sm: "none" } }}>
@@ -137,17 +115,66 @@ const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
-                  <Typography
-                    textAlign="center"
-                    component={Link}
-                    href={setting.path}
-                  >
-                    {setting.name}
-                  </Typography>
-                </MenuItem>
-              ))}
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Typography
+                  style={{ textDecoration: "none" }}
+                  textAlign="center"
+                  component={Link}
+                  href={"/"}
+                >
+                  Home
+                </Typography>
+              </MenuItem>
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Typography
+                  style={{ textDecoration: "none" }}
+                  textAlign="center"
+                  component={Link}
+                  href={"/about"}
+                >
+                  About Us
+                </Typography>
+              </MenuItem>
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Typography
+                  style={{ textDecoration: "none" }}
+                  textAlign="center"
+                  component={Link}
+                  href={"/profile"}
+                >
+                  Profile
+                </Typography>
+              </MenuItem>
+              {/* <MenuItem onClick={handleCloseUserMenu}>
+                <Typography
+                  style={{ textDecoration: "none" }}
+                  textAlign="center"
+                  component={Link}
+                  href={"/register"}
+                >
+                  Register
+                </Typography>
+              </MenuItem>
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Typography
+                  style={{ textDecoration: "none" }}
+                  textAlign="center"
+                  component={Link}
+                  href={"/login"}
+                >
+                  Login
+                </Typography>
+              </MenuItem>
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Typography
+                  style={{ textDecoration: "none" }}
+                  textAlign="center"
+                  component={Link}
+                  href={"/login"}
+                >
+                  Logout
+                </Typography>
+              </MenuItem> */}
             </Menu>
           </Box>
         </Stack>

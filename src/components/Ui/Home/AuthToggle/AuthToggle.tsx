@@ -1,23 +1,86 @@
 import React from "react";
-import { Button, Typography } from "@mui/material";
+import { Button, ListItemIcon, MenuItem, Typography } from "@mui/material";
 import { isUserLoggedIn, logOutUser } from "@/services/auth.services";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-const AuthToggle = () => {
+import { signOutUser } from "@/serverActions/signOutUser";
+import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
+import LogoutIcon from "@mui/icons-material/Logout";
+import PasswordIcon from "@mui/icons-material/Password";
+const AuthToggle = ({
+  handleCloseUserMenu,
+}: {
+  handleCloseUserMenu: () => void;
+}) => {
   // get user login status
   const router = useRouter();
   const isUserLogin = isUserLoggedIn();
   // user logout functionlity
   const hanldeLogout = () => {
-    logOutUser();
+    signOutUser();
     router.push("/login"); //send back to login page
     router.refresh(); //refresh the page
   };
   return (
     <>
+      <MenuItem
+        sx={{ display: { xs: "block", sm: "none" } }}
+        onClick={handleCloseUserMenu}
+      >
+        <ListItemIcon>
+          <AssignmentIndIcon fontSize="small" />
+        </ListItemIcon>
+        <Typography
+          style={{ textDecoration: "none", color: "black" }}
+          textAlign="center"
+          component={Link}
+          href={"/profile"}
+        >
+          Profile
+        </Typography>
+      </MenuItem>
+      {!isUserLogin ? (
+        <MenuItem
+          sx={{ display: { xs: "block", sm: "none" } }}
+          onClick={handleCloseUserMenu}
+        >
+          <ListItemIcon>
+            <PasswordIcon fontSize="small" />
+          </ListItemIcon>
+          <Typography
+            style={{ textDecoration: "none", color: "black" }}
+            textAlign="center"
+            component={Link}
+            href={"/login"}
+          >
+            Login
+          </Typography>
+        </MenuItem>
+      ) : (
+        <MenuItem
+          sx={{ display: { xs: "block", sm: "none" } }}
+          onClick={handleCloseUserMenu}
+        >
+          <ListItemIcon>
+            <LogoutIcon fontSize="small" />
+          </ListItemIcon>
+          <Typography
+            style={{ textDecoration: "none", color: "black" }}
+            textAlign="center"
+            component={Link}
+            href={"/login"}
+          >
+            Logout
+          </Typography>
+        </MenuItem>
+      )}
       {isUserLogin && (
         <Typography
-          sx={{ textDecoration: "none", color: "black" }}
+          sx={{
+            textDecoration: "none",
+            color: "black",
+            display: { xs: "none", sm: "inline-block" },
+          }}
           component={Link}
           href={"/profile"}
         >
@@ -25,11 +88,22 @@ const AuthToggle = () => {
         </Typography>
       )}
       {!isUserLogin ? (
-        <Button LinkComponent={Link} href="/login" size="small" color="success">
+        <Button
+          sx={{ display: { xs: "none", sm: "inline-block" } }}
+          LinkComponent={Link}
+          href="/login"
+          size="small"
+          color="success"
+        >
           Login
         </Button>
       ) : (
-        <Button onClick={() => hanldeLogout()} size="small" color="error">
+        <Button
+          sx={{ display: { xs: "none", sm: "inline-block" } }}
+          onClick={() => hanldeLogout()}
+          size="small"
+          color="error"
+        >
           Logout
         </Button>
       )}

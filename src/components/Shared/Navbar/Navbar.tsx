@@ -4,17 +4,25 @@ import {
   Box,
   Container,
   IconButton,
+  ListItemIcon,
+  ListItemText,
   Menu,
   MenuItem,
   Stack,
   Tooltip,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import logo from "@/assets/logo/v (2).png";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import Groups2Icon from "@mui/icons-material/Groups2";
+import HomeIcon from "@mui/icons-material/Home";
+import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
+import LogoutIcon from "@mui/icons-material/Logout";
+import PasswordIcon from "@mui/icons-material/Password";
 const AuthToggle = dynamic(
   () => import("@/components/Ui/Home/AuthToggle/AuthToggle"),
   { ssr: false }
@@ -22,15 +30,6 @@ const AuthToggle = dynamic(
 
 const Navbar = () => {
   //
-  // const settings = [
-  //   { name: "Home", path: "/" },
-  //   { name: "Profile", path: "/profile" },
-  //   { name: "About Us", path: "/about" },
-  //   { name: "Dashboard", path: "/dashboard" },
-  //   { name: "Register", path: "/register" },
-  //   { name: "Logout", path: "/logout" },
-  // ];
-
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
@@ -42,7 +41,14 @@ const Navbar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  //
+  // close the user menu in sm breakpoint explicitly
+  const isSmUp = useMediaQuery((theme: any) => theme.breakpoints.up("sm"));
+  // call the handleCloseUserMenu function
+  useEffect(() => {
+    if (isSmUp) {
+      handleCloseUserMenu();
+    }
+  }, [isSmUp]);
   return (
     <Box
       bgcolor={"white"}
@@ -90,7 +96,7 @@ const Navbar = () => {
               About Us
             </Typography>
 
-            <AuthToggle />
+            <AuthToggle handleCloseUserMenu={handleCloseUserMenu} />
           </Stack>
 
           <Box sx={{ flexGrow: 0, display: { xs: "block", sm: "none" } }}>
@@ -116,8 +122,12 @@ const Navbar = () => {
               onClose={handleCloseUserMenu}
             >
               <MenuItem onClick={handleCloseUserMenu}>
+                <ListItemIcon>
+                  <HomeIcon fontSize="small" />
+                </ListItemIcon>
+                {/* <ListItemText>Cut</ListItemText> */}
                 <Typography
-                  style={{ textDecoration: "none" }}
+                  style={{ textDecoration: "none", color: "black" }}
                   textAlign="center"
                   component={Link}
                   href={"/"}
@@ -126,8 +136,11 @@ const Navbar = () => {
                 </Typography>
               </MenuItem>
               <MenuItem onClick={handleCloseUserMenu}>
+                <ListItemIcon>
+                  <Groups2Icon fontSize="small" />
+                </ListItemIcon>
                 <Typography
-                  style={{ textDecoration: "none" }}
+                  style={{ textDecoration: "none", color: "black" }}
                   textAlign="center"
                   component={Link}
                   href={"/about"}
@@ -135,46 +148,7 @@ const Navbar = () => {
                   About Us
                 </Typography>
               </MenuItem>
-              <MenuItem onClick={handleCloseUserMenu}>
-                <Typography
-                  style={{ textDecoration: "none" }}
-                  textAlign="center"
-                  component={Link}
-                  href={"/profile"}
-                >
-                  Profile
-                </Typography>
-              </MenuItem>
-              {/* <MenuItem onClick={handleCloseUserMenu}>
-                <Typography
-                  style={{ textDecoration: "none" }}
-                  textAlign="center"
-                  component={Link}
-                  href={"/register"}
-                >
-                  Register
-                </Typography>
-              </MenuItem>
-              <MenuItem onClick={handleCloseUserMenu}>
-                <Typography
-                  style={{ textDecoration: "none" }}
-                  textAlign="center"
-                  component={Link}
-                  href={"/login"}
-                >
-                  Login
-                </Typography>
-              </MenuItem>
-              <MenuItem onClick={handleCloseUserMenu}>
-                <Typography
-                  style={{ textDecoration: "none" }}
-                  textAlign="center"
-                  component={Link}
-                  href={"/login"}
-                >
-                  Logout
-                </Typography>
-              </MenuItem> */}
+              <AuthToggle handleCloseUserMenu={handleCloseUserMenu} />
             </Menu>
           </Box>
         </Stack>

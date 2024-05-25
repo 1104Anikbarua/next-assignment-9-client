@@ -8,9 +8,31 @@ import WrapperForm from "@/components/Ui/Form/WrapperForm";
 import { SubmitHandler, FieldValues } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import registerUser from "@/serverActions/register/register";
+import { toast } from "sonner";
+//
 const SignUp = () => {
-  const handleCreateUser: SubmitHandler<FieldValues> = (values) => {
-    console.log(values);
+  // create user handler
+  const handleCreateUser: SubmitHandler<FieldValues> = async (values) => {
+    //
+    const { confirmPassword, ...remaining } = values;
+    const toastId = toast.loading("This may take a moment", {
+      duration: 2000,
+      position: "top-center",
+    });
+    try {
+      const res = await registerUser(remaining);
+
+      if (res.success) {
+        toast.success(res.message, {
+          duration: 2000,
+          position: "top-center",
+          id: toastId,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   const defaultValues = {
     name: "",

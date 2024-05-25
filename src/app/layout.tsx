@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import Provider from "@/lib/Provider/Provider";
+import { Toaster } from "sonner";
 // const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -23,6 +24,7 @@ export default function RootLayout({
           // className={inter.className}
           >
             {children}
+            <Toaster richColors />
           </body>
         </html>
       </AppRouterCacheProvider>

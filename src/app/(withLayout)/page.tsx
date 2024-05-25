@@ -1,5 +1,7 @@
+import Footer from "@/components/Shared/Footer/Footer";
 import HeroSection from "@/components/Ui/Home/HeroSection/HeroSection";
 import HomeSearchbar from "@/components/Ui/Home/HomeSearchbar/HomeSearchbar";
+import Stats from "@/components/Ui/Home/Stats/Stats";
 import { Stack } from "@mui/material";
 
 export default function Home() {
@@ -12,6 +14,8 @@ export default function Home() {
     >
       <HeroSection />
       <HomeSearchbar />
+      <Stats />
+      <Footer />
     </Stack>
   );
 }

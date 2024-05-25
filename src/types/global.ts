@@ -12,3 +12,10 @@ export interface IMeta {
   limits: number;
   total: number;
 }
+export interface IUser {
+  id: string;
+  email: string;
+  role: string;
+  iat: number;
+  exp: number;
+}

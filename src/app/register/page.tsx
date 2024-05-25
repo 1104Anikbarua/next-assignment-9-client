@@ -10,6 +10,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import registerUser from "@/serverActions/register/register";
 import { toast } from "sonner";
+import Link from "next/link";
 //
 const SignUp = () => {
   // create user handler
@@ -126,6 +127,12 @@ const SignUp = () => {
               <Button type="submit" size="small" color="success">
                 Submit
               </Button>
+              <Typography component={"p"} variant="body2">
+                Already have an account? Please{" "}
+                <Link href={"/login"} style={{ textDecoration: "none" }}>
+                  Login
+                </Link>
+              </Typography>
             </Stack>
           </WrapperForm>
         </Box>

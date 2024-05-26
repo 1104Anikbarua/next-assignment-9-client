@@ -1,4 +1,5 @@
 import Footer from "@/components/Shared/Footer/Footer";
+import BuddyOpinion from "@/components/Ui/Home/BuddyOpinion/BuddyOpinion";
 import HeroSection from "@/components/Ui/Home/HeroSection/HeroSection";
 import HomeSearchbar from "@/components/Ui/Home/HomeSearchbar/HomeSearchbar";
 import Partners from "@/components/Ui/Home/Partners/Partners";
@@ -15,8 +16,10 @@ export default function Home() {
     >
       <HeroSection />
       <HomeSearchbar />
+      <BuddyOpinion />
       <Partners />
       <Stats />
+
       <Footer />
     </Stack>
   );

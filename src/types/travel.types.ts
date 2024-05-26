@@ -1,5 +1,5 @@
 type TTravel = {
-  budget: 2000;
+  budget: number;
   createdAt: string;
   description: string;
   destination: string;

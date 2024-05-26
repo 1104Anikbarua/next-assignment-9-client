@@ -2,7 +2,7 @@ import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 import heroBgImage from "@/assets/hero/herosection.jpg";
-
+import Link from "next/link";
 const HeroSection = () => {
   return (
     <Container>
@@ -78,8 +78,13 @@ const HeroSection = () => {
             adventures.
           </Typography>
           <Box>
-            <Button size="small" color="success">
-              ADD TRAVEL
+            <Button
+              LinkComponent={Link}
+              href="/travel"
+              size="small"
+              color="success"
+            >
+              Share Your Trip
             </Button>
           </Box>
         </Stack>

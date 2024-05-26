@@ -107,7 +107,7 @@ const BuddyOpinion = () => {
               height: "100%",
               transform: {
                 xs: "translateY(0px)",
-                md: "translateY(0px)",
+                md: "translateY(40px)",
                 lg: "translateY(40px)",
               },
             }}

@@ -1,12 +1,12 @@
 import Navbar from "@/components/Shared/Navbar/Navbar";
 import React from "react";
-
+import Footer from "@/components/Shared/Footer/Footer";
 const CommonLayoutHome = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <Navbar />
-      <main style={{ height: "100vh" }}>{children}</main>
-      <h1>Footer</h1>
+      <main>{children}</main>
+      <Footer />
     </>
   );
 };

@@ -1,4 +1,3 @@
-import { travelTypes } from "@/constant/constant";
 import { MenuItem, SxProps, TextField } from "@mui/material";
 import React from "react";
 import { Controller } from "react-hook-form";
@@ -13,6 +12,7 @@ interface ISelectProps {
   helperText?: string;
   size?: "small" | "medium";
   label?: string;
+  items: string[];
 }
 
 const TbSelect = ({
@@ -24,6 +24,7 @@ const TbSelect = ({
   required,
   type,
   label,
+  items,
 }: ISelectProps) => {
   return (
     <Controller
@@ -40,11 +41,13 @@ const TbSelect = ({
           select
           helperText={errors[name] ? (errors[name]?.message as string) : ""}
           error={errors[name] !== undefined}
-          SelectProps={{ sx: { textAlign: "left" } }}
+          SelectProps={{
+            sx: { textAlign: "left" },
+          }}
         >
-          {travelTypes?.map((option: string) => (
+          {items?.map((option: string) => (
             <MenuItem key={option} value={option}>
-              {option}
+              {option.toUpperCase()}
             </MenuItem>
           ))}
         </TextField>

@@ -20,7 +20,7 @@ export default function MediaControlCard({ trip }: { trip: TTravel }) {
       sx={{
         p: 1,
         width: "100%",
-        maxWidth: 400,
+        maxWidth: { xs: "100%", sm: 400 },
       }}
     >
       <Box
@@ -46,11 +46,12 @@ export default function MediaControlCard({ trip }: { trip: TTravel }) {
           variant="h6"
           fontWeight={500}
           component={"p"}
-          width={{ xs: "100%", sm: "300px" }}
+          // sm: "300px"
+          width={{ xs: "100%" }}
         >
           Destination:
           <Typography
-            sx={{ display: "inline-block" }}
+            sx={{ display: "inline-block", textWrap: "wrap" }}
             variant="body1"
             component={"p"}
           >
@@ -62,7 +63,6 @@ export default function MediaControlCard({ trip }: { trip: TTravel }) {
           variant="h6"
           fontWeight={500}
           component={"p"}
-          width={{ xs: "100%", sm: "300px" }}
         >
           Description:
           <Typography

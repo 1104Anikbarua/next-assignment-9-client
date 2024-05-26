@@ -1,4 +1,3 @@
-import Footer from "@/components/Shared/Footer/Footer";
 import BuddyOpinion from "@/components/Ui/Home/BuddyOpinion/BuddyOpinion";
 import HeroSection from "@/components/Ui/Home/HeroSection/HeroSection";
 import HomeSearchbar from "@/components/Ui/Home/HomeSearchbar/HomeSearchbar";
@@ -19,8 +18,6 @@ export default function Home() {
       <BuddyOpinion />
       <Partners />
       <Stats />
-
-      <Footer />
     </Stack>
   );
 }

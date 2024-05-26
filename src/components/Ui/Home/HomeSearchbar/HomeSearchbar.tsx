@@ -10,7 +10,7 @@ import dayjs from "dayjs";
 import { useGetTravelsQuery } from "@/redux/features/trip/tripApi";
 import MediaControlCard from "../../Card/Card";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-
+import { travelTypes } from "@/constant/constant";
 interface ISearchTravel {
   destination: string;
   startDate: string;
@@ -101,6 +101,7 @@ const HomeSearchbar = () => {
               <TbDatePicker name="startDate" fullWidth disablePast={false} />
               <TbDatePicker name="endDate" fullWidth disablePast={false} />
               <TbSelect
+                items={travelTypes}
                 name="travelType"
                 size="small"
                 label="TravelType"
@@ -119,18 +120,18 @@ const HomeSearchbar = () => {
           </WrapperForm>
         </Box>
 
-        <Grid2
+        <Grid
           container
           rowGap={2}
-          columnGap={{ xs: 0.5, sm: 2, md: 4, lg: 4 }}
+          columnGap={{ xs: 0.5, sm: 1, md: 1, lg: 1 }}
           justifyContent={"center"}
         >
           {trips?.map((trip, index) => (
-            <Grid key={index} item xs={6} sm={6} md={3} lg={4}>
+            <Grid key={index} item xs={12} sm={5} md={3} lg={3}>
               <MediaControlCard key={index} trip={trip} />
             </Grid>
           ))}
-        </Grid2>
+        </Grid>
         <Box mx={"auto"}>
           <Button size="small" color="success">
             See More

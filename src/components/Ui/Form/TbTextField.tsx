@@ -10,6 +10,7 @@ interface ITextFieldProps {
   placeholder?: string;
   label?: string;
   disabled?: boolean;
+  multiline?: boolean;
 }
 const TbTextField = ({
   name,
@@ -19,6 +20,7 @@ const TbTextField = ({
   placeholder,
   label,
   disabled = false,
+  multiline = false,
 }: ITextFieldProps) => {
   return (
     <Controller
@@ -33,6 +35,7 @@ const TbTextField = ({
             type={type}
             fullWidth={fullWidth}
             size={size}
+            multiline={multiline}
             error={!!error?.message}
             disabled={disabled}
             helperText={error?.message}

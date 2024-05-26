@@ -1,5 +1,16 @@
 "use client";
-import { Grid, Box, Button, Container, Stack, Typography } from "@mui/material";
+import {
+  Grid,
+  Box,
+  Button,
+  Container,
+  Stack,
+  Typography,
+  Card,
+  CardMedia,
+  CardContent,
+  CardActions,
+} from "@mui/material";
 import React, { useState } from "react";
 import TbTextField from "../../Form/TbTextField";
 import WrapperForm from "../../Form/WrapperForm";
@@ -9,6 +20,7 @@ import TbSelect from "../../Form/TbSelect";
 import dayjs from "dayjs";
 import { useGetTravelsQuery } from "@/redux/features/trip/tripApi";
 import MediaControlCard from "../../Card/Card";
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 
 interface ISearchTravel {
   destination: string;
@@ -56,7 +68,7 @@ const HomeSearchbar = () => {
   const trips = data?.response;
   console.log(trips);
   return (
-    <Container>
+    <Container sx={{ py: 10 }}>
       <Stack rowGap={2}>
         <Box textAlign={"center"} my={2}>
           <Typography
@@ -64,6 +76,7 @@ const HomeSearchbar = () => {
             component={"h4"}
             variant="h4"
             sx={{
+              opacity: "0.7",
               fontSize: { xs: "30px", sm: "36px", lg: "48px" },
             }}
             fontWeight={700}
@@ -116,13 +129,19 @@ const HomeSearchbar = () => {
             </Stack>
           </WrapperForm>
         </Box>
-        <Grid container sx={{ xs: 2, sm: 2, lg: 3 }} rowGap={2} columnGap={2}>
+
+        <Grid2
+          container
+          rowGap={2}
+          columnGap={{ xs: 0.5, sm: 2, md: 4, lg: 4 }}
+          justifyContent={"center"}
+        >
           {trips?.map((trip, index) => (
-            <Grid item key={index}>
+            <Grid key={index} item xs={6} sm={6} md={3} lg={4}>
               <MediaControlCard key={index} trip={trip} />
             </Grid>
           ))}
-        </Grid>
+        </Grid2>
         <Box mx={"auto"}>
           <Button size="small" color="success">
             See More

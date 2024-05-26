@@ -5,22 +5,23 @@ const Stats = () => {
   return (
     <Container sx={{ my: 3 }}>
       <Stack
-        direction={"row"}
+        direction={{ xs: "column", sm: "row" }}
         alignItems={"center"}
-        justifyContent={"space-between"}
+        justifyContent={{ xs: "center", sm: "space-between" }}
         p={6}
         textAlign={"center"}
         sx={{
           backgroundImage: "linear-gradient(to right,#16a34a, #ecfccb )",
         }}
         borderRadius={2}
+        rowGap={{ xs: 2, sm: 0 }}
       >
         <Stack>
           <Typography
             fontWeight={900}
             color={"white"}
             component={"h3"}
-            variant="h5"
+            variant="h4"
           >
             180+
           </Typography>
@@ -38,7 +39,7 @@ const Stats = () => {
             fontWeight={900}
             color={"white"}
             component={"h3"}
-            variant="h5"
+            variant="h4"
           >
             26k+
           </Typography>
@@ -56,7 +57,7 @@ const Stats = () => {
             fontWeight={900}
             color={"white"}
             component={"h3"}
-            variant="h5"
+            variant="h4"
           >
             10k+
           </Typography>
@@ -67,24 +68,6 @@ const Stats = () => {
             variant="h5"
           >
             Happy Trips
-          </Typography>
-        </Stack>
-        <Stack>
-          <Typography
-            fontWeight={900}
-            color={"white"}
-            component={"h3"}
-            variant="h5"
-          >
-            180+
-          </Typography>
-          <Typography
-            fontWeight={400}
-            color={"white"}
-            component={"h3"}
-            variant="h5"
-          >
-            Best Awarded Volunteers
           </Typography>
         </Stack>
       </Stack>

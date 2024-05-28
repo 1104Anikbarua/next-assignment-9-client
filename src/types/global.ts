@@ -1,3 +1,7 @@
+import { USER_ROLE } from "@/constant/constant";
+import { SvgIconTypeMap } from "@mui/material";
+import { OverridableComponent } from "@mui/material/OverridableComponent";
+
 export interface IErrorResponse {
   statusCode: number;
   message: string;
@@ -18,4 +22,12 @@ export interface IUser {
   role: string;
   iat: number;
   exp: number;
+}
+export type IUserRole = keyof typeof USER_ROLE;
+export interface IMenuItems {
+  title: string;
+  path: string;
+  parentPath?: string;
+  icon?: OverridableComponent<SvgIconTypeMap<{}, "svg">> & { muiName: string };
+  children?: IMenuItems[];
 }

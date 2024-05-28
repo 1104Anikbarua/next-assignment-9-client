@@ -1,21 +1,15 @@
 import Divider from "@mui/material/Divider";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import MailIcon from "@mui/icons-material/Mail";
 import React, { useState, useEffect } from "react";
-import { Toolbar } from "@mui/material";
-import { IUser } from "@/types/global";
+import { Box, Stack, Toolbar, Typography } from "@mui/material";
+import { IUser, IUserRole } from "@/types/global";
+import Image from "next/image";
+import Link from "next/link";
+import logo from "@/assets/logo/v (2).png";
+import { getUserToken } from "@/services/auth.services";
+import { generateMenutItems } from "@/utlis/getMenuItems";
+import SidebarRoute from "../SidebarRoute/SidebarRoute";
 
-export const USER_ROLE = {
-  SUPER_ADMIN: "super_admin",
-  ADMIN: "admin",
-  BUDDY: "buddy",
-};
-export type IUserRole = keyof typeof USER_ROLE;
 const DashboardSidebar = () => {
   const [userRole, setUserRole] = useState("");
   // decode user info and take role
@@ -26,12 +20,38 @@ const DashboardSidebar = () => {
     const { role } = getUserToken() as IUser;
     setUserRole(role);
   }, []);
+
   const items = generateMenutItems(userRole as IUserRole);
   return (
-    <div>
-      <Toolbar />
+    <Box>
+      {/* dashboard logo and name start here */}
+      <Stack
+        direction={"row"}
+        alignItems={"center"}
+        justifyContent={"center"}
+        py={1}
+        component={Link}
+        href={"/"}
+      >
+        <Image src={logo} width={50} height={50} alt="amigo site logo" />
+        <Typography ml={1}>Amigo</Typography>
+      </Stack>
+      {/* dashboard logo and name ends here */}
+      {/* dashboard sidebar menu options start here  */}
       <Divider />
       <List>
+        {items?.map((item, index) => (
+          <SidebarRoute item={item} key={index} index={index} />
+        ))}
+      </List>
+      {/* dashboard sidebar menu options ends here  */}
+    </Box>
+  );
+};
+
+export default DashboardSidebar;
+{
+  /* <List>
         {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
@@ -42,22 +62,91 @@ const DashboardSidebar = () => {
             </ListItemButton>
           </ListItem>
         ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </div>
-  );
-};
-
-export default DashboardSidebar;
+      </List> */
+}
+{
+  /* <Stack>
+          <Typography>Filter By Travel Destination</Typography>
+          {destinations?.map((destination) => (
+            <Stack
+              key={destination?.value}
+              direction={"row"}
+              alignItems={"center"}
+              justifyContent={"start"}
+            >
+              <Checkbox
+                checked={filter.destination === destination?.value}
+                onChange={() =>
+                  setFilter({
+                    destination: destination?.value ? destination?.value : "",
+                  })
+                }
+              ></Checkbox>
+              <Typography>{destination?.value}</Typography>
+            </Stack>
+          ))}
+        </Stack>
+        <Stack>
+          <Typography>Filter By Travel Type</Typography>
+          {travelTypes?.map((travelType) => (
+            <Stack
+              key={travelType?.value}
+              direction={"row"}
+              alignItems={"center"}
+              justifyContent={"start"}
+            >
+              <Checkbox
+                checked={filter.travelType === travelType?.value}
+                onChange={() =>
+                  setFilter({
+                    travelType: travelType?.value ? travelType?.value : "",
+                  })
+                }
+              ></Checkbox>
+              <Typography>{travelType?.value}</Typography>
+            </Stack>
+          ))}
+        </Stack>
+        <Stack>
+          <Typography>Filter By Start Date</Typography>
+          {startDates?.map((date) => (
+            <Stack
+              key={date?.value}
+              direction={"row"}
+              alignItems={"center"}
+              justifyContent={"start"}
+            >
+              <Checkbox
+                checked={filter.startDate === date?.value}
+                onChange={() =>
+                  setFilter({
+                    startDate: date?.value ? date?.value : "",
+                  })
+                }
+              ></Checkbox>
+              <Typography>{date?.value}</Typography>
+            </Stack>
+          ))}
+        </Stack>
+        <Stack>
+          <Typography>Filter By End Date</Typography>
+          {endDates?.map((date) => (
+            <Stack
+              key={date?.value}
+              direction={"row"}
+              alignItems={"center"}
+              justifyContent={"start"}
+            >
+              <Checkbox
+                checked={filter.endDate === date?.value}
+                onChange={() =>
+                  setFilter({
+                    endDate: date?.value ? date?.value : "",
+                  })
+                }
+              ></Checkbox>
+              <Typography>{date?.value}</Typography>
+            </Stack>
+          ))}
+        </Stack> */
+}

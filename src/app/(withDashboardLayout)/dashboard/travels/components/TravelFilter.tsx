@@ -67,7 +67,6 @@ export default function Filter({
   startDates,
   endDates,
   state,
-  setState,
   toggleDrawer,
   filter,
   setFilter,
@@ -93,9 +92,13 @@ export default function Filter({
             <Checkbox
               checked={filter.destination === destination?.value}
               onChange={() =>
-                setFilter({
-                  destination: destination?.value ? destination?.value : "",
-                })
+                setFilter((prev) => ({
+                  ...prev,
+                  destination:
+                    prev?.destination === destination?.value
+                      ? ""
+                      : destination?.value,
+                }))
               }
             ></Checkbox>
             <Typography>{destination?.value}</Typography>
@@ -115,9 +118,13 @@ export default function Filter({
             <Checkbox
               checked={filter.travelType === travelType?.value}
               onChange={() =>
-                setFilter({
-                  travelType: travelType?.value ? travelType?.value : "",
-                })
+                setFilter((prev) => ({
+                  ...prev,
+                  travelType:
+                    prev?.travelType === travelType?.value
+                      ? ""
+                      : travelType?.value,
+                }))
               }
             ></Checkbox>
             <Typography>{travelType?.value}</Typography>
@@ -137,9 +144,10 @@ export default function Filter({
             <Checkbox
               checked={filter.startDate === date?.value}
               onChange={() =>
-                setFilter({
-                  startDate: date?.value ? date?.value : "",
-                })
+                setFilter((prev) => ({
+                  ...prev,
+                  startDate: prev?.startDate === date?.value ? "" : date?.value,
+                }))
               }
             ></Checkbox>
             <Typography>{date?.value}</Typography>
@@ -159,9 +167,10 @@ export default function Filter({
             <Checkbox
               checked={filter.endDate === date?.value}
               onChange={() =>
-                setFilter({
-                  endDate: date?.value ? date?.value : "",
-                })
+                setFilter((prev) => ({
+                  ...prev,
+                  endDate: prev?.endDate === date?.value ? "" : date?.value,
+                }))
               }
             ></Checkbox>
             <Typography>{date?.value}</Typography>

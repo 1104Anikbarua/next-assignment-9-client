@@ -30,6 +30,7 @@ import Filter from "./components/TravelFilter";
 
 const AllTravels = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [check, setCheck] = useState(false);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(6);
   const [filter, setFilter] = useState<{
@@ -48,7 +49,11 @@ const AllTravels = () => {
   const query: Record<string, unknown> = {};
   query["page"] = page;
   query["limit"] = limit;
-  query["searchTerm"] = searchTerm;
+  query["searchTerm"] = searchTerm.length ? searchTerm : {};
+  query["destination"] = filter.destination?.length ? filter.destination : {};
+  query["startDate"] = filter.startDate?.length ? filter.startDate : {};
+  query["endDate"] = filter.endDate?.length ? filter.endDate : {};
+  query["travelType"] = filter.travelType?.length ? filter.travelType : {};
 
   // console.log(searchTerm);
   const handleSearh = () => {};
@@ -97,9 +102,7 @@ const AllTravels = () => {
   const startDates = getUniqueValues("startDate");
   const endDates = getUniqueValues("endDate");
   const travelTypes = getUniqueValues("travelType");
-  console.log(filter);
-  console.log(state);
-  //
+  console.log(query);
   type Anchor = "right";
   const toggleDrawer =
     (anchor: Anchor, open: boolean) =>
@@ -149,7 +152,7 @@ const AllTravels = () => {
 
         <Grid container rowGap={2}>
           {travels?.map((travel) => (
-            <Grid item xs={12} sm={6} md={4} lg={3} key={travel.id}>
+            <Grid item xs={12} sm={6} md={4} lg={4} key={travel.id}>
               <TravelsCard trip={travel} />
             </Grid>
           ))}

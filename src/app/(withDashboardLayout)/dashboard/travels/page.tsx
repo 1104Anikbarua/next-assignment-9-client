@@ -14,6 +14,7 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
 // show all the travel with search fucntiolity
 // See More Button: Button at the bottom of the cards that redirects to the Travels page, displaying all trips with search functionality.
 // Features:
@@ -25,6 +26,7 @@ import {
 // Travel Cards: Display all travel posts in card format with pagination.
 import React, { useState } from "react";
 import TravelsCard from "./components/TravelCard";
+import Filter from "./components/TravelFilter";
 
 const AllTravels = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -41,7 +43,7 @@ const AllTravels = () => {
     endDate: "",
     travelType: "",
   });
-
+  const [state, setState] = React.useState(false);
   // store all the filter query
   const query: Record<string, unknown> = {};
   query["page"] = page;
@@ -96,104 +98,55 @@ const AllTravels = () => {
   const endDates = getUniqueValues("endDate");
   const travelTypes = getUniqueValues("travelType");
   console.log(filter);
+  console.log(state);
+  //
+  type Anchor = "right";
+  const toggleDrawer =
+    (anchor: Anchor, open: boolean) =>
+    (event: React.KeyboardEvent | React.MouseEvent) => {
+      if (
+        event.type === "keydown" &&
+        ((event as React.KeyboardEvent).key === "Tab" ||
+          (event as React.KeyboardEvent).key === "Shift")
+      ) {
+        return;
+      }
+
+      setState(open);
+    };
+  //
   return (
     <Container>
+      <Filter
+        destinations={destinations}
+        startDates={startDates}
+        endDates={endDates}
+        travelTypes={travelTypes}
+        toggleDrawer={toggleDrawer}
+        filter={filter}
+        setFilter={setFilter}
+        state={state}
+        setState={setState}
+      />
       <Stack sx={{ py: 10 }} rowGap={2}>
-        <Stack direction={"row"} justifyContent={"end"}>
-          <TextField
-            size="small"
-            type="text"
-            name="searchTerm"
-            placeholder="Search"
-            label={"Search"}
-            onChange={(e) => setSearchTerm(e.target.value)}
+        <Stack direction={"row"} justifyContent={"space-between"}>
+          <Button
+            onClick={toggleDrawer("right", true)}
+            startIcon={<FilterAltIcon />}
           />
-          <Button color="success">Search</Button>
+          <Box>
+            <TextField
+              size="small"
+              type="text"
+              name="searchTerm"
+              placeholder="Search"
+              label={"Search"}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <Button color="success">Search</Button>
+          </Box>
         </Stack>
-        <Stack>
-          <Typography>Filter By Travel Destination</Typography>
-          {destinations?.map((destination) => (
-            <Stack
-              key={destination?.value}
-              direction={"row"}
-              alignItems={"center"}
-              justifyContent={"start"}
-            >
-              <Checkbox
-                checked={filter.destination === destination?.value}
-                onChange={() =>
-                  setFilter({
-                    destination: destination?.value ? destination?.value : "",
-                  })
-                }
-              ></Checkbox>
-              <Typography>{destination?.value}</Typography>
-            </Stack>
-          ))}
-        </Stack>
-        <Stack>
-          <Typography>Filter By Travel Type</Typography>
-          {travelTypes?.map((travelType) => (
-            <Stack
-              key={travelType?.value}
-              direction={"row"}
-              alignItems={"center"}
-              justifyContent={"start"}
-            >
-              <Checkbox
-                checked={filter.travelType === travelType?.value}
-                onChange={() =>
-                  setFilter({
-                    travelType: travelType?.value ? travelType?.value : "",
-                  })
-                }
-              ></Checkbox>
-              <Typography>{travelType?.value}</Typography>
-            </Stack>
-          ))}
-        </Stack>
-        <Stack>
-          <Typography>Filter By Start Date</Typography>
-          {startDates?.map((date) => (
-            <Stack
-              key={date?.value}
-              direction={"row"}
-              alignItems={"center"}
-              justifyContent={"start"}
-            >
-              <Checkbox
-                checked={filter.startDate === date?.value}
-                onChange={() =>
-                  setFilter({
-                    startDate: date?.value ? date?.value : "",
-                  })
-                }
-              ></Checkbox>
-              <Typography>{date?.value}</Typography>
-            </Stack>
-          ))}
-        </Stack>
-        <Stack>
-          <Typography>Filter By End Date</Typography>
-          {endDates?.map((date) => (
-            <Stack
-              key={date?.value}
-              direction={"row"}
-              alignItems={"center"}
-              justifyContent={"start"}
-            >
-              <Checkbox
-                checked={filter.endDate === date?.value}
-                onChange={() =>
-                  setFilter({
-                    endDate: date?.value ? date?.value : "",
-                  })
-                }
-              ></Checkbox>
-              <Typography>{date?.value}</Typography>
-            </Stack>
-          ))}
-        </Stack>
+
         <Grid container rowGap={2}>
           {travels?.map((travel) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={travel.id}>

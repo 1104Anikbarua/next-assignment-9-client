@@ -59,7 +59,7 @@ export default function MediaControlCard({ trip }: { trip: TTravel }) {
           </Typography>
         </Typography>
         <Typography
-          sx={{ display: "inline", textWrap: "wrap" }}
+          sx={{ textWrap: "wrap" }}
           variant="h6"
           fontWeight={500}
           component={"p"}
@@ -67,7 +67,11 @@ export default function MediaControlCard({ trip }: { trip: TTravel }) {
           Description:
           <Typography
             title={trip?.description}
-            sx={{ display: "inline", textWrap: "wrap" }}
+            sx={{
+              display: "inline",
+              textWrap: "wrap",
+              height: { xs: "fit-content", sm: "100px" },
+            }}
             variant="body1"
             component={"p"}
           >

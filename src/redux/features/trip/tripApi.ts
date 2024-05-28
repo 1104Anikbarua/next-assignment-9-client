@@ -20,7 +20,7 @@ const tripApi = baseApi.injectEndpoints({
     //add a travel start here
     addTravel: build.mutation({
       query: (data) => {
-        console.log(data);
+        // console.log(data);
         return {
           url: "/trips/create-travel",
           method: "POST",

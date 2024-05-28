@@ -63,9 +63,7 @@ const AddTravel = () => {
     // remove extra space before and after comma
     values.activities = values?.activities.replace(/ *, */g, ",").split(",");
     // remove extra space before and after comma and two consecutive comma without any word between
-    values.description = words
-      .replace(/\s+(?=[^\s,])|(?<=[^\s,])\s+|(?<=,)\s+|\s+(?=,)/g, "")
-      .replace(/(?:^|,)(?:\s*,\s*)+/g, ",");
+    values.description = words;
     values.startDate = values?.startDate.format("DD-MM-YYYY");
     values.endDate = values?.endDate.format("DD-MM-YYYY");
     values.budget = Number(values?.budget);
@@ -103,7 +101,7 @@ const AddTravel = () => {
     activities: "",
     budget: "",
   };
-  console.log({ isLoading, isSuccess });
+
   return (
     <Container>
       <Box width={"100%"} py={10}>

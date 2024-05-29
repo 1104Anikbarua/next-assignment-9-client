@@ -1,4 +1,6 @@
-type TTravel = {
+import { TUser } from "./user.types";
+
+export type TTravel = {
   budget: number;
   createdAt: string;
   description: string;
@@ -13,4 +15,5 @@ type TTravel = {
   travelType: string;
   updatedAt: string;
   userId: string;
+  user: TUser;
 };

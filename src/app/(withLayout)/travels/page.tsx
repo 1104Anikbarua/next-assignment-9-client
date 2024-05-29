@@ -1,8 +1,8 @@
 "use client";
-import MediaControlCard from "@/components/Ui/Card/Card";
-import WrapperForm from "@/components/Ui/Form/WrapperForm";
 import { useGetTravelsQuery } from "@/redux/features/trip/tripApi";
+import { styled, alpha } from "@mui/material/styles";
 import {
+  // styled,
   Checkbox,
   Stack,
   Box,
@@ -13,8 +13,14 @@ import {
   Radio,
   Grid,
   Typography,
+  InputBase,
 } from "@mui/material";
-import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import { FilterAlt, Search as SearchIcon } from "@mui/icons-material";
+import React, { useState } from "react";
+import TravelsCard from "./components/TravelCard";
+import Filter from "./components/TravelFilter";
+import dayjs from "dayjs";
+import { TTravel } from "@/types/travel.types";
 // show all the travel with search fucntiolity
 // See More Button: Button at the bottom of the cards that redirects to the Travels page, displaying all trips with search functionality.
 // Features:
@@ -24,13 +30,10 @@ import FilterAltIcon from "@mui/icons-material/FilterAlt";
 // Travel type
 // Keywords in description
 // Travel Cards: Display all travel posts in card format with pagination.
-import React, { useState } from "react";
-import TravelsCard from "./components/TravelCard";
-import Filter from "./components/TravelFilter";
 
+type Anchor = "right";
 const AllTravels = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [check, setCheck] = useState(false);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(6);
   const [filter, setFilter] = useState<{
@@ -71,11 +74,6 @@ const AllTravels = () => {
   ) => {
     setPage(value);
   };
-  // page count
-  // let count: number;
-  // if (meta?.total) {
-  //   count = Math.ceil(meta.total / limit);
-  // }
 
   // 00-eslint-disable-next-line 00-@typescript-eslint/no-explicit-any-00
   //remove duplicate values and get uniue value
@@ -99,11 +97,42 @@ const AllTravels = () => {
     return filters;
   };
   const destinations = getUniqueValues("destination");
-  const startDates = getUniqueValues("startDate");
-  const endDates = getUniqueValues("endDate");
+  const startDates = getUniqueValues("startDate")?.sort(
+    (
+      a: { key: keyof TTravel; value: string } | null,
+      b: { key: keyof TTravel; value: string } | null
+    ) => {
+      if (a?.value && b?.value) {
+        return dayjs(a?.value).valueOf() - dayjs(b?.value).valueOf();
+      }
+      if (!a?.value && b?.value) {
+        return 1;
+      }
+      if (a?.value && !b?.value) {
+        return -1;
+      }
+      return 0;
+    }
+  );
+  const endDates = getUniqueValues("endDate")?.sort(
+    (
+      a: { key: keyof TTravel; value: string } | null,
+      b: { key: keyof TTravel; value: string } | null
+    ) => {
+      if (a?.value && b?.value) {
+        return dayjs(a?.value).valueOf() - dayjs(b?.value).valueOf();
+      }
+      if (!a?.value && b?.value) {
+        return 1;
+      }
+      if (a?.value && !b?.value) {
+        return -1;
+      }
+      return 0;
+    }
+  );
   const travelTypes = getUniqueValues("travelType");
-  console.log(query);
-  type Anchor = "right";
+  // right side filter drawer
   const toggleDrawer =
     (anchor: Anchor, open: boolean) =>
     (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -118,6 +147,50 @@ const AllTravels = () => {
       setState(open);
     };
   //
+
+  const Search = styled("div")(({ theme }) => ({
+    position: "relative",
+    border: "1px solid #c6c6c6",
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    "&:hover": {
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
+    },
+    marginLeft: 0,
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing(1),
+      width: "auto",
+    },
+  }));
+
+  const SearchIconWrapper = styled("div")(({ theme }) => ({
+    padding: theme.spacing(0, 2),
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  }));
+
+  const StyledInputBase = styled(InputBase)(({ theme }) => ({
+    color: "inherit",
+    width: "100%",
+    "& .MuiInputBase-input": {
+      padding: theme.spacing(1, 1, 1, 0),
+      // vertical padding + font size from searchIcon
+      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+      transition: theme.transitions.create("width"),
+      [theme.breakpoints.up("sm")]: {
+        width: "12ch",
+        "&:focus": {
+          width: "20ch",
+        },
+      },
+    },
+  }));
+
   return (
     <Container>
       <Filter
@@ -132,22 +205,28 @@ const AllTravels = () => {
         setState={setState}
       />
       <Stack sx={{ py: 10 }} rowGap={2}>
-        <Stack direction={"row"} justifyContent={"space-between"}>
-          <Button
-            onClick={toggleDrawer("right", true)}
-            startIcon={<FilterAltIcon />}
-          />
+        <Stack
+          direction={{ xs: "row", sm: "row" }}
+          justifyContent={"space-between"}
+          rowGap={{ xs: 1, sm: 1 }}
+        >
           <Box>
-            <TextField
-              size="small"
-              type="text"
-              name="searchTerm"
-              placeholder="Search"
-              label={"Search"}
-              onChange={(e) => setSearchTerm(e.target.value)}
+            <Button
+              onClick={toggleDrawer("right", true)}
+              startIcon={<FilterAlt />}
             />
-            <Button color="success">Search</Button>
           </Box>
+          <Search sx={{ ml: 0.5 }}>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search…"
+              inputProps={{ "aria-label": "search" }}
+            />
+          </Search>
         </Stack>
 
         <Grid container rowGap={2}>

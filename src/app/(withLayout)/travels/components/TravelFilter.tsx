@@ -11,6 +11,7 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { Checkbox, Stack, Typography } from "@mui/material";
+import { TTravel } from "@/types/travel.types";
 
 type Anchor = "right";
 

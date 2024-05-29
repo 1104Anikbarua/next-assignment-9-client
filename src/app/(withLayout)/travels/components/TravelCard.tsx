@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useTheme } from "@mui/material/styles";
+// import { useTheme } from "@mui/material/styles";
 import {
   Box,
   Card,
@@ -13,7 +13,7 @@ import Image from "next/image";
 import cardImage from "@/assets/hero/herosection.jpg";
 
 export default function TravelsCard({ trip }: { trip: TTravel }) {
-  const theme = useTheme();
+  // const theme = useTheme();
   //   console.log(trip);
   return (
     <Box
@@ -49,7 +49,6 @@ export default function TravelsCard({ trip }: { trip: TTravel }) {
             variant="h6"
             fontWeight={500}
             component={"h6"}
-            // sm: "300px"
             width={{ xs: "100%" }}
           >
             Destination:
@@ -69,7 +68,7 @@ export default function TravelsCard({ trip }: { trip: TTravel }) {
             }}
             variant="h6"
             fontWeight={500}
-            component={"p"}
+            component={"h6"}
           >
             Description:
             <Typography
@@ -88,7 +87,7 @@ export default function TravelsCard({ trip }: { trip: TTravel }) {
             sx={{ display: "inline-block" }}
             variant="h6"
             fontWeight={500}
-            component={"p"}
+            component={"h6"}
           >
             Start Date:
             <Typography
@@ -114,16 +113,7 @@ export default function TravelsCard({ trip }: { trip: TTravel }) {
               {trip?.endDate}
             </Typography>
           </Typography>
-          <Button
-            // sx={{
-            //   position: "absolute",
-            //   bottom: 0,
-            //   width: "100%",
-            //   maxWidth: "365px",
-            // }}
-            fullWidth
-            color={"success"}
-          >
+          <Button fullWidth color={"success"}>
             Travel Details
           </Button>
         </Stack>

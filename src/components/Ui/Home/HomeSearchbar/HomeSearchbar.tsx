@@ -11,6 +11,7 @@ import { useGetTravelsQuery } from "@/redux/features/trip/tripApi";
 import MediaControlCard from "../../Card/Card";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { travelTypes } from "@/constant/constant";
+import Link from "next/link";
 interface ISearchTravel {
   destination: string;
   startDate: string;
@@ -133,7 +134,12 @@ const HomeSearchbar = () => {
           ))}
         </Grid>
         <Box mx={"auto"}>
-          <Button size="small" color="success">
+          <Button
+            LinkComponent={Link}
+            href="/travels"
+            size="small"
+            color="success"
+          >
             See More
           </Button>
         </Box>

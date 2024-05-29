@@ -1,20 +1,12 @@
 import * as React from "react";
-import { useTheme } from "@mui/material/styles";
-import {
-  Box,
-  Card,
-  Stack,
-  Typography,
-  IconButton,
-  CardContent,
-  Button,
-} from "@mui/material";
+// import { useTheme } from "@mui/material/styles";
+import { Box, Card, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import cardImage from "@/assets/hero/herosection.jpg";
+import BaseButton from "../Button/Button";
+import { TTravel } from "@/types/travel.types";
 
 export default function MediaControlCard({ trip }: { trip: TTravel }) {
-  const theme = useTheme();
-  console.log(trip);
   return (
     <Box
       sx={{
@@ -111,9 +103,7 @@ export default function MediaControlCard({ trip }: { trip: TTravel }) {
             {trip?.endDate}
           </Typography>
         </Typography>
-        <Button fullWidth color={"success"}>
-          Travel Details
-        </Button>
+        <BaseButton id={trip.id} />
       </Stack>
     </Box>
   );

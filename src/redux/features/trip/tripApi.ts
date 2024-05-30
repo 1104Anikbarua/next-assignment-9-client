@@ -1,6 +1,7 @@
 import { baseApi } from "@/redux/baseApi/baseApi";
-import { IMeta } from "@/types/global";
+import { IMeta, IReduxResponse } from "@/types/global";
 import { TTravel } from "@/types/travel.types";
+import { TTravelBuddy } from "@/types/travelBuddy.types";
 
 const tripApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -13,8 +14,8 @@ const tripApi = baseApi.injectEndpoints({
           params: args,
         };
       },
-      transformResponse: (response: TTravel[], meta: IMeta) => {
-        return { response, meta };
+      transformResponse: (response: IReduxResponse<TTravel[]>) => {
+        return { response: response.data, meta: response.meta };
       },
       providesTags: ["trips"],
     }),
@@ -22,14 +23,14 @@ const tripApi = baseApi.injectEndpoints({
     //add a travel start here
     addTravel: build.mutation({
       query: (data) => {
-        // console.log(data);
         return {
           url: "/trips/create-travel",
           method: "POST",
           data,
         };
       },
-      transformResponse: (response: TTravel) => {
+      transformResponse: (response: IReduxResponse<TTravel>) => {
+        console.log(response);
         return { response };
       },
       invalidatesTags: ["trips"],
@@ -38,12 +39,11 @@ const tripApi = baseApi.injectEndpoints({
     // get travel start here
     getTravel: build.query({
       query: (args) => {
-        console.log(args);
         return {
           url: `/trips/${args.id}`,
         };
       },
-      transformResponse: (response: TTravel) => {
+      transformResponse: (response: IReduxResponse<TTravel>) => {
         return {
           response,
         };
@@ -52,20 +52,19 @@ const tripApi = baseApi.injectEndpoints({
     }),
     // get travel ends here
     addBuddyRequest: build.mutation({
-      query: (args) => {
-        console.log(args);
+      query: (data) => {
         return {
-          url: `/travel/${args?.travelId}/request`,
+          url: `/trips/travel/${data.travelId}/request`,
           method: "POST",
-          // args,
+          data,
         };
       },
-      transformResponse: (response: TTravel) => {
+      transformResponse: (response: TTravelBuddy) => {
         return {
           response,
         };
       },
-      // invalidatesTags:[]
+      // invalidatesTags:["buddy"]
     }),
   }),
 });

@@ -37,7 +37,7 @@ export default function MediaControlCard({ trip }: { trip: TTravel }) {
           sx={{ display: "inline-block" }}
           variant="h6"
           fontWeight={500}
-          component={"p"}
+          component={"h6"}
           // sm: "300px"
           width={{ xs: "100%" }}
         >
@@ -54,7 +54,7 @@ export default function MediaControlCard({ trip }: { trip: TTravel }) {
           sx={{ textWrap: "wrap" }}
           variant="h6"
           fontWeight={500}
-          component={"p"}
+          component={"h6"}
         >
           Description:
           <Typography
@@ -77,7 +77,7 @@ export default function MediaControlCard({ trip }: { trip: TTravel }) {
           sx={{ display: "inline-block" }}
           variant="h6"
           fontWeight={500}
-          component={"p"}
+          component={"h6"}
         >
           Start Date:
           <Typography
@@ -92,7 +92,7 @@ export default function MediaControlCard({ trip }: { trip: TTravel }) {
           sx={{ display: "inline-block" }}
           variant="h6"
           fontWeight={500}
-          component={"p"}
+          component={"h6"}
         >
           End Date:
           <Typography

@@ -19,9 +19,10 @@ import {
   Typography,
 } from "@mui/material";
 import dayjs from "dayjs";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
+import { toast } from "sonner";
 
 const TravelRequest = () => {
   const [isCheck, setIsCheck] = useState(false);
@@ -32,7 +33,7 @@ const TravelRequest = () => {
     { id },
     { skip: !id }
   );
-  const travel = travelData?.response;
+  const travel = travelData?.response.data;
 
   // user api info
   const { data, isLoading } = useGetMeQuery({});
@@ -48,7 +49,25 @@ const TravelRequest = () => {
   console.log(travel);
   // console.log(dayjs(travel?.startDate));
   // submit handler for travel request page
-  const handleSubmit: SubmitHandler<FieldValues> = (values) => {};
+  const handleSubmit: SubmitHandler<FieldValues> = async (values) => {
+    const toastId = toast.loading("Please wait this may take a moment", {
+      position: "top-center",
+      duration: 2000,
+    });
+    try {
+      const userId = travel?.userId;
+      const travelId = travel?.id;
+      const res = await addBuddyRequest({ userId, travelId }).unwrap();
+      if (res.response.id) {
+        toast.success("", {
+          position: "top-center",
+          duration: 2000,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Container>
       <Stack py={10}>

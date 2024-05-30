@@ -22,7 +22,7 @@ const TravelDetails = ({
   params: { travelId: string };
 }) => {
   const { data, isLoading } = useGetTravelQuery({ id }, { skip: !id });
-  const travel = data?.response;
+  const travel = data?.response.data;
   console.log(travel);
   return (
     <Container>
@@ -73,17 +73,20 @@ const TravelDetails = ({
           ))}
         </Grid>
         {/* my-5 flex w-full flex-col items-start justify-between gap-5 px-4 md:flex-row md:items-center md:px-12 */}
+        {/* user image name and posted date section & like section   */}
         <Stack
           width={"100%"}
           maxWidth={"576px"}
           my={5}
-          direction={{ xs: "column", sm: "row" }}
+          // direction={{ xs: "column", sm: "row" }}
+          direction={"row"}
           justifyContent={"space-between"}
         >
+          {/* image and date section  */}
           <Stack
-            direction={"row"}
-            alignItems={"center"}
-            justifyContent={"space-between"}
+            direction={{ xs: "column", sm: "row" }}
+            alignItems={{ xs: "initial", sm: "center" }}
+            justifyContent={{ xs: "initial", sm: "space-between" }}
             width={"100%"}
             maxWidth={"220px"}
           >
@@ -110,6 +113,8 @@ const TravelDetails = ({
               </Typography>
             </Stack>
           </Stack>
+          {/* image and date section  */}
+          {/* like count and like  */}
           <Stack
             direction={"row"}
             alignItems={"center"}
@@ -122,8 +127,9 @@ const TravelDetails = ({
               <FavoriteBorderIcon />
             </IconButton>
           </Stack>
+          {/* like count and like  */}
         </Stack>
-
+        {/* user image name and posted date section   */}
         <Box width={"100%"} maxWidth={"576px"}>
           <Typography component={"p"} variant="h6">
             {travel?.description}
@@ -135,7 +141,7 @@ const TravelDetails = ({
         <Typography component={"h4"} variant="h4" fontWeight={500}>
           Tour Details
         </Typography>
-        <Stack>
+        <Stack sx={{ textWrap: "wrap" }} width={"100%"} maxWidth={"576px"}>
           {/* Budget start here */}
           <Typography component={"p"} variant="h6">
             Budget:
@@ -155,19 +161,23 @@ const TravelDetails = ({
           </Typography>
           {/* travel type ends here */}
           {/* activities start here  */}
-          <Typography
-            component={"p"}
-            variant="h6"
-            width={"100%"}
-            maxWidth={"576px"}
-          >
-            Activities:
-            {travel?.activities.map((activity, index) => (
-              <Typography component={"span"} variant="h6" key={index}>
-                {activity}
-                {travel.activities.length - 1 === index ? "!" : ","}
-              </Typography>
-            ))}
+          <Typography component={"span"} variant="h6">
+            <Box
+              component={"span"}
+              sx={{ display: "inline-flex", flexWrap: "wrap", gap: "5px" }}
+            >
+              Activities:
+              {travel?.activities.map((activity, index) => (
+                <Box
+                  key={index}
+                  component={"span"}
+                  sx={{ whiteSpace: "normal" }}
+                >
+                  {activity}
+                  {travel.activities.length - 1 === index ? "!" : ","}
+                </Box>
+              ))}
+            </Box>
           </Typography>
           {/* activities ends here  */}
           {/* start date start here  */}

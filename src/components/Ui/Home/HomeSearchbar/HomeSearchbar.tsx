@@ -33,7 +33,7 @@ const HomeSearchbar = () => {
   query["travelType"] = searchTravel.travelType;
   // get travel rtk api
   const { data, isFetching } = useGetTravelsQuery(isSearch ? query : {});
-
+  console.log(data);
   // search a trip submit handler
   const handleSubmit: SubmitHandler<FieldValues> = async (values) => {
     values.startDate = dayjs(values.startDate).format("DD-MM-YYYY");

@@ -1,6 +1,7 @@
 import { USER_ROLE } from "@/constant/constant";
 import { SvgIconTypeMap } from "@mui/material";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
+import { BaseQueryApi } from "@reduxjs/toolkit/query";
 
 export interface IErrorResponse {
   statusCode: number;
@@ -31,3 +32,12 @@ export interface IMenuItems {
   icon?: OverridableComponent<SvgIconTypeMap<{}, "svg">> & { muiName: string };
   children?: IMenuItems[];
 }
+
+export type TResponse<T> = {
+  data?: T;
+  message: string;
+  meta?: IMeta;
+  statusCode: number;
+  success: boolean;
+};
+export interface IReduxResponse<T> extends TResponse<T>, BaseQueryApi {}

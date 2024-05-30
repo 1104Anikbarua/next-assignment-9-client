@@ -80,7 +80,7 @@ const HeroSection = () => {
           <Box>
             <Button
               LinkComponent={Link}
-              href="/travel"
+              href="/dashboard/travel"
               size="small"
               color="success"
             >

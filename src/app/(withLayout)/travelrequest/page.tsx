@@ -35,18 +35,22 @@ const TravelRequest = () => {
   );
   const travel = travelData?.response.data;
 
-  // user api info
+  // user api info start here
   const { data, isLoading } = useGetMeQuery({});
-  // add buddy request api
+  const response = data?.response.data;
+  // user api info end here
+
+  // add buddy request api start here
   const [addBuddyRequest, { isSuccess }] = useAddBuddyRequestMutation();
-  const response = data?.response!;
+  // add buddy request api ends here
+
   const defaultValues = {
     destination: travel?.destination || "",
     email: response?.email || "",
     name: response?.name || "",
     // startDate: || "",
   };
-  console.log(travel);
+
   // console.log(dayjs(travel?.startDate));
   // submit handler for travel request page
   const handleSubmit: SubmitHandler<FieldValues> = async (values) => {
@@ -57,11 +61,14 @@ const TravelRequest = () => {
     try {
       const userId = travel?.userId;
       const travelId = travel?.id;
+
       const res = await addBuddyRequest({ userId, travelId }).unwrap();
-      if (res.response.id) {
-        toast.success("", {
+
+      if (res?.response?.success) {
+        toast.success(res.response.message, {
           position: "top-center",
           duration: 2000,
+          id: toastId,
         });
       }
     } catch (error) {
@@ -71,7 +78,7 @@ const TravelRequest = () => {
   return (
     <Container>
       <Stack py={10}>
-        {isLoading ? (
+        {isLoading && isTravelLoading ? (
           <Stack sx={{ width: "100%", maxWidth: "300px" }} rowGap={2}>
             <Skeleton variant="rounded" height={40} animation="wave" />
             <Skeleton variant="rounded" height={40} animation="wave" />

@@ -49,29 +49,14 @@ export const generateMenutItems = (role: IUserRole) => {
           icon: DashboardIcon,
         },
         {
-          title: "Doctors",
-          path: `${role}/doctors`,
-          icon: MedicalInformationIcon,
+          title: "Manage User",
+          path: `${role}/users`,
+          icon: GroupIcon,
         },
         {
-          title: "Specialities",
-          path: `${role}/specialities`,
-          icon: TryIcon,
-        },
-        {
-          title: "Appointments",
-          path: `${role}/appointments`,
-          icon: EditCalendarIcon,
-        },
-        {
-          title: "Schedules",
-          path: `${role}/schedules`,
-          icon: ScheduleIcon,
-        },
-        {
-          title: "Reviews",
-          path: `${role}/reviews`,
-          icon: ReviewsIcon,
+          title: "Manage Travel",
+          path: `${role}/travels`,
+          icon: GroupIcon,
         },
         {
           title: "Profile",
@@ -98,8 +83,13 @@ export const generateMenutItems = (role: IUserRole) => {
           icon: EditCalendarIcon,
         },
         {
-          title: "Travels",
-          path: `/travels`,
+          title: "Travels Request",
+          path: `${role}/travelrequest`,
+          icon: NewspaperIcon,
+        },
+        {
+          title: "Posted Travels",
+          path: `${role}/travels`,
           icon: NewspaperIcon,
         },
         {

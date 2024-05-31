@@ -80,8 +80,8 @@ const AddTravel = () => {
 
       const res = await addTravel(values).unwrap();
       console.log(res);
-      if (res.response.id) {
-        toast.success("Travel added successfully", {
+      if (res?.response?.success) {
+        toast.success(res?.response?.message, {
           duration: 2000,
           position: "top-center",
           id: toastId,

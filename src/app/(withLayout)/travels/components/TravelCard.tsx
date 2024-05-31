@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import cardImage from "@/assets/hero/herosection.jpg";
+import { TTravel } from "@/types/travel.types";
 
 export default function TravelsCard({ trip }: { trip: TTravel }) {
   // const theme = useTheme();

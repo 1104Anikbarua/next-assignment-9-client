@@ -1,5 +1,5 @@
 import { baseApi } from "@/redux/baseApi/baseApi";
-import { IMeta, IReduxResponse } from "@/types/global";
+import { IReduxResponse } from "@/types/global";
 import { TTravel } from "@/types/travel.types";
 import { TTravelBuddy } from "@/types/travelBuddy.types";
 
@@ -51,6 +51,8 @@ const tripApi = baseApi.injectEndpoints({
       providesTags: ["trips"],
     }),
     // get travel ends here
+
+    // add buddy request start here
     addBuddyRequest: build.mutation({
       query: (data) => {
         return {
@@ -59,13 +61,15 @@ const tripApi = baseApi.injectEndpoints({
           data,
         };
       },
-      transformResponse: (response: TTravelBuddy) => {
+      transformResponse: (response: IReduxResponse<TTravelBuddy>) => {
+        console.log(response);
         return {
           response,
         };
       },
       // invalidatesTags:["buddy"]
     }),
+    // add buddy request ends here
   }),
 });
 

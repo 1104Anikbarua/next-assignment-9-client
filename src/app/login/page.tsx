@@ -27,7 +27,7 @@ const Login = () => {
 
     try {
       const res = await loginUser(values);
-
+      console.log(res);
       if (res.success) {
         toast.success(res.message, {
           duration: 2000,

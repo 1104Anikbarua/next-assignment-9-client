@@ -32,10 +32,18 @@ const ManageUser = () => {
       position: "top-center",
       duration: 2000,
     });
-
-    const res = await changeUserStatus({ id, ...userStatus }).unwrap();
-    if (res?.response?.success) {
-      toast.success(res.response.message, {
+    try {
+      const res = await changeUserStatus({ id, ...userStatus }).unwrap();
+      if (res?.response?.success) {
+        toast.success(res.response.message, {
+          position: "top-center",
+          duration: 2000,
+          id: toastId,
+        });
+      }
+    } catch (error: any) {
+      console.log(error);
+      toast.error(error.data.message, {
         position: "top-center",
         duration: 2000,
         id: toastId,

@@ -65,7 +65,7 @@ const userApi = baseApi.injectEndpoints({
       providesTags: ["users"],
     }),
     // get all users
-    //set user status
+    //set user status starts here
     setStaus: build.mutation({
       query: ({ id, ...data }) => {
         console.log(data);
@@ -83,7 +83,7 @@ const userApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["users"],
     }),
-    //set user status
+    //set user status ends here
   }),
 });
 export const {

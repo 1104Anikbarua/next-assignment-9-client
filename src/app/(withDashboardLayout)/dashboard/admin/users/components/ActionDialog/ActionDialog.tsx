@@ -8,7 +8,7 @@ import Dialog from "@mui/material/Dialog";
 import Typography from "@mui/material/Typography";
 import { Button, DialogActions } from "@mui/material";
 
-const roles = ["SUPER_ADMIN", "ADMIN"];
+const roles = ["SUPER_ADMIN", "ADMIN", "BUDDY"];
 const status = ["ACTIVE", "BLOCKED"];
 
 export interface SimpleDialogProps {
@@ -52,7 +52,6 @@ function SimpleDialog(props: SimpleDialogProps) {
           <ListItem disableGutters key={status}>
             <ListItemButton
               autoFocus
-              //   onClick={() => handleListItemClick("addAccount")}
               onClick={(prev) => setUserStatus({ status: status })}
             >
               <ListItemText primary={status} />

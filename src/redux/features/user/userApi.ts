@@ -19,7 +19,7 @@ const userApi = baseApi.injectEndpoints({
           response: response,
         };
       },
-      providesTags: ["users"],
+      providesTags: ["user"],
       // get login user information by token end here
     }),
     // get requested travel start here
@@ -62,6 +62,7 @@ const userApi = baseApi.injectEndpoints({
           response,
         };
       },
+      providesTags: ["users"],
     }),
     // get all users
     //set user status
@@ -74,12 +75,13 @@ const userApi = baseApi.injectEndpoints({
           data,
         };
       },
-      transformResponse: (response) => {
+      transformResponse: (response: IReduxResponse<TUser>) => {
         console.log(response);
         return {
           response,
         };
       },
+      invalidatesTags: ["users"],
     }),
     //set user status
   }),

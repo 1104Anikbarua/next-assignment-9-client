@@ -34,7 +34,13 @@ const ManageUser = () => {
     });
 
     const res = await changeUserStatus({ id, ...userStatus }).unwrap();
-    console.log(res);
+    if (res?.response?.success) {
+      toast.success(res.response.message, {
+        position: "top-center",
+        duration: 2000,
+        id: toastId,
+      });
+    }
   };
 
   // dialog open handler

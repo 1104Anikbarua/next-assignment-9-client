@@ -2,6 +2,7 @@ import { baseApi } from "@/redux/baseApi/baseApi";
 import { IReduxResponse } from "@/types/global";
 import { TTravel } from "@/types/travel.types";
 import { TTravelBuddy } from "@/types/travelBuddy.types";
+import { url } from "inspector";
 
 const tripApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -70,6 +71,29 @@ const tripApi = baseApi.injectEndpoints({
       // invalidatesTags:["buddy"]
     }),
     // add buddy request ends here
+    // remove travel start here
+    removeTravel: build.mutation({
+      query: (id) => {
+        console.log(id);
+        return {
+          url: `/${id}/remove-travel`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["trips"],
+    }),
+    // remove travel ends here
+    // edit travel start here
+    setTravel: build.mutation({
+      query: (args) => {
+        return {
+          url: `/${args.travelId}/set-travel`,
+          method: "PATCH",
+        };
+      },
+      invalidatesTags: ["trips"],
+    }),
+    // edit travel ends here
   }),
 });
 
@@ -78,4 +102,6 @@ export const {
   useAddTravelMutation,
   useGetTravelQuery,
   useAddBuddyRequestMutation,
+  useRemoveTravelMutation,
+  useSetTravelMutation,
 } = tripApi;

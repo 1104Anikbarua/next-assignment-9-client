@@ -11,6 +11,8 @@ import EditCalendarIcon from "@mui/icons-material/EditCalendar";
 import ScheduleIcon from "@mui/icons-material/Schedule";
 import PersonPinIcon from "@mui/icons-material/PersonPin";
 import KeyIcon from "@mui/icons-material/Key";
+import AllInclusiveIcon from "@mui/icons-material/AllInclusive";
+//
 export const generateMenutItems = (role: IUserRole) => {
   // store menuitems based on role
   const menuItems: IMenuItems[] = [];
@@ -56,7 +58,7 @@ export const generateMenutItems = (role: IUserRole) => {
         {
           title: "Manage Travel",
           path: `${role}/travels`,
-          icon: GroupIcon,
+          icon: AllInclusiveIcon,
         },
         {
           title: "Profile",

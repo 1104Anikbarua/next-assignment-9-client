@@ -16,7 +16,7 @@ import TbFileUpload from "@/components/Ui/Form/TbFileUpload";
 import axios from "axios";
 import dayjs from "dayjs";
 import TbSelect from "@/components/Ui/Form/TbSelect";
-import { travelTypes } from "@/constant/constant";
+import { imageKey, travelTypes } from "@/constant/constant";
 import TbTextCountField from "@/components/Ui/Form/TbTextCountField";
 import { toast } from "sonner";
 import { useAddTravelMutation } from "@/redux/features/trip/tripApi";
@@ -26,9 +26,6 @@ const AddTravel = () => {
   // total word count
   let totalWord = 0;
   totalWord = words.length;
-
-  // imgbb key
-  const imageKey = process.env.NEXT_PUBLIC_IMAGE_KEY;
 
   // upload image to imagebb
   const uploadImage = async (img: any) => {

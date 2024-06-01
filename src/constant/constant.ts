@@ -5,3 +5,5 @@ export const USER_ROLE = {
   ADMIN: "admin",
   BUDDY: "buddy",
 };
+// imgbb key
+export const imageKey = process.env.NEXT_PUBLIC_IMAGE_KEY;

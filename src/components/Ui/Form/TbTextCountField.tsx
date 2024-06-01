@@ -43,9 +43,14 @@ const TbTextCountField = ({
       }) => {
         return (
           <TextField
-            onChange={(e) => setCount(e.target.value)}
+            // onChange={(e) => setCount(e.target.value)}//old
+            onChange={(e) => {
+              setCount(e.target.value);
+              onChange(e);
+            }} //new
             id={name}
-            value={count}
+            // value={count}//old
+            value={value} //new
             {...field}
             label={label}
             placeholder={placeholder}

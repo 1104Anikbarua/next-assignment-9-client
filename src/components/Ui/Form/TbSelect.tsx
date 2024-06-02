@@ -13,6 +13,7 @@ interface ISelectProps {
   size?: "small" | "medium";
   label?: string;
   items: string[];
+  defaultValue?: string;
 }
 
 const TbSelect = ({
@@ -25,6 +26,7 @@ const TbSelect = ({
   type,
   label,
   items,
+  defaultValue,
 }: ISelectProps) => {
   return (
     <Controller
@@ -39,7 +41,10 @@ const TbSelect = ({
           fullWidth={fullWidth}
           size={size}
           select
-          helperText={errors[name] ? (errors[name]?.message as string) : ""}
+          defaultValue={defaultValue}
+          helperText={
+            errors[name] ? (errors[name]?.message as string) : helperText
+          }
           error={errors[name] !== undefined}
           SelectProps={{
             sx: { textAlign: "left" },

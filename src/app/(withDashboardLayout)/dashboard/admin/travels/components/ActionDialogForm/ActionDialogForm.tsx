@@ -18,9 +18,23 @@ import dayjs from "dayjs";
 import Image from "next/image";
 import TbFileUpload from "@/components/Ui/Form/TbFileUpload";
 import axios from "axios";
-import { imageKey, travelTypes } from "@/constant/constant";
+import {
+  // activities,
+  imageKey,
+  travelTypes,
+} from "@/constant/constant";
 import { useSetTravelMutation } from "@/redux/features/trip/tripApi";
 import { toast } from "sonner";
+import TbMultipleSelectChip from "@/components/Ui/Form/TbMultipleSelect";
+export const activities = [
+  "Kid Friendly",
+  "Museums",
+  "Shopping",
+  "Historical",
+  "Outdoor Adventures",
+  "Art & Cultural",
+  "Amusement Parks",
+];
 const ActionDialogForm = ({
   open,
   onClose,
@@ -30,19 +44,32 @@ const ActionDialogForm = ({
   onClose: () => void;
   travel: TTravel | undefined;
 }) => {
+  //word count state
   const [words, setWord] = React.useState("");
+  // activities state
+  const [selectedActivities, setSelectedActivities] = React.useState<string[]>(
+    []
+  );
 
   // total word count
   let totalWord = 0;
-  totalWord = words.length;
-  console.log("travel", travel);
+  totalWord = words?.length;
+  // console.log("travel", travel);
+  // format date
+  const parseDate = (dateString: string) => {
+    const [day, month, year] = dateString?.split("-");
+    return dayjs(new Date(Number(year), Number(month) - 1, Number(day)));
+  };
   // default values
   const defaultValues = {
     destination: travel?.destination,
     description: travel?.description,
     budget: travel?.budget,
-    startDate: dayjs(travel?.startDate),
-    endDate: dayjs(travel?.endDate),
+    startDate: travel ? parseDate(travel.startDate) : dayjs(),
+    endDate: travel ? parseDate(travel.endDate) : dayjs(),
+    // activities: travel?.activities.join(),
+    location: travel?.location.join(),
+    travelId: travel?.id,
   };
   // upload image to imagebb
   const uploadImage = async (img: any) => {
@@ -73,9 +100,9 @@ const ActionDialogForm = ({
       position: "top-center",
     });
     const files = values?.photos?.files;
-
     // remove extra space before and after comma
-    values.activities = values?.activities?.replace(/ *, */g, ",")?.split(",");
+    values.location = values?.location?.replace(/ *, */g, ",")?.split(",");
+    values.activities = selectedActivities;
     // remove extra space before and after comma and two consecutive comma without any word between
     values.description = words;
     values.startDate = values?.startDate?.format("DD-MM-YYYY");
@@ -85,26 +112,29 @@ const ActionDialogForm = ({
       if (files?.length) {
         for (let i = 0; i <= files?.length - 1; i++) {
           const images = files[i];
-          console.log(images);
-          // const uploadedImageLinks = await uploadImage(images);
-          // uploadPromises.push(uploadedImageLinks);
+          const uploadedImageLinks = await uploadImage(images);
+          uploadPromises.push(uploadedImageLinks);
         }
         values["photos"] = uploadPromises?.filter((link) => Boolean(link));
       }
-
-      // const res = await setTravel(values).unwrap();
-      // console.log(res);
-      // if (res.response.data?.id) {
-      //   toast.success(res.response.message, {
-      //     duration: 2000,
-      //     position: "top-center",
-      //     id: toastId,
-      //   });
-      // }
+      const res = await setTravel(values).unwrap();
+      console.log(res);
+      if (res.response.data?.id) {
+        toast.success(res.response.message, {
+          duration: 2000,
+          position: "top-center",
+          id: toastId,
+        });
+      }
     } catch (error) {
       console.log(error);
     }
   };
+  //
+  React.useEffect(() => {
+    setWord(travel?.description as string);
+  }, [travel?.description]);
+  console.log(selectedActivities);
   return (
     <Container>
       <Box width={"100%"} py={10}>
@@ -137,7 +167,9 @@ const ActionDialogForm = ({
                 Edit Travels
               </Typography>
               <Stack rowGap={2}>
+                {/* Destination  */}
                 <TbTextField name="destination" />
+                {/* Description  */}
                 <TbTextCountField
                   name="description"
                   count={words}
@@ -145,10 +177,33 @@ const ActionDialogForm = ({
                   totalWord={totalWord}
                   multiline
                 />
-                <TbSelect name="travelType" items={travelTypes} />
+                {/* travel type  */}
+                <TbSelect
+                  name="travelType"
+                  items={travelTypes}
+                  defaultValue={travel?.travelType}
+                  helperText="Please select travel type"
+                />
+                {/* activites  */}
+                <TbMultipleSelectChip
+                  prevActivities={travel?.activities}
+                  activities={activities}
+                  selectedActivities={selectedActivities}
+                  setSelectedActivities={setSelectedActivities}
+                />
+                {/* Budget */}
                 <TbTextField name="budget" />
+                {/* Start Date  */}
                 <TbDatePicker name="startDate" />
+                {/* End Date */}
                 <TbDatePicker name="endDate" />
+                {/* Activities */}
+                <TbTextField
+                  name="location"
+                  label="Location"
+                  placeholder="Provide location"
+                />
+                {/* images  */}
                 <Grid container gap={2}>
                   {travel?.photos.map((photo, index) => (
                     <Grid item key={index} xs={5.7}>
@@ -163,10 +218,10 @@ const ActionDialogForm = ({
                   ))}
                 </Grid>
                 <TbFileUpload name="photos" placeholder="upload files" />
+                <Button type="submit" color="success">
+                  Submit
+                </Button>
               </Stack>
-              <Button type="submit" color="success">
-                Submit
-              </Button>
             </WrapperForm>
           </Paper>
         </Dialog>

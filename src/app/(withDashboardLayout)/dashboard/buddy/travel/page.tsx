@@ -153,6 +153,7 @@ const AddTravel = () => {
                 label="Activities"
                 placeholder="Provide activities"
               />
+              {/* Budget */}
               <TbTextField
                 name="budget"
                 label="Budget"

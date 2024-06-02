@@ -9,7 +9,7 @@ const tripApi = baseApi.injectEndpoints({
     // get all getTravels start here
     getTravels: build.query({
       query: (args) => {
-        console.log(args);
+        // console.log(args);
         return {
           url: "/trips",
           params: args,
@@ -76,7 +76,7 @@ const tripApi = baseApi.injectEndpoints({
       query: (id) => {
         console.log(id);
         return {
-          url: `/${id}/remove-travel`,
+          url: `/trips/${id}/remove-travel`,
           method: "DELETE",
         };
       },
@@ -85,10 +85,17 @@ const tripApi = baseApi.injectEndpoints({
     // remove travel ends here
     // edit travel start here
     setTravel: build.mutation({
-      query: (args) => {
+      query: ({ travelId, ...data }) => {
+        console.log(data);
         return {
-          url: `/${args.travelId}/set-travel`,
+          url: `/trips/${travelId}/set-travel`,
           method: "PATCH",
+          data,
+        };
+      },
+      transformResponse: (response: IReduxResponse<TTravel>) => {
+        return {
+          response,
         };
       },
       invalidatesTags: ["trips"],

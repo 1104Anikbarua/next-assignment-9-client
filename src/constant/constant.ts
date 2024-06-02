@@ -7,3 +7,12 @@ export const USER_ROLE = {
 };
 // imgbb key
 export const imageKey = process.env.NEXT_PUBLIC_IMAGE_KEY;
+export const activities = [
+  "Kid Friendly",
+  "Museums",
+  "Shopping",
+  "Historical",
+  "Outdoor Adventures",
+  "Art & Cultural",
+  "Amusement Parks",
+];

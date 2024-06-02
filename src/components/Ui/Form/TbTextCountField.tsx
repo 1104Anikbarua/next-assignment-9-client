@@ -29,9 +29,9 @@ const TbTextCountField = ({
   totalWord,
 }: ITextFieldProps) => {
   useEffect(() => {
-    const remainingChars = 150 - count.length;
+    const remainingChars = 150 - count?.length;
     if (remainingChars < 0) {
-      setCount(count.slice(0, 150));
+      setCount(count?.slice(0, 150));
     }
   }, [count, setCount]);
   return (
@@ -69,11 +69,11 @@ const TbTextCountField = ({
                     right: 3,
                     bottom: 15,
                     fontSize: "12px",
-                    color: count.length >= 150 ? "#dc2626" : "#22c55e",
+                    color: count?.length >= 150 ? "#dc2626" : "#22c55e",
                   }}
                   position="end"
                 >
-                  {150 - count.length}
+                  {150 - count?.length}
                 </InputAdornment>
               ),
             }}

@@ -73,7 +73,6 @@ const TravelDetails = ({
             </Grid>
           ))}
         </Grid>
-        {/* my-5 flex w-full flex-col items-start justify-between gap-5 px-4 md:flex-row md:items-center md:px-12 */}
         {/* user image name and posted date section & like section   */}
         <Stack
           width={"100%"}

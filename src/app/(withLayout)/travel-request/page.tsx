@@ -1,5 +1,4 @@
 "use client";
-import TbDatePicker from "@/components/Ui/Form/TbDatePicker";
 import TbTextField from "@/components/Ui/Form/TbTextField";
 import WrapperForm from "@/components/Ui/Form/WrapperForm";
 import {
@@ -18,13 +17,13 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import dayjs from "dayjs";
 import { useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 
 const TravelRequest = () => {
+  // checkbox state check uncheck state
   const [isCheck, setIsCheck] = useState(false);
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
@@ -33,10 +32,11 @@ const TravelRequest = () => {
     { id },
     { skip: !id }
   );
+  // travel data
   const travel = travelData?.response.data;
-
+  // travel query api
   // user api info start here
-  const { data, isLoading } = useGetMeQuery({});
+  const { data, isLoading } = useGetMeQuery({}, { skip: !travel?.id });
   const response = data?.response.data;
   // user api info end here
 
@@ -44,14 +44,20 @@ const TravelRequest = () => {
   const [addBuddyRequest, { isSuccess }] = useAddBuddyRequestMutation();
   // add buddy request api ends here
 
+  if (isLoading || isTravelLoading) {
+    return (
+      <Skeleton variant="rectangular" width="100%">
+        <div style={{ paddingTop: "57%" }} />
+      </Skeleton>
+    );
+  }
+  // default values
   const defaultValues = {
     destination: travel?.destination || "",
     email: response?.email || "",
     name: response?.name || "",
-    // startDate: || "",
   };
 
-  // console.log(dayjs(travel?.startDate));
   // submit handler for travel request page
   const handleSubmit: SubmitHandler<FieldValues> = async (values) => {
     const toastId = toast.loading("Please wait this may take a moment", {
@@ -75,38 +81,61 @@ const TravelRequest = () => {
       console.log(error);
     }
   };
+
   return (
     <Container>
       <Stack py={10}>
-        {isLoading && isTravelLoading ? (
-          <Stack sx={{ width: "100%", maxWidth: "291px" }} rowGap={2}>
-            <Stack direction={"row"} sx={{ width: "100%", maxWidth: "291px" }}>
-              <Skeleton variant="rounded" height={40} animation="wave" />
-              <Skeleton variant="rounded" height={40} animation="wave" />
-              <Skeleton variant="rounded" height={40} animation="wave" />
+        <Paper
+          square={false}
+          sx={{
+            mx: "auto",
+            width: "100%",
+            textAlign: "center",
+            py: 5,
+            px: 2,
+          }}
+        >
+          {isLoading && isTravelLoading ? (
+            <Stack sx={{ width: "100%" }} rowGap={2}>
+              <Grid container rowGap={2} spacing={2}>
+                <Grid item xs={12} sm={4} md={4} lg={4}>
+                  <Skeleton
+                    variant="rounded"
+                    width="100%"
+                    height={40}
+                    animation="wave"
+                  />
+                </Grid>
+                <Grid item xs={12} sm={4} md={4} lg={4}>
+                  <Skeleton
+                    variant="rounded"
+                    width="100%"
+                    height={40}
+                    animation="wave"
+                  />
+                </Grid>
+                <Grid item xs={12} sm={4} md={4} lg={4}>
+                  <Skeleton
+                    variant="rounded"
+                    width="100%"
+                    height={40}
+                    animation="wave"
+                  />
+                </Grid>
+                <Grid item xs={12} sm={12} md={4} lg={4}>
+                  <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+                </Grid>
+              </Grid>
+              <Box sx={{ display: "flex", justifyContent: "end" }}>
+                <Skeleton
+                  variant="rounded"
+                  width={82}
+                  height={40}
+                  animation="wave"
+                />
+              </Box>
             </Stack>
-            <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
-            <Box sx={{ display: "flex", justifyContent: "end" }}>
-              <Skeleton
-                variant="rounded"
-                width={82}
-                height={40}
-                animation="wave"
-              />
-            </Box>
-          </Stack>
-        ) : (
-          <Paper
-            square={false}
-            sx={{
-              mx: "auto",
-              width: "100%",
-              textAlign: "center",
-              // maxWidth: "400px",
-              py: 5,
-              px: 2,
-            }}
-          >
+          ) : (
             <WrapperForm onSubmit={handleSubmit} defaultValues={defaultValues}>
               <Stack rowGap={2}>
                 <Grid container rowGap={2}>
@@ -145,10 +174,8 @@ const TravelRequest = () => {
                 </Box>
               </Stack>
             </WrapperForm>
-          </Paper>
-        )}
-        {/* <Box>
-        </Box> */}
+          )}
+        </Paper>
       </Stack>
     </Container>
   );

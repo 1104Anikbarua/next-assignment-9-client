@@ -13,13 +13,13 @@ import TbTextField from "@/components/Ui/Form/TbTextField";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import TbDatePicker from "@/components/Ui/Form/TbDatePicker";
 import TbFileUpload from "@/components/Ui/Form/TbFileUpload";
-import axios from "axios";
 import dayjs from "dayjs";
 import TbSelect from "@/components/Ui/Form/TbSelect";
-import { imageKey, travelTypes } from "@/constant/constant";
+import { travelTypes } from "@/constant/constant";
 import TbTextCountField from "@/components/Ui/Form/TbTextCountField";
 import { toast } from "sonner";
 import { useAddTravelMutation } from "@/redux/features/trip/tripApi";
+import uploadImage from "@/utlis/uploadImage";
 const AddTravel = () => {
   const [words, setWord] = useState("");
 
@@ -27,24 +27,6 @@ const AddTravel = () => {
   let totalWord = 0;
   totalWord = words.length;
 
-  // upload image to imagebb
-  const uploadImage = async (img: any) => {
-    try {
-      let formData = new FormData();
-      formData.append("image", img);
-      const { data } = await axios.post(
-        `https://api.imgbb.com/1/upload?key=${imageKey}`,
-        formData
-      );
-      let imageUrl = data?.data?.display_url;
-      // let deleteUrl = data.data.delete_url;
-      // return { imageUrl, deleteUrl };
-      return imageUrl;
-    } catch (error) {
-      return null;
-    }
-  };
-  //
   const [addTravel, { isLoading, isSuccess }] = useAddTravelMutation();
   // create a travel handler
   const handleAddTravel: SubmitHandler<FieldValues> = async (values) => {

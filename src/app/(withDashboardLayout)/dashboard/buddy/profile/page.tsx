@@ -33,62 +33,72 @@ const ProfilePage = () => {
       position: "top-center",
     });
     values["id"] = user?.id;
-    try {
-      const res = await setStatus(values).unwrap();
-      console.log(res);
-      if (res?.response?.success) {
-        toast.success(res?.response?.message, {
-          duration: 2000,
-          position: "top-center",
-          id: toastId,
-        });
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    console.log(values);
+    // try {
+    //   const res = await setStatus(values).unwrap();
+    //   console.log(res);
+    //   if (res?.response?.success) {
+    //     toast.success(res?.response?.message, {
+    //       duration: 2000,
+    //       position: "top-center",
+    //       id: toastId,
+    //     });
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
-  // defaultValues
-  const defaultValues = {
-    name: user ? user?.name : "",
-    email: user ? user?.email : "",
-  };
+
   return (
     <Container>
       <Box width={"100%"} py={10}>
-        <Paper
-          square={false}
-          sx={{
-            mx: "auto",
-            width: "100%",
-            textAlign: "center",
-            maxWidth: "400px",
-            py: 5,
-            px: 2,
-          }}
-        >
-          <WrapperForm
-            onSubmit={handleSetProfile}
-            defaultValues={defaultValues}
+        {isUserLoading ? (
+          <Paper
+            square={false}
+            sx={{
+              mx: "auto",
+              width: "100%",
+              textAlign: "center",
+              maxWidth: "400px",
+              py: 5,
+              px: 2,
+            }}
           >
-            <Typography
-              component={"h3"}
-              variant="h3"
-              sx={{
-                fontSize: { xs: "24px" },
-                fontWeight: { xs: 600, sm: 800 },
-                opacity: "0.7",
-                my: 5,
-              }}
-            >
-              Update profile
-            </Typography>
-            {isUserLoading ? (
-              <Stack sx={{ width: "100%", maxWidth: "386px" }} rowGap={2}>
-                <Skeleton variant="rounded" height={40} animation="wave" />
-                <Skeleton variant="rounded" height={40} animation="wave" />
-                <Skeleton variant="rounded" height={40} animation="wave" />
-              </Stack>
-            ) : (
+            <Skeleton sx={{ my: 5, mx: "auto" }} width="159px" height={28}>
+              <Typography>.</Typography>
+            </Skeleton>
+            <Stack sx={{ width: "100%", maxWidth: "386px" }} rowGap={2}>
+              <Skeleton variant="rounded" height={40} animation="wave" />
+              <Skeleton variant="rounded" height={40} animation="wave" />
+              <Skeleton variant="rounded" height={40} animation="wave" />
+            </Stack>
+          </Paper>
+        ) : (
+          <Paper
+            square={false}
+            sx={{
+              mx: "auto",
+              width: "100%",
+              textAlign: "center",
+              maxWidth: "400px",
+              py: 5,
+              px: 2,
+            }}
+          >
+            <WrapperForm onSubmit={handleSetProfile} defaultValues={user}>
+              <Typography
+                component={"h3"}
+                variant="h3"
+                sx={{
+                  fontSize: { xs: "24px" },
+                  fontWeight: { xs: 600, sm: 800 },
+                  opacity: "0.7",
+                  my: 5,
+                }}
+              >
+                Update profile
+              </Typography>
+
               <Stack spacing={2}>
                 <TbTextField
                   name="name"
@@ -105,9 +115,9 @@ const ProfilePage = () => {
                   Update Profile
                 </Button>
               </Stack>
-            )}
-          </WrapperForm>
-        </Paper>
+            </WrapperForm>
+          </Paper>
+        )}
       </Box>
     </Container>
   );

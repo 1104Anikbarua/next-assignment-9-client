@@ -87,7 +87,7 @@ export const generateMenutItems = (role: IUserRole) => {
         },
         {
           title: "Travels Request",
-          path: `${role}/travelrequest`,
+          path: `${role}/travel-request`,
           icon: NewspaperIcon,
         },
         {

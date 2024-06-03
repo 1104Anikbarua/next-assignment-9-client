@@ -13,7 +13,6 @@ import TbTextField from "@/components/Ui/Form/TbTextField";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import TbDatePicker from "@/components/Ui/Form/TbDatePicker";
 import TbFileUpload from "@/components/Ui/Form/TbFileUpload";
-import axios from "axios";
 import dayjs from "dayjs";
 import TbSelect from "@/components/Ui/Form/TbSelect";
 import { activities, travelTypes } from "@/constant/constant";
@@ -23,7 +22,7 @@ import { useAddTravelMutation } from "@/redux/features/trip/tripApi";
 import TbMultipleSelectChip from "@/components/Ui/Form/TbMultipleSelect";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import TbTextArea from "@/components/Ui/Form/TbTextArea";
+import uploadImage from "@/utlis/uploadImage";
 //
 const AddTravel = () => {
   const [selectedActivities, setSelectedActivities] = useState<string[]>([]);
@@ -36,23 +35,6 @@ const AddTravel = () => {
   // imgbb key
   const imageKey = process.env.NEXT_PUBLIC_IMAGE_KEY;
 
-  // upload image to imagebb
-  const uploadImage = async (img: any) => {
-    try {
-      let formData = new FormData();
-      formData.append("image", img);
-      const { data } = await axios.post(
-        `https://api.imgbb.com/1/upload?key=${imageKey}`,
-        formData
-      );
-      let imageUrl = data?.data?.display_url;
-      // let deleteUrl = data.data.delete_url;
-      // return { imageUrl, deleteUrl };
-      return imageUrl;
-    } catch (error) {
-      return null;
-    }
-  };
   // add travel api
   const [addTravel, { isLoading, isSuccess }] = useAddTravelMutation();
 

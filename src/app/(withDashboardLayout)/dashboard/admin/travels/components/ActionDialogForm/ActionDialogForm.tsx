@@ -13,11 +13,11 @@ import TbDatePicker from "@/components/Ui/Form/TbDatePicker";
 import dayjs from "dayjs";
 import Image from "next/image";
 import TbFileUpload from "@/components/Ui/Form/TbFileUpload";
-import axios from "axios";
-import { activities, imageKey, travelTypes } from "@/constant/constant";
+import { activities, travelTypes } from "@/constant/constant";
 import { useSetTravelMutation } from "@/redux/features/trip/tripApi";
 import { toast } from "sonner";
 import TbMultipleSelectChip from "@/components/Ui/Form/TbMultipleSelect";
+import uploadImage from "@/utlis/uploadImage";
 
 const ActionDialogForm = ({
   open,
@@ -55,24 +55,7 @@ const ActionDialogForm = ({
     location: travel?.location.join(),
     travelId: travel?.id,
   };
-  // upload image to imagebb
-  const uploadImage = async (img: any) => {
-    try {
-      let formData = new FormData();
-      formData.append("image", img);
-      const { data } = await axios.post(
-        `https://api.imgbb.com/1/upload?key=${imageKey}`,
-        formData
-      );
-      let imageUrl = data?.data?.display_url;
-      // let deleteUrl = data.data.delete_url;
-      // return { imageUrl, deleteUrl };
-      return imageUrl;
-    } catch (error) {
-      return null;
-    }
-  };
-  //
+
   const [setTravel, { isLoading, isSuccess }] = useSetTravelMutation();
   // create a travel handler
   const handleSetTravel: SubmitHandler<FieldValues> = async (values) => {

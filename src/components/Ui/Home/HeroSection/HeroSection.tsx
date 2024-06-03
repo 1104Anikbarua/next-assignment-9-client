@@ -1,9 +1,19 @@
+"use client";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import heroBgImage from "@/assets/hero/herosection.jpg";
 import Link from "next/link";
+import { getUserToken } from "@/services/auth.services";
+import { IUser } from "@/types/global";
 const HeroSection = () => {
+  const [role, setRole] = useState("");
+  // get user role
+  useEffect(() => {
+    const { role } = getUserToken() as IUser;
+    setRole(role);
+  }, []);
+
   return (
     <Container>
       <Box
@@ -80,7 +90,7 @@ const HeroSection = () => {
           <Box>
             <Button
               LinkComponent={Link}
-              href="/dashboard/travel"
+              href={`/dashboard/${role}/travel`}
               size="small"
               color="success"
             >

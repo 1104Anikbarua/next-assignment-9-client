@@ -48,6 +48,7 @@ const userApi = baseApi.injectEndpoints({
           response,
         };
       },
+      providesTags: ["travels"],
     }),
     // get all traveles by user id
     // get all users
@@ -81,9 +82,27 @@ const userApi = baseApi.injectEndpoints({
           response,
         };
       },
-      invalidatesTags: ["users"],
+      invalidatesTags: ["users", "user"],
     }),
     //set user status ends here
+
+    //change password start here
+    setPassword: build.mutation({
+      query: (data) => {
+        return {
+          url: "/auth/change-password",
+          method: "PATCH",
+          data,
+        };
+      },
+      transformResponse: (response: IReduxResponse<any>) => {
+        return {
+          response,
+        };
+      },
+      invalidatesTags: ["user"],
+    }),
+    // change password ends here
   }),
 });
 export const {
@@ -92,4 +111,5 @@ export const {
   useGetMyPostedTravelsQuery,
   useGetUsersQuery,
   useSetStausMutation,
+  useSetPasswordMutation,
 } = userApi;

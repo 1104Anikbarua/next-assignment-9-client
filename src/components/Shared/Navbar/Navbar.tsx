@@ -62,6 +62,7 @@ const Navbar = () => {
           alignItems={"center"}
           justifyContent={"space-between"}
         >
+          {/* website logo and name section start  */}
           <Stack
             direction={"row"}
             alignItems={"center"}
@@ -73,7 +74,8 @@ const Navbar = () => {
 
             <Typography ml={2}>Amigo</Typography>
           </Stack>
-
+          {/* website logo and name section start  */}
+          {/* website navigation link desktop start  */}
           <Stack
             direction={"row"}
             justifyContent={"space-between"}
@@ -98,7 +100,8 @@ const Navbar = () => {
 
             <AuthToggle handleCloseUserMenu={handleCloseUserMenu} />
           </Stack>
-
+          {/* website navigation link desktop end  */}
+          {/* website navigation link mobile start  */}
           <Box sx={{ flexGrow: 0, display: { xs: "block", sm: "none" } }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -151,6 +154,7 @@ const Navbar = () => {
               <AuthToggle handleCloseUserMenu={handleCloseUserMenu} />
             </Menu>
           </Box>
+          {/* website navigation link mobile end  */}
         </Stack>
       </Container>
     </Box>

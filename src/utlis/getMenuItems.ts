@@ -12,6 +12,7 @@ import ScheduleIcon from "@mui/icons-material/Schedule";
 import PersonPinIcon from "@mui/icons-material/PersonPin";
 import KeyIcon from "@mui/icons-material/Key";
 import AllInclusiveIcon from "@mui/icons-material/AllInclusive";
+import AllInboxIcon from "@mui/icons-material/AllInbox";
 //
 export const generateMenutItems = (role: IUserRole) => {
   // store menuitems based on role
@@ -92,7 +93,7 @@ export const generateMenutItems = (role: IUserRole) => {
         {
           title: "Posted Travels",
           path: `${role}/travels`,
-          icon: NewspaperIcon,
+          icon: AllInboxIcon,
         },
         {
           title: "Profile",

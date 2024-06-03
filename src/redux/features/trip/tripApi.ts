@@ -34,7 +34,7 @@ const tripApi = baseApi.injectEndpoints({
         console.log(response);
         return { response };
       },
-      invalidatesTags: ["trips"],
+      invalidatesTags: ["trips", "travels"],
     }),
     // add travel ends here
     // get travel start here
@@ -52,7 +52,6 @@ const tripApi = baseApi.injectEndpoints({
       providesTags: ["trips"],
     }),
     // get travel ends here
-
     // add buddy request start here
     addBuddyRequest: build.mutation({
       query: (data) => {
@@ -98,7 +97,7 @@ const tripApi = baseApi.injectEndpoints({
           method: "DELETE",
         };
       },
-      invalidatesTags: ["trips"],
+      invalidatesTags: ["trips", "travels"],
     }),
     // remove travel ends here
   }),

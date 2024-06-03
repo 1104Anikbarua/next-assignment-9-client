@@ -107,7 +107,7 @@ export default function TravelsCard({
             sx={{ display: "inline-block" }}
             variant="h6"
             fontWeight={500}
-            component={"p"}
+            component={"h6"}
           >
             End Date:
             <Typography

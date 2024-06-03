@@ -85,7 +85,7 @@ const tripApi = baseApi.injectEndpoints({
           response,
         };
       },
-      invalidatesTags: ["trips"],
+      invalidatesTags: ["trips", "travels"],
     }),
     // edit travel ends here
     // remove travel start here

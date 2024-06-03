@@ -38,7 +38,6 @@ const Travels = () => {
   // };
   // delete travel handler
   const handleDeleteConfirm = async (id: string) => {
-    console.log({ id });
     const toastId = toast.loading("Please wait this may take a moment", {
       position: "top-center",
       duration: 2000,

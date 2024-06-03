@@ -79,10 +79,12 @@ const TravelRequest = () => {
     <Container>
       <Stack py={10}>
         {isLoading && isTravelLoading ? (
-          <Stack sx={{ width: "100%", maxWidth: "300px" }} rowGap={2}>
-            <Skeleton variant="rounded" height={40} animation="wave" />
-            <Skeleton variant="rounded" height={40} animation="wave" />
-            <Skeleton variant="rounded" height={40} animation="wave" />
+          <Stack sx={{ width: "100%", maxWidth: "291px" }} rowGap={2}>
+            <Stack direction={"row"} sx={{ width: "100%", maxWidth: "291px" }}>
+              <Skeleton variant="rounded" height={40} animation="wave" />
+              <Skeleton variant="rounded" height={40} animation="wave" />
+              <Skeleton variant="rounded" height={40} animation="wave" />
+            </Stack>
             <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
             <Box sx={{ display: "flex", justifyContent: "end" }}>
               <Skeleton

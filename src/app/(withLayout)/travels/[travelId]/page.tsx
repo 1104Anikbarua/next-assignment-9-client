@@ -16,6 +16,7 @@ import postedUser from "@/assets/user/user3.png";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import dayjs from "dayjs";
 import Link from "next/link";
+import { activities } from "@/constant/constant";
 const TravelDetails = ({
   params: { travelId: id },
 }: {
@@ -173,7 +174,7 @@ const TravelDetails = ({
                   component={"span"}
                   sx={{ whiteSpace: "normal" }}
                 >
-                  {activity}
+                  {activities[Number(activity)]}
                   {travel.activities.length - 1 === index ? "!" : ","}
                 </Box>
               ))}

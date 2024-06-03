@@ -91,7 +91,7 @@ const userApi = baseApi.injectEndpoints({
       query: (data) => {
         return {
           url: "/auth/change-password",
-          method: "PATCH",
+          method: "POST",
           data,
         };
       },

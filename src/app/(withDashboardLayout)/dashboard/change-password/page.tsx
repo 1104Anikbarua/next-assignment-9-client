@@ -26,13 +26,19 @@ const ChangePassword = () => {
       duration: 2000,
       position: "top-center",
     });
-    // if (res?.response?.success) {
-    //   toast.success(res?.response?.message, {
-    //     duration: 2000,
-    //     position: "top-center",
-    //     id: toastId,
-    //   });
-    // }
+    try {
+      const res = await changePassword(values).unwrap();
+      console.log(res);
+      if (res?.response?.success) {
+        toast.success(res?.response?.message, {
+          duration: 2000,
+          position: "top-center",
+          id: toastId,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   // zod validation schema
   const changePasswordSchema = z
@@ -50,8 +56,9 @@ const ChangePassword = () => {
         .min(6, { message: "Must be atleast 6 characters long" })
         .max(16, { message: "Must contain 16 or fewer characters long" }),
     })
-    .refine((password) => password.newPassword === password.confirmPassword, {
+    .refine((data) => data.newPassword === data.confirmPassword, {
       message: "New password and confirm password must match",
+      path: ["confirmPassword"],
     });
   // default values
   const defaultValues = {

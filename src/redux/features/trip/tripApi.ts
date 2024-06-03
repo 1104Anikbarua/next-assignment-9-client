@@ -71,18 +71,6 @@ const tripApi = baseApi.injectEndpoints({
       // invalidatesTags:["buddy"]
     }),
     // add buddy request ends here
-    // remove travel start here
-    removeTravel: build.mutation({
-      query: (id) => {
-        console.log(id);
-        return {
-          url: `/trips/${id}/remove-travel`,
-          method: "DELETE",
-        };
-      },
-      invalidatesTags: ["trips"],
-    }),
-    // remove travel ends here
     // edit travel start here
     setTravel: build.mutation({
       query: ({ travelId, ...data }) => {
@@ -101,6 +89,18 @@ const tripApi = baseApi.injectEndpoints({
       invalidatesTags: ["trips"],
     }),
     // edit travel ends here
+    // remove travel start here
+    removeTravel: build.mutation({
+      query: (id) => {
+        console.log(id);
+        return {
+          url: `/trips/${id}/remove-travel`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["trips"],
+    }),
+    // remove travel ends here
   }),
 });
 

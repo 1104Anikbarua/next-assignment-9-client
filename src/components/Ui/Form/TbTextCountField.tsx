@@ -49,7 +49,7 @@ const TbTextCountField = ({
               onChange(e);
             }} //new
             id={name}
-            // value={count}//old
+            // value={count} //old
             value={value} //new
             {...field}
             label={label}

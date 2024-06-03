@@ -9,7 +9,6 @@ import TbSelect from "../../Form/TbSelect";
 import dayjs from "dayjs";
 import { useGetTravelsQuery } from "@/redux/features/trip/tripApi";
 import MediaControlCard from "../../Card/Card";
-import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { travelTypes } from "@/constant/constant";
 import Link from "next/link";
 interface ISearchTravel {
@@ -31,13 +30,16 @@ const HomeSearchbar = () => {
   query["startDate"] = searchTravel.startDate;
   query["endDate"] = searchTravel.endDate;
   query["travelType"] = searchTravel.travelType;
+  // query["sortBy"] = "createdAt";
   // get travel rtk api
-  const { data, isFetching } = useGetTravelsQuery(isSearch ? query : {});
+  const { data, isFetching } = useGetTravelsQuery(
+    isSearch ? query : { sortBy: "createdAt" }
+  );
   console.log(data);
   // search a trip submit handler
   const handleSubmit: SubmitHandler<FieldValues> = async (values) => {
-    values.startDate = dayjs(values.startDate).format("DD-MM-YYYY");
-    values.endDate = dayjs(values.endDate).format("DD-MM-YYYY");
+    values.startDate = dayjs(values.startDate)?.format("DD-MM-YYYY");
+    values.endDate = dayjs(values.endDate)?.format("DD-MM-YYYY");
     setSearchTravel({
       destination: values.destination,
       startDate: values.startDate,
@@ -85,6 +87,7 @@ const HomeSearchbar = () => {
               Destination!
             </Typography>
           </Typography>
+          {/* form part start */}
           <WrapperForm onSubmit={handleSubmit} defaultValues={defaultValues}>
             <Stack
               direction={"row"}
@@ -119,8 +122,9 @@ const HomeSearchbar = () => {
               </Button>
             </Stack>
           </WrapperForm>
+          {/* form part end  */}
         </Box>
-
+        {/* card start here  */}
         <Grid
           container
           rowGap={2}
@@ -128,11 +132,13 @@ const HomeSearchbar = () => {
           justifyContent={"center"}
         >
           {trips?.map((trip, index) => (
-            <Grid key={index} item xs={12} sm={5} md={3} lg={3}>
+            <Grid key={index} item xs={12} sm={5} md={3.7} lg={3.6}>
               <MediaControlCard key={index} trip={trip} />
             </Grid>
           ))}
         </Grid>
+        {/* card end here  */}
+        {/* see more button  */}
         <Box mx={"auto"}>
           <Button
             LinkComponent={Link}
@@ -143,6 +149,7 @@ const HomeSearchbar = () => {
             See More
           </Button>
         </Box>
+        {/* see more button  */}
       </Stack>
     </Container>
   );

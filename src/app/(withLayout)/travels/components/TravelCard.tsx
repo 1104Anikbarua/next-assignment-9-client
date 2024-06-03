@@ -1,21 +1,25 @@
 import * as React from "react";
 // import { useTheme } from "@mui/material/styles";
-import {
-  Box,
-  Card,
-  Stack,
-  Typography,
-  IconButton,
-  CardContent,
-  Button,
-} from "@mui/material";
+import { Box, Stack, Typography, Button } from "@mui/material";
 import Image from "next/image";
 import cardImage from "@/assets/hero/herosection.jpg";
 import { TTravel } from "@/types/travel.types";
 
-export default function TravelsCard({ trip }: { trip: TTravel }) {
+export default function TravelsCard({
+  trip,
+  isShow,
+  setIsShow,
+  handleDeleteConfirm,
+  handleEditConfirm,
+}: {
+  trip: TTravel;
+  isShow?: boolean;
+  setIsShow?: React.Dispatch<React.SetStateAction<boolean>>;
+  handleDeleteConfirm?: ((id: string) => void) | undefined;
+  handleEditConfirm?: ((id: string) => void) | undefined;
+}) {
   // const theme = useTheme();
-  //   console.log(trip);
+  console.log(trip);
   return (
     <Box
       sx={{
@@ -114,9 +118,23 @@ export default function TravelsCard({ trip }: { trip: TTravel }) {
               {trip?.endDate}
             </Typography>
           </Typography>
-          <Button fullWidth color={"success"}>
-            Travel Details
-          </Button>
+          {isShow ? (
+            <Stack direction={"row"} gap={1} justifyContent={"end"}>
+              <Button onClick={() => handleEditConfirm?.(trip.id)} color="info">
+                Edit
+              </Button>
+              <Button
+                onClick={() => handleDeleteConfirm?.(trip.id)}
+                color="error"
+              >
+                Delete
+              </Button>
+            </Stack>
+          ) : (
+            <Button fullWidth color={"success"}>
+              Travel Details
+            </Button>
+          )}
         </Stack>
       </Stack>
     </Box>

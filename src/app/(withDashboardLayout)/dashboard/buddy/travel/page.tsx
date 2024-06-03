@@ -16,11 +16,17 @@ import TbFileUpload from "@/components/Ui/Form/TbFileUpload";
 import axios from "axios";
 import dayjs from "dayjs";
 import TbSelect from "@/components/Ui/Form/TbSelect";
-import { travelTypes } from "@/constant/constant";
+import { activities, travelTypes } from "@/constant/constant";
 import TbTextCountField from "@/components/Ui/Form/TbTextCountField";
 import { toast } from "sonner";
 import { useAddTravelMutation } from "@/redux/features/trip/tripApi";
+import TbMultipleSelectChip from "@/components/Ui/Form/TbMultipleSelect";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import TbTextArea from "@/components/Ui/Form/TbTextArea";
+//
 const AddTravel = () => {
+  const [selectedActivities, setSelectedActivities] = useState<string[]>([]);
   const [words, setWord] = useState("");
 
   // total word count
@@ -47,13 +53,25 @@ const AddTravel = () => {
       return null;
     }
   };
-  //
+  // add travel api
   const [addTravel, { isLoading, isSuccess }] = useAddTravelMutation();
+
+  // zod validation
+  const createTripValidation = z.object({
+    destination: z.string().min(1, { message: "Destination is required" }),
+    description: z.string().min(1, { message: "Description is required" }),
+    budget: z.coerce.number().positive({ message: "Budget is required" }),
+    location: z.string().min(1, { message: "Location is required" }),
+    travelType: z.enum([...travelTypes] as [string, ...string[]], {
+      message: "Travel type is required",
+    }),
+    startDate: z.coerce.date(),
+    endDate: z.coerce.date(),
+  });
   // create a travel handler
   const handleAddTravel: SubmitHandler<FieldValues> = async (values) => {
     // image link array
     const uploadPromises: string[] = [];
-    // values["photos"] = [];
     const toastId = toast.loading("please wait this may take a few minutes", {
       duration: 2000,
       position: "top-center",
@@ -61,11 +79,12 @@ const AddTravel = () => {
     const files = values?.photos?.files;
 
     // remove extra space before and after comma
-    values.activities = values?.activities.replace(/ *, */g, ",").split(",");
+    values.location = values?.location?.replace(/ *, */g, ",")?.split(",");
+    values.activities = selectedActivities;
     // remove extra space before and after comma and two consecutive comma without any word between
     values.description = words;
-    values.startDate = values?.startDate.format("DD-MM-YYYY");
-    values.endDate = values?.endDate.format("DD-MM-YYYY");
+    values.startDate = dayjs(values?.startDate)?.format("DD-MM-YYYY");
+    values.endDate = dayjs(values?.endDate)?.format("DD-MM-YYYY");
     values.budget = Number(values?.budget);
     try {
       if (files?.length) {
@@ -86,19 +105,20 @@ const AddTravel = () => {
           position: "top-center",
           id: toastId,
         });
+        setSelectedActivities([]);
       }
     } catch (error) {
       console.log(error);
     }
   };
-
+  // default values
   const defaultValues = {
     destination: "",
     startDate: dayjs(new Date().toDateString()),
     endDate: dayjs(new Date().toDateString()),
     description: "",
     travelType: "",
-    activities: "",
+    location: "",
     budget: "",
   };
 
@@ -117,7 +137,11 @@ const AddTravel = () => {
           }}
         >
           {/* add a trip form  start*/}
-          <WrapperForm onSubmit={handleAddTravel} defaultValues={defaultValues}>
+          <WrapperForm
+            onSubmit={handleAddTravel}
+            defaultValues={defaultValues}
+            resolver={zodResolver(createTripValidation)}
+          >
             <Typography
               component={"h3"}
               variant="h3"
@@ -147,11 +171,12 @@ const AddTravel = () => {
                 items={travelTypes}
                 label="Travel Type"
               />
-              {/* Activities */}
-              <TbTextField
-                name="activities"
-                label="Activities"
-                placeholder="Provide activities"
+              {/* activites  */}
+              <TbMultipleSelectChip
+                // prevActivities={travel?.activities}
+                activities={activities}
+                selectedActivities={selectedActivities}
+                setSelectedActivities={setSelectedActivities}
               />
               {/* Budget */}
               <TbTextField
@@ -159,6 +184,12 @@ const AddTravel = () => {
                 label="Budget"
                 placeholder="Provide budget"
                 type="number"
+              />
+              {/* location  */}
+              <TbTextField
+                name="location"
+                label="Location"
+                placeholder="Provide location"
               />
               {/* Description */}
               <TbTextCountField

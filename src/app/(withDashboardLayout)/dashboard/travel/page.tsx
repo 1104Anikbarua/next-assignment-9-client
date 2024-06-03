@@ -61,8 +61,8 @@ const AddTravel = () => {
     values.activities = values?.activities.replace(/ *, */g, ",").split(",");
     // remove extra space before and after comma and two consecutive comma without any word between
     values.description = words;
-    values.startDate = values?.startDate.format("DD-MM-YYYY");
-    values.endDate = values?.endDate.format("DD-MM-YYYY");
+    values.startDate = values?.startDate?.format("DD-MM-YYYY");
+    values.endDate = values?.endDate?.format("DD-MM-YYYY");
     values.budget = Number(values?.budget);
     try {
       if (files?.length) {

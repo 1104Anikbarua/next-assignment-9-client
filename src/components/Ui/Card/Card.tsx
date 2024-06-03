@@ -25,7 +25,7 @@ export default function MediaControlCard({ trip }: { trip: TTravel }) {
         }}
       >
         <Image
-          src={cardImage}
+          src={trip.photos[0]}
           layout="fill"
           objectFit="cover"
           alt="Destination image"
@@ -51,7 +51,7 @@ export default function MediaControlCard({ trip }: { trip: TTravel }) {
           </Typography>
         </Typography>
         <Typography
-          sx={{ textWrap: "wrap" }}
+          sx={{ textWrap: "wrap", height: { xs: "fit-content", sm: "150px" } }}
           variant="h6"
           fontWeight={500}
           component={"h6"}
@@ -62,7 +62,7 @@ export default function MediaControlCard({ trip }: { trip: TTravel }) {
             sx={{
               display: "inline",
               textWrap: "wrap",
-              height: { xs: "fit-content", sm: "100px" },
+              // height: { xs: "fit-content", sm: "160px" },
             }}
             variant="body1"
             component={"p"}

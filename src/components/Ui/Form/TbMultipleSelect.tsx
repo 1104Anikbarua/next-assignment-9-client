@@ -12,7 +12,7 @@ export interface IActivitiesProps {
   activities: string[];
   selectedActivities: string[];
   setSelectedActivities: React.Dispatch<React.SetStateAction<string[]>>;
-  prevActivities: string[] | undefined;
+  prevActivities?: string[] | undefined;
 }
 //
 const ITEM_HEIGHT = 48;
@@ -88,7 +88,6 @@ export default function TbMultipleSelectChip({
           renderValue={(selected) => (
             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
               {selected?.map((value) => {
-                // const isExists=
                 return <Chip key={value} label={activities[Number(value)]} />;
               })}
             </Box>

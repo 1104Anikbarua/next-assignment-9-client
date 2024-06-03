@@ -71,8 +71,8 @@ const ManageTravel = () => {
     try {
       const res = await removeTravel(selectedId).unwrap();
       console.log(res);
-      if (res?.response?.success) {
-        toast.success(res.response.message, {
+      if (res?.success) {
+        toast.success(res.message, {
           position: "top-center",
           duration: 2000,
           id: toastId,
@@ -152,9 +152,9 @@ const ManageTravel = () => {
   }));
 
   const editTravel = travels?.find((travel) => travel.id === selectedId);
-  console.log(editTravel);
   return (
     <Container>
+      {/* title start */}
       <Typography
         component={"h3"}
         variant="h3"
@@ -167,6 +167,7 @@ const ManageTravel = () => {
       >
         All Travels
       </Typography>
+      {/* title ends */}
       <Box sx={{ height: 400, width: "100%" }}>
         {isTravelLoading ? (
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
@@ -212,10 +213,12 @@ const ManageTravel = () => {
         handleDeleteConfirm={handleDeleteConfirm}
         handleEditConfirm={handleEditConfirm}
       />
+      {/* edit travel info form  */}
       <ActionDialogForm
         open={openDialogForm}
         onClose={handleDialogCloseForm}
         travel={editTravel}
+        setOpenDialog={setOpenDialog}
       />
     </Container>
   );

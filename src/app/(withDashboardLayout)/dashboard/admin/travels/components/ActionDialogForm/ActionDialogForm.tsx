@@ -2,10 +2,6 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import { Container, Grid, Paper, Stack, Typography } from "@mui/material";
 import { TTravel } from "@/types/travel.types";
 import WrapperForm from "@/components/Ui/Form/WrapperForm";
@@ -18,31 +14,21 @@ import dayjs from "dayjs";
 import Image from "next/image";
 import TbFileUpload from "@/components/Ui/Form/TbFileUpload";
 import axios from "axios";
-import {
-  // activities,
-  imageKey,
-  travelTypes,
-} from "@/constant/constant";
+import { activities, imageKey, travelTypes } from "@/constant/constant";
 import { useSetTravelMutation } from "@/redux/features/trip/tripApi";
 import { toast } from "sonner";
 import TbMultipleSelectChip from "@/components/Ui/Form/TbMultipleSelect";
-export const activities = [
-  "Kid Friendly",
-  "Museums",
-  "Shopping",
-  "Historical",
-  "Outdoor Adventures",
-  "Art & Cultural",
-  "Amusement Parks",
-];
+
 const ActionDialogForm = ({
   open,
   onClose,
   travel,
+  setOpenDialog,
 }: {
   open: boolean;
   onClose: () => void;
   travel: TTravel | undefined;
+  setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   //word count state
   const [words, setWord] = React.useState("");
@@ -54,7 +40,6 @@ const ActionDialogForm = ({
   // total word count
   let totalWord = 0;
   totalWord = words?.length;
-  // console.log("travel", travel);
   // format date
   const parseDate = (dateString: string) => {
     const [day, month, year] = dateString?.split("-");
@@ -67,7 +52,6 @@ const ActionDialogForm = ({
     budget: travel?.budget,
     startDate: travel ? parseDate(travel.startDate) : dayjs(),
     endDate: travel ? parseDate(travel.endDate) : dayjs(),
-    // activities: travel?.activities.join(),
     location: travel?.location.join(),
     travelId: travel?.id,
   };
@@ -118,13 +102,15 @@ const ActionDialogForm = ({
         values["photos"] = uploadPromises?.filter((link) => Boolean(link));
       }
       const res = await setTravel(values).unwrap();
-      console.log(res);
+
       if (res.response.data?.id) {
         toast.success(res.response.message, {
           duration: 2000,
           position: "top-center",
           id: toastId,
         });
+        onClose();
+        setOpenDialog(false);
       }
     } catch (error) {
       console.log(error);
@@ -134,7 +120,7 @@ const ActionDialogForm = ({
   React.useEffect(() => {
     setWord(travel?.description as string);
   }, [travel?.description]);
-  console.log(selectedActivities);
+  console.log(travel);
   return (
     <Container>
       <Box width={"100%"} py={10}>

@@ -25,16 +25,20 @@ const ActionDialog = ({
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
+      {/* dialog title  */}
       <DialogTitle id="alert-dialog-title">Choose actions?</DialogTitle>
+      {/* dialog content  */}
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
           This action cannot be undone.
         </DialogContentText>
       </DialogContent>
       <DialogActions>
+        {/* edit button  */}
         <Button onClick={() => handleEditConfirm()} color="success">
           Edit
         </Button>
+        {/* delete button  */}
         <Button
           onClick={() => {
             handleDeleteConfirm();

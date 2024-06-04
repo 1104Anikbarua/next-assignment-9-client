@@ -204,7 +204,7 @@ const TravelDetails = ({
             <Link
               style={{ textDecoration: "none", color: "white" }}
               href={{
-                pathname: "/travelrequest",
+                pathname: "/travel-request",
                 query: { id: travel?.id },
               }}
             >

@@ -11,7 +11,7 @@ interface IRoutesWithRoles {
 }
 
 // routes start
-const authRoutes = ["/login", "/register"];
+const authRoutes = ["/login", "/register", /^\/travel-request($|\?)/];
 // common routes for all user
 const dashboardCommonRoutes = ["/dashbaord", "/dashboard/change-password"];
 const routesWithRoles: IRoutesWithRoles = {
@@ -26,6 +26,13 @@ export function middleware(request: NextRequest) {
   // retrive accesss token from cookies
   const accessToken = cookies().get(authKey)?.value;
   console.log("aaaaaaacccc", accessToken);
+
+  // if any route match with travel-requset
+  if (pathname.startsWith("/travel-request")) {
+    if (!accessToken) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
+  }
   // if user without token then sent him to the login page
   if (!accessToken) {
     // if user without token try to go to the login or register page then do the process
@@ -55,5 +62,10 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: "/dashboard/:path*",
+  matcher: [
+    "/login",
+    "/travel-request:path*",
+    "/register",
+    "/dashboard/:path*",
+  ],
 };

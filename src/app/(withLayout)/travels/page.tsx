@@ -2,17 +2,12 @@
 import { useGetTravelsQuery } from "@/redux/features/trip/tripApi";
 import { styled, alpha } from "@mui/material/styles";
 import {
-  // styled,
-  Checkbox,
   Stack,
   Box,
   Container,
-  TextField,
   Button,
   Pagination,
-  Radio,
   Grid,
-  Typography,
   InputBase,
 } from "@mui/material";
 import { FilterAlt, Search as SearchIcon } from "@mui/icons-material";

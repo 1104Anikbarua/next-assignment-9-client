@@ -158,11 +158,7 @@ const HomeSearchbar = () => {
                         position: "relative",
                       }}
                     >
-                      <Skeleton
-                        variant="rectangular"
-                        width="100%"
-                        height="100%"
-                      />
+                      <Skeleton variant="rounded" width="100%" height="100%" />
                     </Box>
                     <Stack spacing={1} mt={1}>
                       <Typography variant="h6" fontWeight={500}>

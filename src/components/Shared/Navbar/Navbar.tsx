@@ -48,7 +48,7 @@ const Navbar = () => {
       handleCloseUserMenu();
     }
   }, [isSmUp]);
-
+  // get user profile api
   const { data, isLoading } = useGetMeQuery({});
   const user = data?.response?.data;
   return (

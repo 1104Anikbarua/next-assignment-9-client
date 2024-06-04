@@ -32,9 +32,6 @@ const AddTravel = () => {
   let totalWord = 0;
   totalWord = words.length;
 
-  // imgbb key
-  const imageKey = process.env.NEXT_PUBLIC_IMAGE_KEY;
-
   // add travel api
   const [addTravel, { isLoading, isSuccess }] = useAddTravelMutation();
 
@@ -49,6 +46,7 @@ const AddTravel = () => {
     }),
     startDate: z.coerce.date(),
     endDate: z.coerce.date(),
+    photos: z.any(),
   });
   // create a travel handler
   const handleAddTravel: SubmitHandler<FieldValues> = async (values) => {
@@ -78,7 +76,7 @@ const AddTravel = () => {
         }
         values["photos"] = uploadPromises.filter((link) => Boolean(link));
       }
-
+      console.log(values);
       const res = await addTravel(values).unwrap();
       console.log(res);
       if (res?.response?.success) {
@@ -183,7 +181,7 @@ const AddTravel = () => {
                 totalWord={totalWord}
               />
               {/* Upload files */}
-              <TbFileUpload name="photos" placeholder="upload files" />
+              <TbFileUpload multiple name="photos" placeholder="upload files" />
               <Button type="submit" color="success">
                 Create Trip
               </Button>

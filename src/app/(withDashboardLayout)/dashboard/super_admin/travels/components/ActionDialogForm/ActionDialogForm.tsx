@@ -186,7 +186,7 @@ const ActionDialogForm = ({
                     </Grid>
                   ))}
                 </Grid>
-                <TbFileUpload name="photos" placeholder="upload files" />
+                <TbFileUpload multiple name="photos" placeholder="upload files" />
                 <Button type="submit" color="success">
                   Submit
                 </Button>

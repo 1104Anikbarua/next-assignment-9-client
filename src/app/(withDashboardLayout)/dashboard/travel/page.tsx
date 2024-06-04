@@ -148,7 +148,7 @@ const AddTravel = () => {
                 totalWord={totalWord}
               />
               {/* Upload files */}
-              <TbFileUpload name="photos" placeholder="upload files" />
+              <TbFileUpload multiple name="photos" placeholder="upload files" />
               <Button type="submit" color="success">
                 Create Trip
               </Button>

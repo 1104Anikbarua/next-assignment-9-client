@@ -11,6 +11,7 @@ interface IFileUploadProps {
   placeholder: string;
   sx?: SxProps;
   fullWidth?: boolean;
+  multiple?: boolean;
 }
 //
 const VisuallyHiddenInput = styled("input")({
@@ -30,6 +31,7 @@ export default function TbFileUpload({
   placeholder,
   sx,
   fullWidth,
+  multiple,
 }: IFileUploadProps) {
   return (
     <Controller
@@ -53,18 +55,8 @@ export default function TbFileUpload({
             value={value?.fileName}
             onChange={(e) => onChange(e?.target)}
             type="file"
-            multiple
+            multiple={multiple}
           />
-          {/* <Input
-            fullWidth={fullWidth}
-            {...field}
-            value={value?.fileName}
-            type="file"
-            sx={{ display: "none" }}
-            onChange={(e) =>
-              onChange((e?.target as HTMLInputElement)?.files?.[0])
-            }
-          /> */}
         </Button>
       )}
     />

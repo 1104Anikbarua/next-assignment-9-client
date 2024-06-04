@@ -10,10 +10,14 @@ import {
   Typography,
   Container,
   Stack,
+  styled,
+  Avatar,
+  Badge,
 } from "@mui/material";
 
 import MenuIcon from "@mui/icons-material/Menu";
 import DashboardSidebar from "../DashboardSidebar/DashboardSidebar";
+import { useGetMeQuery } from "@/redux/features/user/userApi";
 const drawerWidth = 240;
 
 interface Props {
@@ -49,6 +53,38 @@ export default function DashboardLayout(props: Props) {
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
+  // get user profile api
+  const { data, isLoading } = useGetMeQuery({});
+  const user = data?.response?.data;
+  //
+  const StyledBadge = styled(Badge)(({ theme }) => ({
+    "& .MuiBadge-badge": {
+      backgroundColor: "#44b700",
+      color: "#44b700",
+      boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+      "&::after": {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        borderRadius: "50%",
+        animation: "ripple 1.2s infinite ease-in-out",
+        border: "1px solid currentColor",
+        content: '""',
+      },
+    },
+    "@keyframes ripple": {
+      "0%": {
+        transform: "scale(.8)",
+        opacity: 1,
+      },
+      "100%": {
+        transform: "scale(2.4)",
+        opacity: 0,
+      },
+    },
+  }));
   return (
     <Container>
       <Box sx={{ display: "flex" }}>
@@ -66,9 +102,16 @@ export default function DashboardLayout(props: Props) {
         >
           {/* todo fix  */}
           <Toolbar>
-            <Stack>
+            <Stack
+              width={"100%"}
+              sx={{
+                flexDirection: { xs: "row", sm: "row" },
+              }}
+              justifyContent={"space-between"}
+            >
+              {/* small screen drawer button  */}
               <IconButton
-                color="inherit"
+                // color=""
                 aria-label="open drawer"
                 edge="start"
                 onClick={handleDrawerToggle}
@@ -76,9 +119,36 @@ export default function DashboardLayout(props: Props) {
               >
                 <MenuIcon />
               </IconButton>
-              <Typography variant="h6" noWrap component="div">
-                Responsive drawer
-              </Typography>
+
+              <Stack
+                width={"100%"}
+                justifyContent={"space-between"}
+                alignItems={"center"}
+                sx={{
+                  display: { xs: "none", sm: "flex" },
+                  flexDirection: "row",
+                }}
+              >
+                <Typography component={"div"}></Typography>
+                <Typography component={"div"}>
+                  <StyledBadge
+                    overlap="circular"
+                    anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                    variant="dot"
+                  >
+                    <Avatar alt="Remy Sharp" src={user?.profilePhoto} />
+                  </StyledBadge>
+                </Typography>
+              </Stack>
+              {/* sm hidden avatar badge */}
+              <StyledBadge
+                overlap="circular"
+                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                variant="dot"
+                sx={{ display: { xs: "inherit", sm: "none" } }}
+              >
+                <Avatar alt="Remy Sharp" src={user?.profilePhoto} />
+              </StyledBadge>
             </Stack>
           </Toolbar>
         </AppBar>

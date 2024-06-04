@@ -1,8 +1,7 @@
 import * as React from "react";
 // import { useTheme } from "@mui/material/styles";
-import { Box, Card, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import Image from "next/image";
-import cardImage from "@/assets/hero/herosection.jpg";
 import BaseButton from "../Button/Button";
 import { TTravel } from "@/types/travel.types";
 
@@ -25,7 +24,7 @@ export default function MediaControlCard({ trip }: { trip: TTravel }) {
         }}
       >
         <Image
-          src={trip.photos[0]}
+          src={trip?.photos[0]}
           layout="fill"
           objectFit="cover"
           alt="Destination image"
@@ -38,7 +37,6 @@ export default function MediaControlCard({ trip }: { trip: TTravel }) {
           variant="h6"
           fontWeight={500}
           component={"h6"}
-          // sm: "300px"
           width={{ xs: "100%" }}
         >
           Destination:
@@ -62,14 +60,13 @@ export default function MediaControlCard({ trip }: { trip: TTravel }) {
             sx={{
               display: "inline",
               textWrap: "wrap",
-              // height: { xs: "fit-content", sm: "160px" },
             }}
             variant="body1"
             component={"p"}
           >
             {" "}
-            {`${trip?.description.slice(0, 100)} ${
-              trip.description.length > 100 ? "..." : ""
+            {`${trip?.description?.slice(0, 100)} ${
+              trip?.description?.length > 100 ? "..." : ""
             }`}
           </Typography>
         </Typography>
@@ -103,7 +100,7 @@ export default function MediaControlCard({ trip }: { trip: TTravel }) {
             {trip?.endDate}
           </Typography>
         </Typography>
-        <BaseButton id={trip.id} />
+        <BaseButton id={trip?.id} />
       </Stack>
     </Box>
   );

@@ -16,7 +16,7 @@ const tripApi = baseApi.injectEndpoints({
         };
       },
       transformResponse: (response: IReduxResponse<TTravel[]>) => {
-        return { response: response.data, meta: response.meta };
+        return { response: response?.data, meta: response?.meta };
       },
       providesTags: ["trips"],
     }),

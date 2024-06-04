@@ -15,7 +15,7 @@ interface IDrawerSidebarProps {
   item: IMenuItems;
 }
 const SidebarRoute = ({ item, index }: IDrawerSidebarProps) => {
-  const href = `/dashboard/${item.path}`;
+  const href = `/dashboard/${item?.path}`;
   const pathname = usePathname();
   return (
     <Link
@@ -35,8 +35,8 @@ const SidebarRoute = ({ item, index }: IDrawerSidebarProps) => {
         }}
       >
         <ListItemButton>
-          <ListItemIcon>{item.icon && <item.icon />}</ListItemIcon>
-          <ListItemText primary={item.title} />
+          <ListItemIcon>{item?.icon && <item.icon />}</ListItemIcon>
+          <ListItemText primary={item?.title} />
         </ListItemButton>
       </ListItem>
     </Link>

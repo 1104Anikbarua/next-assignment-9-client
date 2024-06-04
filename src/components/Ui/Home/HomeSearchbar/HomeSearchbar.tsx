@@ -1,5 +1,13 @@
 "use client";
-import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Skeleton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import React, { useState } from "react";
 import TbTextField from "../../Form/TbTextField";
 import WrapperForm from "../../Form/WrapperForm";
@@ -35,7 +43,6 @@ const HomeSearchbar = () => {
   const { data, isFetching } = useGetTravelsQuery(
     isSearch ? query : { sortBy: "createdAt" }
   );
-  console.log(data);
   // search a trip submit handler
   const handleSubmit: SubmitHandler<FieldValues> = async (values) => {
     values.startDate = dayjs(values.startDate)?.format("DD-MM-YYYY");
@@ -131,11 +138,60 @@ const HomeSearchbar = () => {
           columnGap={{ xs: 0.5, sm: 1, md: 1, lg: 1 }}
           justifyContent={"center"}
         >
-          {trips?.map((trip, index) => (
-            <Grid key={index} item xs={12} sm={5} md={3.7} lg={3.6}>
-              <MediaControlCard key={index} trip={trip} />
-            </Grid>
-          ))}
+          {isFetching
+            ? Array.from({ length: 10 }).map((_, index) => (
+                <Grid key={index} item xs={12} sm={5} md={3.7} lg={3.6}>
+                  <Box
+                    key={index}
+                    sx={{
+                      p: 1,
+                      width: "100%",
+                      maxWidth: { xs: "100%", sm: 400 },
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        borderRadius: 1,
+                        width: "100%",
+                        maxWidth: "100%",
+                        height: "300px",
+                        position: "relative",
+                      }}
+                    >
+                      <Skeleton
+                        variant="rectangular"
+                        width="100%"
+                        height="100%"
+                      />
+                    </Box>
+                    <Stack spacing={1} mt={1}>
+                      <Typography variant="h6" fontWeight={500}>
+                        <Skeleton variant="text" width="80%" />
+                      </Typography>
+                      <Typography variant="h6" fontWeight={500}>
+                        <Skeleton variant="text" width="100%" height="150px" />
+                      </Typography>
+                      <Typography variant="h6" fontWeight={500}>
+                        <Skeleton variant="text" width="60%" />
+                      </Typography>
+                      <Typography variant="h6" fontWeight={500}>
+                        <Skeleton variant="text" width="60%" />
+                      </Typography>
+
+                      <Skeleton
+                        variant="rectangular"
+                        width="100%"
+                        height="40px"
+                      />
+                    </Stack>
+                  </Box>
+                </Grid>
+              ))
+            : trips?.map((trip, index) => (
+                <Grid key={index} item xs={12} sm={5} md={3.7} lg={3.6}>
+                  <MediaControlCard key={index} trip={trip} />
+                </Grid>
+              ))}
         </Grid>
         {/* card end here  */}
         {/* see more button  */}

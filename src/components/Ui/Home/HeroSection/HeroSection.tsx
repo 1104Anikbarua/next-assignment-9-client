@@ -8,6 +8,7 @@ import { GetRole } from "@/utlis/getUserRole";
 const HeroSection = () => {
   // get user role
   const role = GetRole();
+  console.log(role);
   return (
     <Container>
       <Box

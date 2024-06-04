@@ -9,8 +9,10 @@ export const GetRole = () => {
   // call the generate menu items function to get the route
   // store user role in state inside useeffect to handle hydration error
   useEffect(() => {
-    const { role } = getUserToken() as IUser;
-    setUserRole(role);
+    const user = getUserToken() as IUser;
+    if (user) {
+      setUserRole(user?.role);
+    }
   }, []);
   return userRole;
 };

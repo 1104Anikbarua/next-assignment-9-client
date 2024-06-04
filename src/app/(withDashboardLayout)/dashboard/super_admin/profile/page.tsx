@@ -39,7 +39,7 @@ const ProfilePage = () => {
 
     try {
       values["profilePhoto"] = await uploadImage(files);
-      const res = await setStatus(values).unwrap();
+      const res = await setStatus(values)?.unwrap();
       console.log(res);
       if (res?.response?.success) {
         toast.success(res?.response?.message, {

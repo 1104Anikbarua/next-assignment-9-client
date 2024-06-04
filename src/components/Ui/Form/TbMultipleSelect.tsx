@@ -31,8 +31,8 @@ function getStyles(name: string, personName: readonly string[], theme: Theme) {
   return {
     fontWeight:
       personName?.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
+        ? theme?.typography?.fontWeightRegular
+        : theme?.typography?.fontWeightMedium,
   };
 }
 
@@ -51,18 +51,18 @@ export default function TbMultipleSelectChip({
       target: { value },
     } = event;
     typeof value === "string"
-      ? value.split(",")
-      : value.map((val) => {
-          const isExists = selectedActivities.filter(
-            (select) => select === val.toString()
+      ? value?.split(",")
+      : value?.map((val) => {
+          const isExists = selectedActivities?.filter(
+            (select) => select === val?.toString()
           );
 
           if (isExists.length) {
             setSelectedActivities(
-              selectedActivities.filter((el) => el !== val.toString())
+              selectedActivities?.filter((el) => el !== val?.toString())
             );
           } else {
-            setSelectedActivities(value.map((prev) => prev.toString()));
+            setSelectedActivities(value.map((prev) => prev?.toString()));
           }
         });
   };
@@ -78,7 +78,6 @@ export default function TbMultipleSelectChip({
       <FormControl fullWidth size="small" sx={{ maxWidth: "xs" }}>
         <InputLabel id="demo-multiple-chip-label">Activities</InputLabel>
         <Select
-          //   disabled={!schedules?.length}
           labelId="demo-multiple-chip-label"
           id="demo-multiple-chip"
           multiple

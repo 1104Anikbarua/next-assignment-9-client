@@ -1,13 +1,33 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Stack, Typography } from "@mui/material";
+import Link from "next/link";
 import React from "react";
 
 const NotFound = () => {
   return (
-    <Box>
-      <Typography variant={"h6"} component={"h3"}>
-        Opps something went wrong !
+    <Stack
+      justifyContent={"center"}
+      height={"100vh"}
+      alignItems={"center"}
+      spacing={2}
+    >
+      <Typography
+        component={"h3"}
+        variant="h3"
+        sx={{
+          fontSize: { xs: "24px" },
+          fontWeight: { xs: 600, sm: 900 },
+          opacity: "0.7",
+          maxWidth: { xs: "100%" },
+        }}
+      >
+        Opps! Something went wrong
       </Typography>
-    </Box>
+      <Box>
+        <Button color="success" LinkComponent={Link} href="/">
+          Home
+        </Button>
+      </Box>
+    </Stack>
   );
 };
 

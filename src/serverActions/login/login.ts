@@ -1,4 +1,5 @@
 import { FieldValues } from "react-hook-form";
+import { setAccessTokenInCookies } from "../setAccessToken";
 // import { setAccessTokenInCookies } from "../setAccessToken";
 // import getDecodedToken from "@/utlis/decodeToken";
 
@@ -13,16 +14,20 @@ const loginUser = async (userInfo: FieldValues) => {
     credentials: "include", //to store refreseh token in cookie
   });
 
-  const patient = await res.json();
-  //   const { role } = getDecodedToken(patient.data.accessToken);
-  //   setAccessTokenInCookies(patient.data.accessToken, {
-  //     redirect: `/dashboard/${role.toLowerCase()}`,
-  //   });
+  const buddy = await res.json();
+  console.log(buddy);
+  //   const { role } = getDecodedToken(buddy.data.accessToken);
+  setAccessTokenInCookies(
+    buddy?.data?.accessToken
+    //   , {
+    //   redirect: `/dashboard/${role.toLowerCase()}`,
+    // }
+  );
   // do this parts in a functions
-  // if (patient.data.accessToken) {
-  //   cookies().set(authKey, patient?.data?.accessToken);
+  // if (buddy.data.accessToken) {
+  //   cookies().set(authKey, buddy?.data?.accessToken);
   //   redirect("/dashboard");
   // }
-  return patient;
+  return buddy;
 };
 export default loginUser;

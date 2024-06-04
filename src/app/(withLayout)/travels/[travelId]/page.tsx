@@ -23,7 +23,7 @@ const TravelDetails = ({
   params: { travelId: string };
 }) => {
   const { data, isLoading } = useGetTravelQuery({ id }, { skip: !id });
-  const travel = data?.response.data;
+  const travel = data?.response?.data;
   console.log(travel);
   return (
     <Container>

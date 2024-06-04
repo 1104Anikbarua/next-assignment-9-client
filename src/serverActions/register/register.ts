@@ -13,7 +13,7 @@ const registerUser = async (formValues: any) => {
       credentials: "include",
     }
   );
-  const patient = await res.json();
-  return patient;
+  const buddy = await res.json();
+  return buddy;
 };
 export default registerUser;

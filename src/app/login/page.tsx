@@ -34,7 +34,7 @@ const Login = () => {
 
     try {
       const res = await loginUser(values);
-      console.log(res);
+
       if (res.success) {
         toast.success(res.message, {
           duration: 2000,
@@ -46,9 +46,16 @@ const Login = () => {
         setUserToken(res.data.accessToken);
         //redirect to homepage
         router.push("/");
+      } else {
+        throw new Error(res.message);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
+      toast.error(error.message, {
+        position: "top-center",
+        duration: 2000,
+        id: toastId,
+      });
     }
   };
   // login form default values

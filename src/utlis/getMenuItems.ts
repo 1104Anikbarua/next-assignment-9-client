@@ -1,14 +1,9 @@
 import { USER_ROLE } from "@/constant/constant";
 import { IMenuItems, IUserRole } from "@/types/global";
-import TryIcon from "@mui/icons-material/Try";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import GroupIcon from "@mui/icons-material/Group";
-import MedicalInformationIcon from "@mui/icons-material/MedicalInformation";
-import ReviewsIcon from "@mui/icons-material/Reviews";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
-import PaymentIcon from "@mui/icons-material/Payment";
 import EditCalendarIcon from "@mui/icons-material/EditCalendar";
-import ScheduleIcon from "@mui/icons-material/Schedule";
 import PersonPinIcon from "@mui/icons-material/PersonPin";
 import KeyIcon from "@mui/icons-material/Key";
 import AllInclusiveIcon from "@mui/icons-material/AllInclusive";
@@ -29,8 +24,13 @@ export const generateMenutItems = (role: IUserRole) => {
         },
         {
           title: "Manage Users",
-          path: `${role}/manage-users`,
+          path: `${role}/users`,
           icon: GroupIcon,
+        },
+        {
+          title: "Manage Travel",
+          path: `${role}/travels`,
+          icon: AllInclusiveIcon,
         },
         {
           title: "Profile",

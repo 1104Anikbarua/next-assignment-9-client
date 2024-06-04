@@ -33,11 +33,11 @@ const TravelRequest = () => {
     { skip: !id }
   );
   // travel data
-  const travel = travelData?.response.data;
+  const travel = travelData?.response?.data;
   // travel query api
   // user api info start here
   const { data, isLoading } = useGetMeQuery({}, { skip: !travel?.id });
-  const response = data?.response.data;
+  const response = data?.response?.data;
   // user api info end here
 
   // add buddy request api start here

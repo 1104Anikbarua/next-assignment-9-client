@@ -50,7 +50,7 @@ const Navbar = () => {
   }, [isSmUp]);
 
   const { data, isLoading } = useGetMeQuery({});
-  const user = data?.response.data;
+  const user = data?.response?.data;
   return (
     <Box
       bgcolor={"white"}

@@ -1,6 +1,5 @@
 "use client";
 import TravelsCard from "@/app/(withLayout)/travels/components/TravelCard";
-import MediaControlCard from "@/components/Ui/TestCard/TestCard";
 import { useGetMyPostedTravelsQuery } from "@/redux/features/user/userApi";
 import { Container, Grid, Typography } from "@mui/material";
 import React, { useState } from "react";
@@ -20,7 +19,7 @@ const Travels = () => {
   // remove travel api
   const [removeTravel, { isLoading: isRemoveLoading }] =
     useRemoveTravelMutation();
-  const travels = data?.response.data;
+  const travels = data?.response?.data;
   // travel action handler
   // const handleAction = (id: string) => {
   //   setSelectedId(id);

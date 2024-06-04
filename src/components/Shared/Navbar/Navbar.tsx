@@ -20,9 +20,8 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import Groups2Icon from "@mui/icons-material/Groups2";
 import HomeIcon from "@mui/icons-material/Home";
-import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
-import LogoutIcon from "@mui/icons-material/Logout";
-import PasswordIcon from "@mui/icons-material/Password";
+import { useGetMeQuery } from "@/redux/features/user/userApi";
+
 const AuthToggle = dynamic(
   () => import("@/components/Ui/Home/AuthToggle/AuthToggle"),
   { ssr: false }
@@ -49,6 +48,9 @@ const Navbar = () => {
       handleCloseUserMenu();
     }
   }, [isSmUp]);
+
+  const { data, isLoading } = useGetMeQuery({});
+  const user = data?.response.data;
   return (
     <Box
       bgcolor={"white"}
@@ -107,7 +109,7 @@ const Navbar = () => {
           <Box sx={{ flexGrow: 0, display: { xs: "block", sm: "none" } }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp" src={user?.profilePhoto} />
               </IconButton>
             </Tooltip>
             <Menu

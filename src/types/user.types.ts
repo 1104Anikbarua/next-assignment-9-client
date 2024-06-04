@@ -4,6 +4,7 @@ export type TUser = {
   email: string;
   role: string;
   status: string;
+  profilePhoto: string;
   createdAt: string;
   updatedAt: string;
 };

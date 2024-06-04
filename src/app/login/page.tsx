@@ -20,7 +20,6 @@ import Link from "next/link";
 import loginUser from "@/serverActions/login/login";
 import { setUserToken } from "@/services/auth.services";
 import { useRouter } from "next/navigation";
-import Github from "@/components/Ui/Authentication/Github";
 //
 const Login = () => {
   // router to navigate
@@ -127,9 +126,6 @@ const Login = () => {
               <Button type="submit" size="small" color="success">
                 Login
               </Button>
-              <Divider sx={{ color: "lightgray" }}>Or</Divider>
-              {/* github  */}
-              <Github />
               <Typography component={"p"} variant="body2">
                 New to Amigo? please{" "}
                 <Link href={"/register"} style={{ textDecoration: "none" }}>

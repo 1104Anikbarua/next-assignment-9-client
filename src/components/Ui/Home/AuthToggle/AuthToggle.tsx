@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, ListItemIcon, MenuItem, Typography } from "@mui/material";
-import { isUserLoggedIn, logOutUser } from "@/services/auth.services";
+import { isUserLoggedIn } from "@/services/auth.services";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { signOutUser } from "@/serverActions/signOutUser";

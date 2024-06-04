@@ -22,8 +22,10 @@ const TravelDetails = ({
 }: {
   params: { travelId: string };
 }) => {
+  // travel details api
   const { data, isLoading } = useGetTravelQuery({ id }, { skip: !id });
   const travel = data?.response?.data;
+  // travel details api
   console.log(travel);
   return (
     <Container>
@@ -97,7 +99,7 @@ const TravelDetails = ({
               height={"60px"}
             >
               <Image
-                src={postedUser}
+                src={travel?.user?.profilePhoto || postedUser}
                 objectFit="cover"
                 layout="fill"
                 style={{ borderRadius: "50%" }}
@@ -174,7 +176,7 @@ const TravelDetails = ({
                   sx={{ whiteSpace: "normal" }}
                 >
                   {activities[Number(activity)]}
-                  {travel.activities.length - 1 === index ? "!" : ","}
+                  {travel?.activities?.length - 1 === index ? "!" : ","}
                 </Box>
               ))}
             </Box>

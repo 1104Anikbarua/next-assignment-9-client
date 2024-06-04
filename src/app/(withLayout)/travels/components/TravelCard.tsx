@@ -41,7 +41,7 @@ export default function TravelsCard({
           }}
         >
           <Image
-            src={trip.photos[0] || cardImage}
+            src={trip?.photos[0] || cardImage}
             layout="fill"
             objectFit="cover"
             alt="Destination image"
@@ -83,8 +83,8 @@ export default function TravelsCard({
               component={"p"}
             >
               {" "}
-              {`${trip?.description.slice(0, 100)} ${
-                trip.description.length > 100 ? "..." : ""
+              {`${trip?.description?.slice(0, 100)} ${
+                trip?.description?.length > 100 ? "..." : ""
               }`}
             </Typography>
           </Typography>
@@ -124,7 +124,7 @@ export default function TravelsCard({
                 Edit
               </Button>
               <Button
-                onClick={() => handleDeleteConfirm?.(trip.id)}
+                onClick={() => handleDeleteConfirm?.(trip?.id)}
                 color="error"
               >
                 Delete

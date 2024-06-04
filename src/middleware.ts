@@ -11,7 +11,7 @@ interface IRoutesWithRoles {
 }
 
 // routes start
-const authRoutes = ["/login", "/register", /^\/travel-request($|\?)/];
+const authRoutes = ["/login", "/register"];
 // common routes for all user
 const dashboardCommonRoutes = ["/dashbaord", "/dashboard/change-password"];
 const routesWithRoles: IRoutesWithRoles = {
@@ -31,6 +31,7 @@ export function middleware(request: NextRequest) {
     if (!accessToken) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
+    return NextResponse.next();
   }
   // if user without token then sent him to the login page
   if (!accessToken) {

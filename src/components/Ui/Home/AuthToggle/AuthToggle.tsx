@@ -7,6 +7,7 @@ import { signOutUser } from "@/serverActions/signOutUser";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PasswordIcon from "@mui/icons-material/Password";
+import { GetRole } from "@/utlis/getUserRole";
 const AuthToggle = ({
   handleCloseUserMenu,
 }: {
@@ -21,8 +22,12 @@ const AuthToggle = ({
     router.push("/login"); //send back to login page
     router.refresh(); //refresh the page
   };
+
+  const role = GetRole();
+
   return (
     <>
+      {/* mobile menu */}
       <MenuItem
         sx={{ display: { xs: "block", sm: "none" } }}
         onClick={handleCloseUserMenu}
@@ -34,7 +39,7 @@ const AuthToggle = ({
           style={{ textDecoration: "none", color: "black" }}
           textAlign="center"
           component={Link}
-          href={"/profile"}
+          href={`/dashboard/${role}/profile`}
         >
           Profile
         </Typography>
@@ -82,7 +87,7 @@ const AuthToggle = ({
             display: { xs: "none", sm: "inline-block" },
           }}
           component={Link}
-          href={"/profile"}
+          href={`/dashboard/${role}/profile`}
         >
           My Profile
         </Typography>

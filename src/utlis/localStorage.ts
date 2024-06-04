@@ -1,5 +1,6 @@
 // get user token from localstorage
 const getToken = (key: string) => {
+  console.log("IN THE LOCal storage");
   // check token exists or not
   if (!key || typeof window === undefined) return "";
   return localStorage.getItem(key);

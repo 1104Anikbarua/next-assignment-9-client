@@ -58,8 +58,13 @@ export default function DashboardLayout(props: Props) {
           sx={{
             width: { sm: `calc(100% - ${drawerWidth}px)` },
             ml: { sm: `${drawerWidth}px` },
+            bgcolor: "white",
+            boxShadow: 1,
+            borderBottom: "1px solid",
+            borderColor: "gray",
           }}
         >
+          {/* todo fix  */}
           <Toolbar>
             <Stack>
               <IconButton

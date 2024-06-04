@@ -1,10 +1,12 @@
 "use client";
+import TbFileUpload from "@/components/Ui/Form/TbFileUpload";
 import TbTextField from "@/components/Ui/Form/TbTextField";
 import WrapperForm from "@/components/Ui/Form/WrapperForm";
 import {
   useGetMeQuery,
   useSetStausMutation,
 } from "@/redux/features/user/userApi";
+import uploadImage from "@/utlis/uploadImage";
 import {
   Box,
   Button,
@@ -33,26 +35,28 @@ const ProfilePage = () => {
       position: "top-center",
     });
     values["id"] = user?.id;
-    console.log(values);
-    // try {
-    //   const res = await setStatus(values).unwrap();
-    //   console.log(res);
-    //   if (res?.response?.success) {
-    //     toast.success(res?.response?.message, {
-    //       duration: 2000,
-    //       position: "top-center",
-    //       id: toastId,
-    //     });
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    const files = values?.profilePhoto?.files[0];
+
+    try {
+      values["profilePhoto"] = await uploadImage(files);
+      const res = await setStatus(values).unwrap();
+      console.log(res);
+      if (res?.response?.success) {
+        toast.success(res?.response?.message, {
+          duration: 2000,
+          position: "top-center",
+          id: toastId,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <Container>
       <Box width={"100%"} py={10}>
-        {isUserLoading ? (
+        {isUserLoading || isLoading ? (
           <Paper
             square={false}
             sx={{
@@ -68,6 +72,7 @@ const ProfilePage = () => {
               <Typography>.</Typography>
             </Skeleton>
             <Stack sx={{ width: "100%", maxWidth: "386px" }} rowGap={2}>
+              <Skeleton variant="rounded" height={40} animation="wave" />
               <Skeleton variant="rounded" height={40} animation="wave" />
               <Skeleton variant="rounded" height={40} animation="wave" />
               <Skeleton variant="rounded" height={40} animation="wave" />
@@ -111,6 +116,7 @@ const ProfilePage = () => {
                   label="Email"
                   placeholder="Please provide your email"
                 />
+                <TbFileUpload name="profilePhoto" placeholder="Profile photo" />
                 <Button type="submit" color="success">
                   Update Profile
                 </Button>

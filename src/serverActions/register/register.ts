@@ -5,11 +5,12 @@ const registerUser = async (formValues: any) => {
     `${process.env.NEXT_PUBLIC_BACKEND_API}/auth/create-user`,
     {
       method: "POST",
-      body: JSON.stringify(formValues),
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify(formValues),
       cache: "no-cache", //don't cache the user data
+      credentials: "include",
     }
   );
   const patient = await res.json();

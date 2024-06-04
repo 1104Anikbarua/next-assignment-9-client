@@ -1,5 +1,12 @@
 "use client";
-import { Container, Box, Stack, Button, Typography } from "@mui/material";
+import {
+  Container,
+  Box,
+  Stack,
+  Button,
+  Typography,
+  Divider,
+} from "@mui/material";
 import Image from "next/image";
 import React from "react";
 import authImage from "@/assets/auth/login-register.jpg";
@@ -13,9 +20,10 @@ import Link from "next/link";
 import loginUser from "@/serverActions/login/login";
 import { setUserToken } from "@/services/auth.services";
 import { useRouter } from "next/navigation";
+import Github from "@/components/Ui/Authentication/Github";
 //
 const Login = () => {
-  //
+  // router to navigate
   const router = useRouter();
   // create user handler
   const handleLoginUser: SubmitHandler<FieldValues> = async (values) => {
@@ -44,11 +52,12 @@ const Login = () => {
       console.log(error);
     }
   };
+  // login form default values
   const defaultValues = {
     email: "",
     password: "",
   };
-
+  // login validation schema
   const loginUserSchema = z.object({
     email: z
       .string({ required_error: "Email is required" })
@@ -118,6 +127,9 @@ const Login = () => {
               <Button type="submit" size="small" color="success">
                 Login
               </Button>
+              <Divider sx={{ color: "lightgray" }}>Or</Divider>
+              {/* github  */}
+              <Github />
               <Typography component={"p"} variant="body2">
                 New to Amigo? please{" "}
                 <Link href={"/register"} style={{ textDecoration: "none" }}>

@@ -11,8 +11,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import registerUser from "@/serverActions/register/register";
 import { toast } from "sonner";
 import Link from "next/link";
+import { setUserToken } from "@/services/auth.services";
+import { useRouter } from "next/navigation";
 //
 const SignUp = () => {
+  const router = useRouter();
   // create user handler
   const handleCreateUser: SubmitHandler<FieldValues> = async (values) => {
     //
@@ -23,25 +26,30 @@ const SignUp = () => {
     });
     try {
       const res = await registerUser(remaining);
-
+      console.log(res);
       if (res.success) {
         toast.success(res.message, {
           duration: 2000,
           position: "top-center",
           id: toastId,
         });
+        //set token in local storage
+        setUserToken(res.data.accessToken);
+        //redirect to homepage
+        router.push("/");
       }
     } catch (error) {
       console.log(error);
     }
   };
+  // create user default values
   const defaultValues = {
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
   };
-
+  // create user validation schema
   const createUserSchema = z
     .object({
       name: z.string().min(1, { message: "Name is required" }),

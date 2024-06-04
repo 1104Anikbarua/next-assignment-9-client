@@ -72,7 +72,9 @@ const Navbar = () => {
               <Image src={logo} width={40} height={40} alt="company logo" />
             </Box>
 
-            <Typography ml={2}>Amigo</Typography>
+            <Typography ml={2} sx={{ textDecoration: "none" }}>
+              Amigo
+            </Typography>
           </Stack>
           {/* website logo and name section start  */}
           {/* website navigation link desktop start  */}

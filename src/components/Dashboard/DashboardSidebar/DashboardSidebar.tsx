@@ -1,27 +1,19 @@
 import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
-import React, { useState, useEffect } from "react";
-import { Box, Stack, Toolbar, Typography } from "@mui/material";
-import { IUser, IUserRole } from "@/types/global";
+import { Box, Stack, Typography } from "@mui/material";
+import { IUserRole } from "@/types/global";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "@/assets/logo/v (2).png";
-import { getUserToken } from "@/services/auth.services";
 import { generateMenutItems } from "@/utlis/getMenuItems";
 import SidebarRoute from "../SidebarRoute/SidebarRoute";
+import { GetRole } from "@/utlis/getUserRole";
 
 const DashboardSidebar = () => {
-  const [userRole, setUserRole] = useState("");
-  // decode user info and take role
+  // get user role
+  const role = GetRole();
 
-  // call the generate menu items function to get the route
-  // store user role in state inside useeffect to handle hydration error
-  useEffect(() => {
-    const { role } = getUserToken() as IUser;
-    setUserRole(role);
-  }, []);
-
-  const items = generateMenutItems(userRole as IUserRole);
+  const items = generateMenutItems(role as IUserRole);
   return (
     <Box>
       {/* dashboard logo and name start here */}
@@ -32,6 +24,7 @@ const DashboardSidebar = () => {
         py={1}
         component={Link}
         href={"/"}
+        sx={{ textDecoration: "none" }}
       >
         <Image src={logo} width={50} height={50} alt="amigo site logo" />
         <Typography ml={1}>Amigo</Typography>

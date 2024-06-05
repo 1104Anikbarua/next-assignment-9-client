@@ -4,9 +4,9 @@ import {
   Box,
   Typography,
   Grid,
-  Avatar,
-  Link,
+  Link as MUILink,
   Stack,
+  Button,
 } from "@mui/material";
 import { styled } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
@@ -19,6 +19,7 @@ import ctoImg from "@/assets/user/user2.png";
 import seniorImg from "@/assets/user/user3.png";
 import developerImg from "@/assets/user/user4.png";
 import Image from "next/image";
+import Link from "next/link";
 const teamMembers = [
   {
     name: "Mohit sharma",
@@ -52,6 +53,9 @@ const About = () => {
   return (
     <Container>
       <Box sx={{ my: 5 }}>
+        <Button color="success" LinkComponent={Link} href="/">
+          Home
+        </Button>
         <Typography
           sx={{
             opacity: "0.7",
@@ -122,7 +126,7 @@ const About = () => {
         <ContactInfo>
           <EmailIcon />
           <Typography variant="body1" sx={{ ml: 1 }}>
-            <Link href="mailto:info@example.com">info@example.com</Link>
+            <MUILink href="mailto:info@example.com">info@example.com</MUILink>
           </Typography>
         </ContactInfo>
         <ContactInfo>
@@ -132,15 +136,23 @@ const About = () => {
           </Typography>
         </ContactInfo>
         <Box sx={{ mt: 3 }}>
-          <Link href="https://www.facebook.com" target="_blank" sx={{ mr: 2 }}>
+          <MUILink
+            href="https://www.facebook.com"
+            target="_blank"
+            sx={{ mr: 2 }}
+          >
             <FacebookIcon />
-          </Link>
-          <Link href="https://www.twitter.com" target="_blank" sx={{ mr: 2 }}>
+          </MUILink>
+          <MUILink
+            href="https://www.twitter.com"
+            target="_blank"
+            sx={{ mr: 2 }}
+          >
             <TwitterIcon />
-          </Link>
-          <Link href="https://www.linkedin.com" target="_blank">
+          </MUILink>
+          <MUILink href="https://www.linkedin.com" target="_blank">
             <LinkedInIcon />
-          </Link>
+          </MUILink>
         </Box>
       </Stack>
     </Container>

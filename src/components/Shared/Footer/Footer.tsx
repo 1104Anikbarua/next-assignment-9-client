@@ -52,8 +52,12 @@ const Footer = () => {
               variant="body1"
               sx={{
                 cursor: "pointer",
+                color: "#000000",
+                textDecoration: "none",
                 "&:hover": { textDecoration: "underline" },
               }}
+              component={Link}
+              href={"/terms"}
             >
               Terms and conditions
             </Typography>
@@ -61,8 +65,12 @@ const Footer = () => {
               variant="body1"
               sx={{
                 cursor: "pointer",
+                color: "#000000",
+                textDecoration: "none",
                 "&:hover": { textDecoration: "underline" },
               }}
+              component={Link}
+              href={"/privacy"}
             >
               Privacy Policy
             </Typography>

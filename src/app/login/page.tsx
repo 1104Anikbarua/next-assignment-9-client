@@ -20,10 +20,13 @@ import Link from "next/link";
 import loginUser from "@/serverActions/login/login";
 import { setUserToken } from "@/services/auth.services";
 import { useRouter } from "next/navigation";
+import { baseApi } from "@/redux/baseApi/baseApi";
+import { useAppDispatch } from "@/redux/hooks/hooks";
 //
 const Login = () => {
   // router to navigate
   const router = useRouter();
+  const dispatch = useAppDispatch();
   // create user handler
   const handleLoginUser: SubmitHandler<FieldValues> = async (values) => {
     //
@@ -42,6 +45,7 @@ const Login = () => {
           id: toastId,
         });
 
+        dispatch(baseApi.util.invalidateTags(["users", "user"]));
         //set token in local storage
         setUserToken(res.data.accessToken);
         //redirect to homepage

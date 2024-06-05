@@ -9,6 +9,10 @@ import {
 import Image from "next/image";
 import React from "react";
 import logo from "@/assets/logo/v (2).png";
+import facebook from "@/assets/social/facebook.png";
+import instagram from "@/assets/social/instagram.png";
+import linkedin from "@/assets/social/linkedin.png";
+import twiter from "@/assets/social/twitter.png";
 import Link from "next/link";
 const Footer = () => {
   return (
@@ -18,7 +22,6 @@ const Footer = () => {
         direction={"row"}
         spacing={6}
         maxWidth={"100%"}
-        // justifyContent={"space-between"}
         sx={{ justifyContent: { xs: "center", md: "space-between" } }}
       >
         <Box width={"100%"}>
@@ -83,8 +86,12 @@ const Footer = () => {
               variant="body1"
               sx={{
                 cursor: "pointer",
+                color: "#000000",
+                textDecoration: "none",
                 "&:hover": { textDecoration: "underline" },
               }}
+              component={Link}
+              href={"/about"}
             >
               Contact us
             </Typography>
@@ -113,6 +120,17 @@ const Footer = () => {
             </Typography>
           </Stack>
         </Grid>
+      </Stack>
+      <Stack spacing={2} my={2}>
+        <Typography variant="subtitle1" component={"h6"} fontWeight={700}>
+          Follow us
+        </Typography>
+        <Stack direction={"row"} spacing={2}>
+          <Image src={facebook} width={36} height={36} alt="website logo" />
+          <Image src={instagram} width={36} height={36} alt="website logo" />
+          <Image src={linkedin} width={36} height={36} alt="website logo" />
+          <Image src={twiter} width={36} height={36} alt="website logo" />
+        </Stack>
       </Stack>
       <Divider sx={{ backgroundColor: "#757575" }} />
       <Typography py={3} color={"#757575"} component={"h5"} variant="h5">

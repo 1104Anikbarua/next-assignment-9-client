@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
@@ -7,6 +8,7 @@ import StepContent from "@mui/material/StepContent";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
+import { Container, Stack } from "@mui/material";
 
 const travelTips = [
   {
@@ -123,51 +125,105 @@ export default function TravelTipsStepper() {
   };
 
   return (
-    <Box sx={{ maxWidth: 400 }}>
-      <Stepper activeStep={activeStep} orientation="vertical">
-        {travelTips.map((step, index) => (
-          <Step key={step.label}>
-            <StepLabel
-              optional={
-                index === 2 ? (
-                  <Typography variant="caption">Last step</Typography>
-                ) : null
-              }
-            >
-              {step.label}
-            </StepLabel>
-            <StepContent>
-              <Typography>{step.description}</Typography>
-              <Box sx={{ mb: 2 }}>
-                <div>
-                  <Button
-                    variant="contained"
-                    onClick={handleNext}
-                    sx={{ mt: 1, mr: 1 }}
-                  >
-                    {index === travelTips.length - 1 ? "Finish" : "Continue"}
-                  </Button>
-                  <Button
-                    disabled={index === 0}
-                    onClick={handleBack}
-                    sx={{ mt: 1, mr: 1 }}
-                  >
-                    Back
-                  </Button>
-                </div>
-              </Box>
-            </StepContent>
-          </Step>
-        ))}
-      </Stepper>
-      {activeStep === travelTips.length && (
-        <Paper square elevation={0} sx={{ p: 3 }}>
-          <Typography>All steps completed - you&apos;re finished</Typography>
-          <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
-            Reset
-          </Button>
-        </Paper>
-      )}
-    </Box>
+    <Container>
+      <Stack spacing={2}>
+        <Typography
+          my={2}
+          component={"h4"}
+          variant="h4"
+          sx={{
+            opacity: "0.7",
+            fontSize: {
+              xs: "30px",
+              sm: "36px",
+              lg: "48px",
+              textAlign: "center",
+            },
+          }}
+          fontWeight={700}
+        >
+          Top Travel{" "}
+          <Typography
+            textAlign={"center"}
+            bgcolor={"rgb(220 255 160 / 100%)"}
+            component={"span"}
+            variant="h4"
+            sx={{ fontSize: { xs: "30px", sm: "36px", lg: "48px" } }}
+            fontWeight={700}
+            p={1}
+            borderRadius={"4px"}
+          >
+            Tips!
+          </Typography>
+        </Typography>
+
+        <Box>
+          <Stepper activeStep={activeStep} orientation="vertical">
+            {travelTips.map((step, index) => (
+              <Step key={step.label}>
+                <StepLabel
+                  StepIconProps={{
+                    sx: {
+                      "&.Mui-completed": {
+                        color: "green",
+                      },
+                      "&.Mui-active": {
+                        color: "blace",
+                        opacity: "0.8",
+                      },
+                      "&.Mui-disabled": {
+                        color: "grey",
+                      },
+                    },
+                  }}
+                  optional={
+                    index === 15 ? (
+                      <Typography variant="caption">Last step</Typography>
+                    ) : null
+                  }
+                >
+                  {step.label}
+                </StepLabel>
+                <StepContent>
+                  <Typography>{step.subLabel}</Typography>
+                  <Typography>{step.description}</Typography>
+                  <Box sx={{ mb: 2 }}>
+                    <div>
+                      <Button
+                        color="success"
+                        variant="contained"
+                        onClick={handleNext}
+                        sx={{ mt: 1, mr: 1 }}
+                      >
+                        {index === travelTips.length - 1
+                          ? "Finish"
+                          : "Continue"}
+                      </Button>
+                      <Button
+                        disabled={index === 0}
+                        onClick={handleBack}
+                        sx={{ mt: 1, mr: 1 }}
+                      >
+                        Back
+                      </Button>
+                    </div>
+                  </Box>
+                </StepContent>
+              </Step>
+            ))}
+          </Stepper>
+          {activeStep === travelTips.length && (
+            <Paper square elevation={0} sx={{ p: 3 }}>
+              <Typography>
+                All steps completed - you&apos;re finished
+              </Typography>
+              <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
+                Reset
+              </Button>
+            </Paper>
+          )}
+        </Box>
+      </Stack>
+    </Container>
   );
 }

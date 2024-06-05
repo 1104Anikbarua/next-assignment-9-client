@@ -126,13 +126,13 @@ const About = () => {
         <ContactInfo>
           <EmailIcon />
           <Typography variant="body1" sx={{ ml: 1 }}>
-            <MUILink href="mailto:info@example.com">info@example.com</MUILink>
+            <MUILink href="mailto:info@example.com">info@amigo.com</MUILink>
           </Typography>
         </ContactInfo>
         <ContactInfo>
           <PhoneIcon />
           <Typography variant="body1" sx={{ ml: 1 }}>
-            (123) 456-7890
+            01717112233
           </Typography>
         </ContactInfo>
         <Box sx={{ mt: 3 }}>

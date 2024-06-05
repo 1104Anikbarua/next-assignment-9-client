@@ -1,12 +1,5 @@
 "use client";
-import {
-  Container,
-  Box,
-  Stack,
-  Button,
-  Typography,
-  Divider,
-} from "@mui/material";
+import { Container, Box, Stack, Button, Typography } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 import authImage from "@/assets/auth/login-register.jpg";
@@ -101,7 +94,6 @@ const Login = () => {
             objectFit="cover"
             quality={100}
             alt="Hero Background Image"
-            // style={{ zIndex: 0, position: "absolute", borderRadius: "5px" }}
           />
         </Box>
         <Box

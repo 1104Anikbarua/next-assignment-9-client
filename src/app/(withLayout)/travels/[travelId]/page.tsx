@@ -26,7 +26,6 @@ const TravelDetails = ({
   const { data, isLoading } = useGetTravelQuery({ id }, { skip: !id });
   const travel = data?.response?.data;
   // travel details api
-  console.log(travel);
   return (
     <Container>
       <Stack py={10} rowGap={2}>

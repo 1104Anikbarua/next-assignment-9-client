@@ -9,7 +9,7 @@ const TravelRequest = () => {
   // get all requested travel api
   const { data, isLoading } = useGetRequestedTravelQuery({});
   const travel = data?.response?.data;
-
+  console.log(data);
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 150 },
     {

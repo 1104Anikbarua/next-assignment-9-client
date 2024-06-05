@@ -1,6 +1,8 @@
 "use server";
+import { FieldValues } from "react-hook-form";
+import { setAccessTokenInCookies } from "../setAccessToken";
 // send user data to server and register user
-const registerUser = async (formValues: any) => {
+const registerUser = async (formValues: FieldValues) => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_API}/auth/create-user`,
     {
@@ -14,6 +16,7 @@ const registerUser = async (formValues: any) => {
     }
   );
   const buddy = await res.json();
+  setAccessTokenInCookies(buddy?.data?.accessToken);
   return buddy;
 };
 export default registerUser;

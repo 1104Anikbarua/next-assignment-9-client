@@ -33,6 +33,7 @@ const SignUp = () => {
           position: "top-center",
           id: toastId,
         });
+        console.log("---------->", res.data.accessToken);
         //set token in local storage
         setUserToken(res.data.accessToken);
         //redirect to homepage

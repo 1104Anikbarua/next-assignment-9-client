@@ -15,7 +15,7 @@ const loginUser = async (userInfo: FieldValues) => {
   });
 
   const buddy = await res.json();
-  console.log(buddy);
+
   //   const { role } = getDecodedToken(buddy.data.accessToken);
   setAccessTokenInCookies(
     buddy?.data?.accessToken

@@ -6,7 +6,7 @@ import { BaseQueryApi } from "@reduxjs/toolkit/query";
 export interface IErrorResponse {
   statusCode: number;
   message: string;
-  errorMessage: {
+  errorDetails: {
     path: string | number;
     message: string;
   }[];

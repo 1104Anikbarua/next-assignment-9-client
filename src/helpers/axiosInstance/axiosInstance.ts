@@ -30,12 +30,12 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   // @ts-ignore
   function (response) {
-    // Any status code that lie within the range of 2xx cause this function to trigger
-    // Do something with response data
+    console.log({ response });
     const responseObject = {
       data: response.data,
       meta: response.data.meta,
     };
+    console.log(responseObject);
     return responseObject;
   },
   async function (error) {
@@ -56,14 +56,14 @@ axiosInstance.interceptors.response.use(
       return axiosInstance(config);
     } else {
       const errorResponseObject: IErrorResponse = {
-        statusCode: error?.response?.data?.statusCode,
-        message: error?.response?.data?.message,
-        errorMessage: error?.response?.data?.errorMessage,
+        statusCode: error?.response?.data?.statusCode || 500,
+        message: error?.response?.data?.message || "Something went wrong",
+        errorDetails: error?.response?.data?.errorDetails,
       };
       // Any status codes that falls outside the range of 2xx cause this function to trigger
       // Do something with response error
-      // return Promise.reject(error);
-      return errorResponseObject;
+      // return errorResponseObject;
+      return Promise.reject(errorResponseObject);
     }
   }
 );

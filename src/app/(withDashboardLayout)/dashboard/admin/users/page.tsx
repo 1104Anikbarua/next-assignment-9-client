@@ -33,9 +33,10 @@ const ManageUser = () => {
       duration: 2000,
     });
     try {
-      const res = await changeUserStatus({ id, ...userStatus }).unwrap();
+      const res = await changeUserStatus({ id, ...userStatus })?.unwrap();
+      console.log(res);
       if (res?.response?.success) {
-        toast.success(res.response.message, {
+        toast.success(res?.response?.message, {
           position: "top-center",
           duration: 2000,
           id: toastId,
@@ -43,7 +44,7 @@ const ManageUser = () => {
       }
     } catch (error: any) {
       console.log(error);
-      toast.error(error.data.message, {
+      toast.error(error.data.message || error.data, {
         position: "top-center",
         duration: 2000,
         id: toastId,
@@ -57,7 +58,7 @@ const ManageUser = () => {
     setId(id);
   };
 
-  console.log(userStatus);
+  // console.log(userStatus);
 
   // get all user api
   const { data, isLoading } = useGetUsersQuery({});

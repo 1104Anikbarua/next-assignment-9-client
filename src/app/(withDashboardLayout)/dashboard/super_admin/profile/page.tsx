@@ -22,7 +22,7 @@ import { toast } from "sonner";
 
 const ProfilePage = () => {
   //get me api
-  const { data, isLoading: isUserLoading } = useGetMeQuery({});
+  const { data, isLoading: isUserLoading, isFetching } = useGetMeQuery({});
   const user = data?.response?.data;
   // set user status api
   const [setStatus, { isLoading }] = useSetStausMutation();
@@ -35,11 +35,15 @@ const ProfilePage = () => {
       position: "top-center",
     });
     values["id"] = user?.id;
-    const files = values?.profilePhoto?.files[0];
-
+    const files = values?.profilePhoto?.files;
     try {
-      values["profilePhoto"] = await uploadImage(files);
-      const res = await setStatus(values)?.unwrap();
+      if (files?.length) {
+        for (let i = 0; i <= files?.length - 1; i++) {
+          const image = files[i];
+          values["profilePhoto"] = await uploadImage(image);
+        }
+      }
+      const res = await setStatus(values).unwrap();
       console.log(res);
       if (res?.response?.success) {
         toast.success(res?.response?.message, {
@@ -56,7 +60,7 @@ const ProfilePage = () => {
   return (
     <Container>
       <Box width={"100%"} py={10}>
-        {isUserLoading || isLoading ? (
+        {isUserLoading || isLoading || isFetching ? (
           <Paper
             square={false}
             sx={{

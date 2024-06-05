@@ -19,9 +19,9 @@
 
 * **Authentication:** JWT(JSON WEB TOKEN)
 * **Data Validation:** ZOD
-* **Axios:**
-* **Reack Hook Form:**
-* **Material Ui:**
+* **Axios**
+* **Reack Hook Form**
+* **Material Ui**
 
 ## **Features:**
 

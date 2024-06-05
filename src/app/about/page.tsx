@@ -1,24 +1,45 @@
 "use client";
-import { Container, Box, Typography, Grid, Avatar, Link } from "@mui/material";
+import {
+  Container,
+  Box,
+  Typography,
+  Grid,
+  Avatar,
+  Link,
+  Stack,
+} from "@mui/material";
 import { styled } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-
+import founderImg from "@/assets/user/user1.png";
+import ctoImg from "@/assets/user/user2.png";
+import seniorImg from "@/assets/user/user3.png";
+import developerImg from "@/assets/user/user4.png";
+import Image from "next/image";
 const teamMembers = [
   {
-    name: "John Doe",
+    name: "Mohit sharma",
     role: "Founder & CEO",
-    image: "/images/john.jpg", // Replace with your image path
+    image: founderImg,
   },
   {
-    name: "Jane Smith",
+    name: "Karthik mathur",
     role: "CTO",
-    image: "/images/jane.jpg", // Replace with your image path
+    image: ctoImg,
   },
-  // Add more team members here
+  {
+    name: "Ayush",
+    role: "Developer",
+    image: developerImg,
+  },
+  {
+    name: "Vinit",
+    role: "Developer",
+    image: seniorImg,
+  },
 ];
 
 const ContactInfo = styled(Box)(({ theme }) => ({
@@ -31,26 +52,57 @@ const About = () => {
   return (
     <Container>
       <Box sx={{ my: 5 }}>
-        <Typography variant="h3" align="center" gutterBottom>
+        <Typography
+          sx={{
+            opacity: "0.7",
+            fontSize: { xs: "36px", sm: "48px", lg: "72px" },
+          }}
+          fontWeight={900}
+          variant="h3"
+          align="center"
+          gutterBottom
+        >
           About Us
         </Typography>
         <Typography variant="h6" align="center" color="textSecondary" paragraph>
-          Our mission is to [insert mission statement here]. We strive to
-          [insert goals/purpose here].
+          Welcome to the to the website https://amigo.in/(the “Website”) run by
+          Amigo Inc., domiciled in Street 146A #58C-56, Chattogram, Bangladesh
+          (“Amigo”). The purpose of this Website is to assist in the travel
+          planning of its users.
         </Typography>
       </Box>
       <Box sx={{ my: 5 }}>
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h4" gutterBottom textAlign={"center"}>
           Our Team
         </Typography>
-        <Grid container spacing={4}>
+        <Grid container justifyContent={{ xs: "center", sm: "flex-start" }}>
           {teamMembers.map((member, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
-              <Box sx={{ textAlign: "center" }}>
-                <Avatar
-                  alt={member.name}
-                  src={member.image}
-                  sx={{ width: 120, height: 120, margin: "0 auto" }}
+            <Grid
+              item
+              xs={12}
+              sm={4}
+              md={3}
+              lg={3}
+              key={index}
+              display="flex"
+              justifyContent="center"
+            >
+              <Box
+                sx={{
+                  textAlign: "center",
+                  backgroundColor: "white",
+                  boxShadow: 1,
+                  borderRadius: "5px",
+                  width: "100%",
+                  maxWidth: { xs: "100%", sm: "fit-content" },
+                }}
+              >
+                <Image
+                  src={member?.image}
+                  width={250}
+                  height={250}
+                  alt="team image"
+                  style={{ borderRadius: "4px" }}
                 />
                 <Typography variant="h6" sx={{ mt: 2 }}>
                   {member.name}
@@ -63,7 +115,7 @@ const About = () => {
           ))}
         </Grid>
       </Box>
-      <Box sx={{ my: 5 }}>
+      <Stack alignItems={"center"} justifyContent={"center"} sx={{ my: 5 }}>
         <Typography variant="h4" gutterBottom>
           Contact Us
         </Typography>
@@ -90,7 +142,7 @@ const About = () => {
             <LinkedInIcon />
           </Link>
         </Box>
-      </Box>
+      </Stack>
     </Container>
   );
 };

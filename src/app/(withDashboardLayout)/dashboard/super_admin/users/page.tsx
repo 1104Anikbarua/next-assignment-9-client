@@ -4,7 +4,13 @@ import {
   useGetUsersQuery,
   useSetStausMutation,
 } from "@/redux/features/user/userApi";
-import { Box, Button, Container, IconButton, Typography } from "@mui/material";
+import {
+  Box,
+  Container,
+  Skeleton,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import React, { useState } from "react";
 import SimpleDialogDemo from "./components/ActionDialog/ActionDialog";
@@ -57,10 +63,14 @@ const ManageUser = () => {
     setId(id);
   };
 
-  console.log(userStatus);
+  // console.log(userStatus);
 
   // get all user api
-  const { data, isLoading } = useGetUsersQuery({});
+  const {
+    data,
+    isLoading: isUserLoading,
+    isFetching: isUserFetching,
+  } = useGetUsersQuery({});
   const users = data?.response?.data;
 
   const columns: GridColDef[] = [
@@ -133,6 +143,7 @@ const ManageUser = () => {
     role: user.role,
     status: user.status,
   }));
+  console.log({ isUserFetching, isUserLoading });
   return (
     <Container>
       <Typography
@@ -148,16 +159,24 @@ const ManageUser = () => {
         All Users
       </Typography>
       <Box sx={{ height: 400, width: "100%" }}>
-        <DataGrid
-          rows={rows ? rows : []}
-          columns={columns}
-          disableColumnMenu
-          disableColumnSorting
-          disableColumnFilter
-          hideFooterSelectedRowCount
-          hideFooter
-          hideFooterPagination
-        />
+        {isUserLoading || isUserFetching ? (
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            {[...Array(10)].map((_, index) => (
+              <Skeleton variant="rectangular" height={40} key={index} />
+            ))}
+          </Box>
+        ) : (
+          <DataGrid
+            rows={rows ? rows : []}
+            columns={columns}
+            disableColumnMenu
+            disableColumnSorting
+            disableColumnFilter
+            hideFooterSelectedRowCount
+            hideFooter
+            hideFooterPagination
+          />
+        )}
       </Box>
     </Container>
   );

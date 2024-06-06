@@ -25,7 +25,6 @@ export function middleware(request: NextRequest) {
   const { pathname } = request?.nextUrl;
   // retrive accesss token from cookies
   const accessToken = cookies().get(authKey)?.value;
-  console.log("Accesstokennnnnnnnnnnnnnnnnn", accessToken);
   // if any route match with travel-requset
   if (pathname.startsWith("/travel-request")) {
     if (!accessToken) {

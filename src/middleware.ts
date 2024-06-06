@@ -48,7 +48,7 @@ export function middleware(request: NextRequest) {
   }
   // decode the token and get the user role
   const { role } = getDecodedToken(accessToken);
-  console.log(role);
+
   // check if role and routes with roles present
   if (role && routesWithRoles[role]) {
     const routes = routesWithRoles[role];

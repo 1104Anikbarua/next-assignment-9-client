@@ -113,5 +113,5 @@
 
 # Live Site Link
 
-**Clint side live url link:**
-**Server side live url link:**
+**Clint side live url link:** **https://next-assignment-9-client.vercel.app/**
+**Server side live url link:** **https://next-assignment-9-server.vercel.app/api/v1/**

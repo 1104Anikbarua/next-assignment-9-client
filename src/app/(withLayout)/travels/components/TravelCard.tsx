@@ -3,6 +3,7 @@ import { Box, Stack, Typography, Button } from "@mui/material";
 import Image from "next/image";
 import cardImage from "@/assets/hero/herosection.jpg";
 import { TTravel } from "@/types/travel.types";
+import BaseButton from "@/components/Ui/Button/Button";
 
 export default function TravelsCard({
   trip,
@@ -129,9 +130,7 @@ export default function TravelsCard({
               </Button>
             </Stack>
           ) : (
-            <Button fullWidth color={"success"}>
-              Travel Details
-            </Button>
+            <BaseButton id={trip?.id} />
           )}
         </Stack>
       </Stack>

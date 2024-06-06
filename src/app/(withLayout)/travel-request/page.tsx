@@ -138,6 +138,11 @@ const TravelRequest = () => {
           ) : (
             <WrapperForm onSubmit={handleSubmit} defaultValues={defaultValues}>
               <Stack rowGap={2}>
+                {response?.id === travel?.user?.id && (
+                  <Typography variant="h6" component={"h6"} color={"red"}>
+                    Booking Unavailable
+                  </Typography>
+                )}
                 <Grid container rowGap={2}>
                   <Grid item xs={12} sm={4} md={4} lg={4}>
                     <TbTextField
@@ -168,7 +173,11 @@ const TravelRequest = () => {
                   </Grid>
                 </Grid>
                 <Box display={"flex"} justifyContent={"end"}>
-                  <Button type="submit" color="success" disabled={!isCheck}>
+                  <Button
+                    type="submit"
+                    color="success"
+                    disabled={!isCheck || response?.id === travel?.user?.id}
+                  >
                     Submit
                   </Button>
                 </Box>

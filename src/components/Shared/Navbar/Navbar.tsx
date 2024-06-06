@@ -69,6 +69,9 @@ const Navbar = () => {
             direction={"row"}
             alignItems={"center"}
             justifyContent={"center"}
+            component={Link}
+            href={"/"}
+            sx={{ textDecoration: "none" }}
           >
             <Box mt={1}>
               <Image src={logo} width={40} height={40} alt="company logo" />

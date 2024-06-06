@@ -52,7 +52,7 @@ const ActionDialogForm = ({
     budget: travel?.budget,
     startDate: travel ? parseDate(travel.startDate) : dayjs(),
     endDate: travel ? parseDate(travel.endDate) : dayjs(),
-    location: travel?.location.join(),
+    location: travel?.location?.join(),
     travelId: travel?.id,
   };
 
@@ -186,7 +186,11 @@ const ActionDialogForm = ({
                     </Grid>
                   ))}
                 </Grid>
-                <TbFileUpload multiple name="photos" placeholder="upload files" />
+                <TbFileUpload
+                  multiple
+                  name="photos"
+                  placeholder="upload files"
+                />
                 <Button type="submit" color="success">
                   Submit
                 </Button>

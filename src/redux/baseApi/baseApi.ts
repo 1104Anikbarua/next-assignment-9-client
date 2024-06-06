@@ -8,7 +8,8 @@ export const baseApi = createApi({
   // https://next-assignment-9-server.vercel.app/api/v1
   // http://localhost:5000/api/v1
   baseQuery: axiosBaseQuery({
-    baseUrl: "https://next-assignment-9-server.vercel.app/api/v1",
+    // baseUrl: "https://next-assignment-9-server.vercel.app/api/v1",
+    baseUrl: "http://localhost:5000/api/v1",
   }),
   endpoints: () => ({}),
   tagTypes: ["user", "trips", "users", "travels"],

@@ -1,5 +1,4 @@
 import * as React from "react";
-// import { useTheme } from "@mui/material/styles";
 import { Box, Stack, Typography, Button } from "@mui/material";
 import Image from "next/image";
 import cardImage from "@/assets/hero/herosection.jpg";
@@ -18,8 +17,7 @@ export default function TravelsCard({
   handleDeleteConfirm?: ((id: string) => void) | undefined;
   handleEditConfirm?: ((id: string) => void) | undefined;
 }) {
-  // const theme = useTheme();
-  console.log(trip);
+  // console.log(trip);
   return (
     <Box
       sx={{

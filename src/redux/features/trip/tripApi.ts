@@ -2,7 +2,6 @@ import { baseApi } from "@/redux/baseApi/baseApi";
 import { IReduxResponse } from "@/types/global";
 import { TTravel } from "@/types/travel.types";
 import { TTravelBuddy } from "@/types/travelBuddy.types";
-import { url } from "inspector";
 
 const tripApi = baseApi.injectEndpoints({
   endpoints: (build) => ({

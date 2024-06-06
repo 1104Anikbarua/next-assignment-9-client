@@ -1,6 +1,6 @@
 "use client";
 import { useGetTravelsQuery } from "@/redux/features/trip/tripApi";
-import { styled, alpha } from "@mui/material/styles";
+
 import {
   Stack,
   Box,
@@ -8,14 +8,16 @@ import {
   Button,
   Pagination,
   Grid,
-  InputBase,
+  Skeleton,
+  Typography,
 } from "@mui/material";
-import { FilterAlt, Search as SearchIcon } from "@mui/icons-material";
+import { FilterAlt } from "@mui/icons-material";
 import React, { useState } from "react";
 import TravelsCard from "./components/TravelCard";
 import Filter from "./components/TravelFilter";
 import dayjs from "dayjs";
 import { TTravel } from "@/types/travel.types";
+import TbSearchBar from "@/components/Ui/Form/TbSearchBar";
 // show all the travel with search fucntiolity
 // See More Button: Button at the bottom of the cards that redirects to the Travels page, displaying all trips with search functionality.
 // Features:
@@ -47,20 +49,19 @@ const AllTravels = () => {
   const query: Record<string, unknown> = {};
   query["page"] = page;
   query["limit"] = limit;
-  query["searchTerm"] = searchTerm.length ? searchTerm : {};
+  query["searchTerm"] = searchTerm?.length ? searchTerm : {};
   query["destination"] = filter.destination?.length ? filter.destination : {};
   query["startDate"] = filter.startDate?.length ? filter.startDate : {};
   query["endDate"] = filter.endDate?.length ? filter.endDate : {};
   query["travelType"] = filter.travelType?.length ? filter.travelType : {};
-
   // console.log(searchTerm);
   const handleSearh = () => {};
   // get all travel api start
-  const { data, isLoading } = useGetTravelsQuery({ ...query });
+  const { data, isLoading, isFetching } = useGetTravelsQuery({ ...query });
   // get all travel api end
   const travels = data?.response;
   const meta = data?.meta;
-  console.log(travels, meta);
+  // console.log(travels, meta);
 
   // pagination page change handler
   const handlePageChange = (
@@ -143,51 +144,10 @@ const AllTravels = () => {
     };
   //
 
-  const Search = styled("div")(({ theme }) => ({
-    position: "relative",
-    border: "1px solid #c6c6c6",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    "&:hover": {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(1),
-      width: "auto",
-    },
-  }));
-
-  const SearchIconWrapper = styled("div")(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  }));
-
-  const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: "inherit",
-    width: "100%",
-    "& .MuiInputBase-input": {
-      padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create("width"),
-      [theme.breakpoints.up("sm")]: {
-        width: "12ch",
-        "&:focus": {
-          width: "20ch",
-        },
-      },
-    },
-  }));
-
+  // console.log(filter);
   return (
     <Container>
+      {/* drawer  */}
       <Filter
         destinations={destinations}
         startDates={startDates}
@@ -198,6 +158,7 @@ const AllTravels = () => {
         setFilter={setFilter}
         state={state}
         setState={setState}
+        setSearchTerm={setSearchTerm}
       />
       <Stack sx={{ py: 10 }} rowGap={2}>
         <Stack
@@ -205,31 +166,70 @@ const AllTravels = () => {
           justifyContent={"space-between"}
           rowGap={{ xs: 1, sm: 1 }}
         >
+          {/* drawer open button  */}
           <Box>
             <Button
               onClick={toggleDrawer("right", true)}
               startIcon={<FilterAlt />}
             />
           </Box>
-          <Search sx={{ ml: 0.5 }}>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
+          {/* search bar  */}
+          <TbSearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </Stack>
-
+        {/* card container  */}
         <Grid container rowGap={2}>
-          {travels?.map((travel) => (
-            <Grid item xs={12} sm={6} md={4} lg={4} key={travel.id}>
-              <TravelsCard trip={travel} />
-            </Grid>
-          ))}
+          {isFetching
+            ? // card skeleton
+              Array.from({ length: 6 }).map((_, index) => (
+                <Grid key={index} item xs={12} sm={5} md={3.7} lg={3.6}>
+                  <Box
+                    key={index}
+                    sx={{
+                      p: 1,
+                      width: "100%",
+                      maxWidth: { xs: "100%", sm: 400 },
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        borderRadius: 1,
+                        width: "100%",
+                        maxWidth: "100%",
+                        height: "300px",
+                        position: "relative",
+                      }}
+                    >
+                      <Skeleton variant="rounded" width="100%" height="100%" />
+                    </Box>
+                    <Stack spacing={1} mt={1}>
+                      <Typography variant="h6" fontWeight={500}>
+                        <Skeleton variant="text" width="80%" />
+                      </Typography>
+                      <Typography variant="h6" fontWeight={500}>
+                        <Skeleton variant="text" width="100%" height="150px" />
+                      </Typography>
+                      <Typography variant="h6" fontWeight={500}>
+                        <Skeleton variant="text" width="60%" />
+                      </Typography>
+                      <Typography variant="h6" fontWeight={500}>
+                        <Skeleton variant="text" width="60%" />
+                      </Typography>
+
+                      <Skeleton
+                        variant="rectangular"
+                        width="100%"
+                        height="40px"
+                      />
+                    </Stack>
+                  </Box>
+                </Grid>
+              ))
+            : travels?.map((travel) => (
+                <Grid item xs={12} sm={6} md={4} lg={4} key={travel.id}>
+                  {/* card  */}
+                  <TravelsCard trip={travel} />
+                </Grid>
+              ))}
         </Grid>
         {/* pagination start here  */}
         <Box

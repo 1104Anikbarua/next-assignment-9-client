@@ -18,6 +18,7 @@ const AuthToggle = ({
   const isUserLogin = isUserLoggedIn();
   // user logout functionlity
   const hanldeLogout = () => {
+    console.log("click");
     signOutUser();
     router.push("/login"); //send back to login page
     router.refresh(); //refresh the page
@@ -74,6 +75,7 @@ const AuthToggle = ({
             textAlign="center"
             component={Link}
             href={"/login"}
+            onClick={() => hanldeLogout()}
           >
             Logout
           </Typography>

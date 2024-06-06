@@ -66,7 +66,6 @@ const HomeSearchbar = () => {
   };
 
   const trips = data?.response;
-  console.log(trips);
   return (
     <Container sx={{ py: 10 }}>
       <Stack rowGap={2}>

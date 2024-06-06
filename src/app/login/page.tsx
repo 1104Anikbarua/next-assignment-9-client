@@ -1,7 +1,7 @@
 "use client";
-import { Container, Box, Stack, Button, Typography } from "@mui/material";
+import { Container, Box, Stack, Typography } from "@mui/material";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import authImage from "@/assets/auth/login-register.jpg";
 import TbTextField from "@/components/Ui/Form/TbTextField";
 import WrapperForm from "@/components/Ui/Form/WrapperForm";
@@ -15,13 +15,16 @@ import { setUserToken } from "@/services/auth.services";
 import { useRouter } from "next/navigation";
 import { baseApi } from "@/redux/baseApi/baseApi";
 import { useAppDispatch } from "@/redux/hooks/hooks";
+import { LoadingButton } from "@mui/lab";
 //
 const Login = () => {
+  const [loading, setLoading] = useState(false);
   // router to navigate
   const router = useRouter();
   const dispatch = useAppDispatch();
   // create user handler
   const handleLoginUser: SubmitHandler<FieldValues> = async (values) => {
+    setLoading(true);
     //
     const toastId = toast.loading("This may take a moment", {
       duration: 2000,
@@ -43,7 +46,9 @@ const Login = () => {
         setUserToken(res.data.accessToken);
         //redirect to homepage
         router.push("/");
+        setLoading(false);
       } else {
+        setLoading(false);
         throw new Error(res.message);
       }
     } catch (error: any) {
@@ -126,9 +131,18 @@ const Login = () => {
               <TbTextField name="email" type="email" label="Email" />
               <TbTextField name="password" type="password" label="Password" />
 
-              <Button type="submit" size="small" color="success">
+              {/* <Button type="submit" size="small" color="success">
                 Login
-              </Button>
+              </Button> */}
+              <LoadingButton
+                type="submit"
+                size="small"
+                loading={loading}
+                variant="contained"
+                color="success"
+              >
+                Login
+              </LoadingButton>
               <Typography component={"p"} variant="body2">
                 New to Amigo? please{" "}
                 <Link href={"/register"} style={{ textDecoration: "none" }}>

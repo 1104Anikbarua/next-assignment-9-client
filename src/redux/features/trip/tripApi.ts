@@ -50,7 +50,22 @@ const tripApi = baseApi.injectEndpoints({
       },
       providesTags: ["trips"],
     }),
+
     // get travel ends here
+    //get popular travel
+    getPopularTravel: build.query({
+      query: () => {
+        return {
+          url: "/trips/popular-travel",
+        };
+      },
+      transformResponse: (response: IReduxResponse<TTravel[]>) => {
+        return {
+          response,
+        };
+      },
+    }),
+    //get popular travel ends here
     // add buddy request start here
     addBuddyRequest: build.mutation({
       query: (data) => {
@@ -109,4 +124,5 @@ export const {
   useAddBuddyRequestMutation,
   useRemoveTravelMutation,
   useSetTravelMutation,
+  useGetPopularTravelQuery,
 } = tripApi;

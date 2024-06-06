@@ -12,6 +12,9 @@ export default function MediaControlCard({ trip }: { trip: TTravel }) {
         p: 1,
         width: "100%",
         maxWidth: { xs: "100%", sm: 400 },
+        // border: "5px solid red",
+        boxShadow: 1,
+        borderRadius: "6px",
       }}
     >
       <Box

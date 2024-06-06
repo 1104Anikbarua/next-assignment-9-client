@@ -14,7 +14,7 @@ const userApi = baseApi.injectEndpoints({
         };
       },
       transformResponse: (response: IReduxResponse<TUser>) => {
-        console.log(response);
+        // console.log(response);
         return {
           response: response,
         };
@@ -69,7 +69,7 @@ const userApi = baseApi.injectEndpoints({
     //set user status starts here
     setStaus: build.mutation({
       query: ({ id, ...data }) => {
-        console.log(data);
+        // console.log(data);
         return {
           url: `/user/${id}/set-status`,
           method: "PATCH",
@@ -77,7 +77,7 @@ const userApi = baseApi.injectEndpoints({
         };
       },
       transformResponse: (response: IReduxResponse<TUser>) => {
-        console.log(response);
+        // console.log(response);
         return {
           response,
         };

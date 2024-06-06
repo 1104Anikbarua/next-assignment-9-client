@@ -76,7 +76,7 @@ const tripApi = baseApi.injectEndpoints({
         };
       },
       transformResponse: (response: IReduxResponse<TTravelBuddy>) => {
-        console.log(response);
+        // console.log(response);
         return {
           response,
         };
@@ -87,7 +87,7 @@ const tripApi = baseApi.injectEndpoints({
     // edit travel start here
     setTravel: build.mutation({
       query: ({ travelId, ...data }) => {
-        console.log(data);
+        // console.log(data);
         return {
           url: `/trips/${travelId}/set-travel`,
           method: "PATCH",
@@ -105,7 +105,7 @@ const tripApi = baseApi.injectEndpoints({
     // remove travel start here
     removeTravel: build.mutation({
       query: (id) => {
-        console.log(id);
+        // console.log(id);
         return {
           url: `/trips/${id}/remove-travel`,
           method: "DELETE",

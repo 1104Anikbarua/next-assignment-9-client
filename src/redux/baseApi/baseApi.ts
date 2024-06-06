@@ -12,7 +12,14 @@ export const baseApi = createApi({
     // baseUrl: "http://localhost:5000/api/v1",
   }),
   endpoints: () => ({}),
-  tagTypes: ["user", "trips", "users", "travels"],
+  tagTypes: [
+    "user",
+    "trips",
+    "users",
+    "travels",
+    "requestedTravel",
+    "popularTravel",
+  ],
 });
 
 // Export hooks for usage in functional components, which are

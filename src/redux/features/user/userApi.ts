@@ -34,6 +34,7 @@ const userApi = baseApi.injectEndpoints({
           response,
         };
       },
+      providesTags: ["requestedTravel"],
     }),
     // get reqested travel ends here
     // get all travels by user id

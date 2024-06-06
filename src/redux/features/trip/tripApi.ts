@@ -64,6 +64,7 @@ const tripApi = baseApi.injectEndpoints({
           response,
         };
       },
+      providesTags: ["popularTravel"],
     }),
     //get popular travel ends here
     // add buddy request start here
@@ -81,7 +82,7 @@ const tripApi = baseApi.injectEndpoints({
           response,
         };
       },
-      // invalidatesTags:["buddy"]
+      invalidatesTags: ["popularTravel", "requestedTravel"],
     }),
     // add buddy request ends here
     // edit travel start here

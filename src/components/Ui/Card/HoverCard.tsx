@@ -15,7 +15,7 @@ const HoverCard = ({ travel }: { travel: TTravel }) => {
         borderRadius: { xs: "12px", md: "24px" },
         display: "flex",
         height: "256px",
-        maxWidth: "500px",
+        maxWidth: { xs: "500px", sm: "600px" },
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

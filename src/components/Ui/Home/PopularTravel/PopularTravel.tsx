@@ -39,11 +39,18 @@ const PopularTravel = () => {
 
         <Stack
           direction={{ xs: "column", sm: "row" }}
-          spacing={{ xs: 2.5, sm: 6 }}
-          justifyContent={{ xs: "center", sm: "space-between" }}
+          flexWrap={{ sm: "wrap", md: "nowrap", lg: "nowrap" }}
+          spacing={{ xs: 2.5, sm: 0 }}
+          rowGap={{ sm: 6 }}
+          columnGap={{ md: 1 }}
+          justifyContent={{
+            xs: "center",
+            sm: "center",
+            md: "space-between",
+          }}
           width={{ sm: "100%" }}
           mx={"auto"}
-          px={{ xs: 6, sm: 6, lg: 6 }}
+          px={{ xs: 6, sm: 6, lg: 1 }}
         >
           {/* Group Container */}
           {popularTravels?.map((travel) => (

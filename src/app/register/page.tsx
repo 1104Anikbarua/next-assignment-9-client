@@ -1,5 +1,5 @@
 "use client";
-import { Container, Box, Stack, Button, Typography } from "@mui/material";
+import { Container, Box, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 import authImage from "@/assets/auth/login-register.jpg";
@@ -15,13 +15,18 @@ import { setUserToken } from "@/services/auth.services";
 import { useRouter } from "next/navigation";
 import { baseApi } from "@/redux/baseApi/baseApi";
 import { useAppDispatch } from "@/redux/hooks/hooks";
+import { useState } from "react";
+import { LoadingButton } from "@mui/lab";
 //
 const SignUp = () => {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const dispatch = useAppDispatch();
+
   // create user handler
   const handleCreateUser: SubmitHandler<FieldValues> = async (values) => {
     //
+    setLoading(true);
     const { confirmPassword, ...remaining } = values;
     const toastId = toast.loading("This may take a moment", {
       duration: 2000,
@@ -42,6 +47,7 @@ const SignUp = () => {
         setUserToken(res.data.accessToken);
         //redirect to homepage
         router.push("/");
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);
@@ -99,7 +105,6 @@ const SignUp = () => {
             objectFit="cover"
             quality={100}
             alt="Hero Background Image"
-            // style={{ zIndex: 0, position: "absolute", borderRadius: "5px" }}
           />
         </Box>
         <Box
@@ -137,9 +142,15 @@ const SignUp = () => {
                 type="password"
                 label="Confirm Password"
               />
-              <Button type="submit" size="small" color="success">
-                Submit
-              </Button>
+              <LoadingButton
+                type="submit"
+                size="small"
+                loading={loading}
+                variant="contained"
+                color="success"
+              >
+                Register
+              </LoadingButton>
               <Typography component={"p"} variant="body2">
                 Already have an account? Please{" "}
                 <Link href={"/login"} style={{ textDecoration: "none" }}>

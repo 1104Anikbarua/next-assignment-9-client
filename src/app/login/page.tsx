@@ -131,9 +131,6 @@ const Login = () => {
               <TbTextField name="email" type="email" label="Email" />
               <TbTextField name="password" type="password" label="Password" />
 
-              {/* <Button type="submit" size="small" color="success">
-                Login
-              </Button> */}
               <LoadingButton
                 type="submit"
                 size="small"

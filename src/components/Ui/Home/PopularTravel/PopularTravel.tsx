@@ -5,10 +5,9 @@ import HoverCard from "../../Card/HoverCard";
 
 const PopularTravel = () => {
   // get popular travel api start
-  const { data, isLoading } = useGetPopularTravelQuery({});
+  const { data } = useGetPopularTravelQuery({});
 
   const popularTravels = data?.response?.data;
-  console.log(popularTravels);
 
   return (
     <Container>

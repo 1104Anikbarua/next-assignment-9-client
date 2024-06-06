@@ -19,15 +19,6 @@ import dayjs from "dayjs";
 import { TTravel } from "@/types/travel.types";
 import TbSearchBar from "@/components/Ui/Form/TbSearchBar";
 import SkeletonCard from "@/components/Ui/Skeleton/SkeletonCard";
-// show all the travel with search fucntiolity
-// See More Button: Button at the bottom of the cards that redirects to the Travels page, displaying all trips with search functionality.
-// Features:
-// Search and Filter Options:
-// Destination
-// Travel dates
-// Travel type
-// Keywords in description
-// Travel Cards: Display all travel posts in card format with pagination.
 
 type Anchor = "right";
 const AllTravels = () => {

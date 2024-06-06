@@ -1,5 +1,5 @@
 "use client";
-import { Container, Stack, Typography } from "@mui/material";
+import { Container, Skeleton, Stack, Typography } from "@mui/material";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
@@ -7,7 +7,7 @@ import { useGetRequestedTravelQuery } from "@/redux/features/user/userApi";
 
 const TravelRequest = () => {
   // get all requested travel api
-  const { data, isLoading } = useGetRequestedTravelQuery({});
+  const { data, isLoading, isFetching } = useGetRequestedTravelQuery({});
   const travel = data?.response?.data;
   console.log(data);
   const columns: GridColDef[] = [
@@ -30,12 +30,13 @@ const TravelRequest = () => {
       align: "center",
     },
   ];
-
+  // data grid rows
   const rows = travel?.map((trip, index) => ({
     id: index + 1,
     destination: trip.travel.destination,
     status: trip.status,
   }));
+
   return (
     <Container>
       <Stack>
@@ -52,16 +53,24 @@ const TravelRequest = () => {
           Requested Travel
         </Typography>
         <Box sx={{ height: 400, width: "100%" }}>
-          <DataGrid
-            rows={rows ? rows : []}
-            columns={columns}
-            disableColumnMenu
-            disableColumnSorting
-            disableColumnFilter
-            hideFooterSelectedRowCount
-            hideFooter
-            hideFooterPagination
-          />
+          {isLoading || isFetching ? (
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+              {[...Array(10)].map((_, index) => (
+                <Skeleton variant="rectangular" height={40} key={index} />
+              ))}
+            </Box>
+          ) : (
+            <DataGrid
+              rows={rows ? rows : []}
+              columns={columns}
+              disableColumnMenu
+              disableColumnSorting
+              disableColumnFilter
+              hideFooterSelectedRowCount
+              hideFooter
+              hideFooterPagination
+            />
+          )}
         </Box>
       </Stack>
     </Container>

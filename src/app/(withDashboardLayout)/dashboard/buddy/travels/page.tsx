@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import ActionDialogForm from "../../admin/travels/components/ActionDialogForm/ActionDialogForm";
 import { useRemoveTravelMutation } from "@/redux/features/trip/tripApi";
 import { toast } from "sonner";
+import SkeletonCard from "@/components/Ui/Skeleton/SkeletonCard";
 
 const Travels = () => {
   // toggle button state
@@ -14,7 +15,7 @@ const Travels = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   //  user posted travel api
-  const { data, isLoading } = useGetMyPostedTravelsQuery({});
+  const { data, isLoading, isFetching } = useGetMyPostedTravelsQuery({});
 
   // remove travel api
   const [removeTravel, { isLoading: isRemoveLoading }] =
@@ -67,7 +68,7 @@ const Travels = () => {
     setSelectedId(null);
   };
   const editTravel = travels?.find((travel) => travel.id === selectedId);
-  console.log(editTravel);
+
   return (
     <Container>
       <Typography
@@ -83,18 +84,22 @@ const Travels = () => {
         Posted Travels
       </Typography>
       <Grid container rowGap={2}>
-        {travels?.map((travel) => (
-          <Grid item xs={12} sm={12} md={6} lg={6} key={travel.id}>
-            <TravelsCard
-              trip={travel}
-              // handleAction={handleAction}
-              isShow={isShow}
-              setIsShow={setIsShow}
-              handleDeleteConfirm={handleDeleteConfirm}
-              handleEditConfirm={handleEditConfirm}
-            />
-          </Grid>
-        ))}
+        {isLoading || isFetching
+          ? Array.from({ length: 10 }).map((_, index) => (
+              <SkeletonCard key={index} />
+            ))
+          : travels?.map((travel) => (
+              <Grid item xs={12} sm={12} md={6} lg={6} key={travel.id}>
+                <TravelsCard
+                  trip={travel}
+                  // handleAction={handleAction}
+                  isShow={isShow}
+                  setIsShow={setIsShow}
+                  handleDeleteConfirm={handleDeleteConfirm}
+                  handleEditConfirm={handleEditConfirm}
+                />
+              </Grid>
+            ))}
       </Grid>
       <ActionDialogForm
         open={openDialogForm}
